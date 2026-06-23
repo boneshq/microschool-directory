@@ -896,10 +896,10 @@ boot();
 
 /* ---------- Registration form ---------- */
 const REG = {
-  // Wired to Supabase once the backend project is provisioned.
-  supabaseUrl: "",      // e.g. https://xxxx.supabase.co
-  supabaseAnonKey: "",  // public anon key
+  supabaseUrl: "https://fhbczvfrsgkbpvammxip.supabase.co",
+  supabaseAnonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZoYmN6dmZyc2drYnB2YW1teGlwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIyMjg1NjUsImV4cCI6MjA5NzgwNDU2NX0.LNl2t1-cAYPny71aKHeZK094Zf_YawnKMvo8W15NQuE",  // public anon key (RLS: anon may only INSERT pending rows)
   table: "listings",
+  bucket: "school-photos",
   contactEmail: "hello@microschool.directory"
 };
 
@@ -939,6 +939,22 @@ const REG = {
     let stored = false;
     if (REG.supabaseUrl && REG.supabaseAnonKey) {
       try {
+        // 1) Upload photos to Supabase Storage (public bucket) → collect URLs
+        const photoUrls = [];
+        const files = Array.from(photos.files).slice(0, 6);
+        const slug = (data.name || "listing").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 40);
+        for (let i = 0; i < files.length; i++) {
+          const f = files[i];
+          const safeName = f.name.replace(/[^a-zA-Z0-9._-]/g, "_");
+          const objPath = `${slug}/${Date.now()}-${i}-${safeName}`;
+          const up = await fetch(`${REG.supabaseUrl}/storage/v1/object/${REG.bucket}/${objPath}`, {
+            method: "POST",
+            headers: { "apikey": REG.supabaseAnonKey, "Authorization": `Bearer ${REG.supabaseAnonKey}`, "Content-Type": f.type || "application/octet-stream", "x-upsert": "true" },
+            body: f
+          });
+          if (up.ok) photoUrls.push(`${REG.supabaseUrl}/storage/v1/object/public/${REG.bucket}/${objPath}`);
+        }
+        // 2) Insert the listing row
         const res = await fetch(`${REG.supabaseUrl}/rest/v1/${REG.table}`, {
           method: "POST",
           headers: {
@@ -951,12 +967,11 @@ const REG = {
             name: data.name, type: data.type, model: data.model, city: data.city,
             state: (data.state||"").toUpperCase(), grades: data.grades, tuition: data.tuition,
             description: data.description, website: data.website, email: data.email,
-            mode: data.mode, status: "pending"
+            mode: data.mode, status: "pending", photo_urls: photoUrls
           })
         });
         stored = res.ok;
       } catch (err) { stored = false; }
-      // (Photo upload to Supabase Storage is wired alongside the backend.)
     }
 
     if (!stored) {
