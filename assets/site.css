@@ -98,3 +98,41 @@ footer{border-top:1px solid var(--line);margin-top:46px}
 .foot nav .col a:hover{opacity:1;color:var(--coral-deep)}
 .legal{border-top:1px solid var(--line)}.legal div{max-width:var(--maxw);margin:0 auto;padding:16px 26px;font-size:.78rem;color:var(--ink-2);opacity:.6;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 @media(max-width:680px){nav.top a.muted{display:none}.bar{padding:12px 18px}.dhero{padding:18px 18px 6px}.wrap-map{padding:0 18px}.sec,.faq,.nearby{padding-left:18px;padding-right:18px}}
+/* ---- blog ---- */
+.bloghero{max-width:var(--maxw);margin:0 auto;padding:30px 26px 6px}
+.bloghero h1{font-family:var(--serif);font-weight:500;font-size:clamp(2rem,4.4vw,3.1rem);line-height:1.04;letter-spacing:-.025em;max-width:24ch}
+.bloghero p.lede{margin-top:14px;max-width:64ch;font-size:1.05rem;color:var(--ink-2)}
+.bloggrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;max-width:var(--maxw);margin:0 auto;padding:26px}
+.postcard{display:flex;flex-direction:column;background:var(--card);border:1.5px solid var(--line);border-radius:var(--radius);overflow:hidden;transition:border-color .2s,transform .2s,box-shadow .2s}
+.postcard:hover{border-color:var(--forest);transform:translateY(-2px);box-shadow:0 16px 40px rgba(19,36,29,.10)}
+.postcard .pc-body{padding:22px 24px;display:flex;flex-direction:column;gap:10px;flex:1}
+.postcard .pc-cat{font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--coral-deep)}
+.postcard h2{font-family:var(--serif);font-weight:600;font-size:1.32rem;line-height:1.12;letter-spacing:-.01em}
+.postcard p{font-size:.92rem;color:var(--ink-2);opacity:.85}
+.postcard .pc-meta{margin-top:auto;font-size:.78rem;color:var(--ink-2);opacity:.65}
+.article{max-width:760px;margin:0 auto;padding:0 26px}
+.art-meta{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:18px 0 6px;font-size:.86rem;color:var(--ink-2)}
+.art-meta .updated{background:rgba(40,92,70,.09);color:var(--forest);border:1px solid var(--line);border-radius:100px;padding:4px 12px;font-weight:600;font-size:.76rem}
+.art-meta .byl b{color:var(--ink);font-weight:600}
+.tldr{background:var(--paper-2);border:1.5px solid var(--line);border-left:4px solid var(--coral);border-radius:14px;padding:20px 24px;margin:26px 0}
+.tldr b.tt{font-family:var(--serif);font-size:1.02rem;display:block;margin-bottom:10px;color:var(--ink)}
+.tldr ul{margin:0;padding-left:20px}.tldr li{margin:6px 0;color:var(--ink-2);font-size:.95rem;line-height:1.5}
+.article h2{font-family:var(--serif);font-weight:600;font-size:clamp(1.45rem,2.6vw,1.9rem);letter-spacing:-.02em;margin:38px 0 4px;line-height:1.15}
+.article h3{font-family:var(--serif);font-weight:600;font-size:1.18rem;margin:26px 0 4px;letter-spacing:-.01em}
+.article p{margin:14px 0;font-size:1.06rem;line-height:1.72;color:var(--ink-2)}
+.article p.answer{color:var(--ink);font-weight:500}
+.article a{color:var(--forest);text-decoration:underline;text-underline-offset:2px;text-decoration-color:var(--moss)}
+.article a:hover{color:var(--coral-deep)}
+.article ul,.article ol{margin:14px 0;padding-left:24px}.article li{margin:8px 0;font-size:1.04rem;line-height:1.62;color:var(--ink-2)}
+.article strong{color:var(--ink)}
+.tbl-wrap{overflow-x:auto;margin:22px 0;border:1.5px solid var(--line);border-radius:14px}
+.article table{border-collapse:collapse;width:100%;font-size:.94rem;background:var(--card)}
+.article th,.article td{text-align:left;padding:12px 16px;border-bottom:1px solid var(--line);vertical-align:top}
+.article th{font-weight:600;color:var(--ink);background:var(--paper-2);font-size:.82rem;letter-spacing:.02em}
+.article tr:last-child td{border-bottom:none}
+.statpill{display:inline-block;background:rgba(232,100,60,.1);border:1px solid rgba(232,100,60,.28);color:var(--coral-deep);font-weight:600;border-radius:8px;padding:1px 7px;font-size:.95em}
+.authorbox{display:flex;gap:16px;align-items:flex-start;background:var(--card);border:1.5px solid var(--line);border-radius:var(--radius);padding:22px;margin:38px 0 0}
+.authorbox .ab-pin{width:42px;height:42px;flex:0 0 42px;background:var(--forest);border-radius:50% 50% 50% 4px;transform:rotate(-45deg)}
+.authorbox h4{font-family:var(--serif);font-size:1.05rem;margin-bottom:4px}
+.authorbox p{font-size:.9rem;color:var(--ink-2);line-height:1.55}
+@media(max-width:680px){.article{padding:0 18px}.bloghero{padding:20px 18px 6px}.bloggrid{padding:18px}}
