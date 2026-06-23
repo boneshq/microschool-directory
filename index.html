@@ -764,6 +764,10 @@ const MAP_CENTER = [39.5, -98.35]; // geographic center of contiguous US
 let SCHOOLS = [], FILTERED = [], MARKERS = {}, MAP, activeModel = "All", activeId = null;
 
 const $ = s => document.querySelector(s);
+// Escaping so listing data (incl. future owner-submitted content promoted into schools.json) can never inject HTML.
+const escHtml = v => String(v == null ? "" : v).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+const escAttr = escHtml;
+const safeUrl = v => { const s = String(v == null ? "" : v).trim(); return /^https?:\/\//i.test(s) ? escAttr(s) : ""; };
 const fmtTuition = t => t;
 const tuitionNum = s => { const m = (s.tuition||"").replace(/[^0-9]/g,""); return m ? parseInt(m,10) : 999999; };
 const ratioNum = s => { const m = (s.ratio||"").match(/1:(\d+)/); return m ? parseInt(m[1],10) : 999; };
@@ -857,20 +861,20 @@ function renderList() {
     return;
   }
   $("#list").innerHTML = FILTERED.map(s => `
-    <article class="card" data-id="${s.id}">
+    <article class="card" data-id="${escAttr(s.id)}">
       <div class="card-top">
         <div>
-          <h3>${s.name}</h3>
-          <div class="loc">📍 ${s.city}, ${s.state}</div>
+          <h3>${escHtml(s.name)}</h3>
+          <div class="loc">📍 ${escHtml(s.city)}, ${escHtml(s.state)}</div>
         </div>
-        <span class="badge">${s.model}</span>
+        <span class="badge">${escHtml(s.model)}</span>
       </div>
-      <p class="desc">${descOf(s)}</p>
+      <p class="desc">${escHtml(descOf(s))}</p>
       <div class="meta">
-        <div class="m"><b>${s.grades}</b><span>Grades</span></div>
-        <div class="m"><b>${s.tuition}</b><span>Tuition</span></div>
-        <div class="m"><b>${s.ratio||"—"}</b><span>Ratio</span></div>
-        <div class="m"><b>${s.capacity||"—"}</b><span>Seats</span></div>
+        <div class="m"><b>${escHtml(s.grades)}</b><span>Grades</span></div>
+        <div class="m"><b>${escHtml(s.tuition)}</b><span>Tuition</span></div>
+        <div class="m"><b>${escHtml(s.ratio||"—")}</b><span>Ratio</span></div>
+        <div class="m"><b>${escHtml(s.capacity||"—")}</b><span>Seats</span></div>
       </div>
       ${noteOf(s)}
     </article>`).join("");
@@ -889,9 +893,12 @@ function renderMarkers() {
   const ids = new Set(FILTERED.map(s => s.id));
   const pts = [];
   FILTERED.forEach(s => {
-    const icon = L.divIcon({ className: "", html: `<div class="pin-marker" data-id="${s.id}"></div>`, iconSize: [22,22], iconAnchor: [11,11] });
+    const icon = L.divIcon({ className: "", html: `<div class="pin-marker" data-id="${escAttr(s.id)}"></div>`, iconSize: [22,22], iconAnchor: [11,11] });
     const mk = L.marker([s.lat, s.lng], { icon }).addTo(MAP);
-    mk.bindPopup(`<div class="pop"><b>${s.name}</b><br/><small>${s.city}, ${s.state} · ${s.model}</small><br/><button onclick="openDrawer('${s.id}')">View details →</button></div>`);
+    const pop = L.DomUtil.create("div", "pop");
+    pop.innerHTML = `<b>${escHtml(s.name)}</b><br/><small>${escHtml(s.city)}, ${escHtml(s.state)} · ${escHtml(s.model)}</small><br/><button type="button" class="pop-view">View details →</button>`;
+    pop.querySelector(".pop-view").addEventListener("click", () => openDrawer(s.id));
+    mk.bindPopup(pop);
     mk.on("click", () => { highlight(s.id, true); scrollToCard(s.id); });
     mk.on("mouseover", () => highlight(s.id, true));
     mk.on("mouseout", () => { if (activeId !== s.id) highlight(s.id, false); });
@@ -927,29 +934,29 @@ function openDrawer(id) {
   $("#drawer").innerHTML = `
     <div class="drawer-hd">
       <button class="closex" onclick="closeDrawer()" aria-label="Close">✕</button>
-      <span class="badge">${s.model}</span>
-      <h2>${s.name}</h2>
-      <div class="loc">📍 ${s.city}, ${s.state} · Founded ${s.founded||"—"}</div>
+      <span class="badge">${escHtml(s.model)}</span>
+      <h2>${escHtml(s.name)}</h2>
+      <div class="loc">📍 ${escHtml(s.city)}, ${escHtml(s.state)} · Founded ${escHtml(s.founded||"—")}</div>
     </div>
     <div class="drawer-body">
       ${s.placeholder ? '<div class="ph-note">◔ This is a sample listing. Names and contact details are placeholders pending verification.</div>' : (!s.verified ? '<div class="ph-note">○ Added from public sources and not yet claimed. If this is your school or co-op, claim it free to verify details and add photos.</div>' : '')}
       <div class="factgrid">
-        <div class="fact"><b>${s.grades}</b><span>Grades</span></div>
-        <div class="fact"><b>${s.ages||"—"}</b><span>Ages</span></div>
-        <div class="fact"><b>${s.tuition}</b><span>Tuition / year</span></div>
-        <div class="fact"><b>${s.ratio||"—"}</b><span>Student–guide ratio</span></div>
-        <div class="fact"><b>${s.capacity||"—"}</b><span>Total seats</span></div>
-        <div class="fact"><b>${(s.schedule||"—").split(",")[0]}</b><span>Schedule</span></div>
+        <div class="fact"><b>${escHtml(s.grades)}</b><span>Grades</span></div>
+        <div class="fact"><b>${escHtml(s.ages||"—")}</b><span>Ages</span></div>
+        <div class="fact"><b>${escHtml(s.tuition)}</b><span>Tuition / year</span></div>
+        <div class="fact"><b>${escHtml(s.ratio||"—")}</b><span>Student–guide ratio</span></div>
+        <div class="fact"><b>${escHtml(s.capacity||"—")}</b><span>Total seats</span></div>
+        <div class="fact"><b>${escHtml((s.schedule||"—").split(",")[0])}</b><span>Schedule</span></div>
       </div>
       <h4>About this school</h4>
-      <p class="about">${descOf(s)}</p>
-      ${(s.highlights && s.highlights.length) ? `<div class="hl">${s.highlights.map(h => `<span>${h}</span>`).join("")}</div>` : ''}
+      <p class="about">${escHtml(descOf(s))}</p>
+      ${(s.highlights && s.highlights.length) ? `<div class="hl">${s.highlights.map(h => `<span>${escHtml(h)}</span>`).join("")}</div>` : ''}
       <div class="contact">
         <h4>Hours &amp; contact</h4>
-        ${s.schedule ? `<span class="cc">🕘 ${s.schedule}</span>` : ''}
-        ${s.website ? `<a href="${s.website}" target="_blank" rel="noopener">🌐 Visit website</a>` : ''}
-        ${s.phone ? `<a href="tel:${(s.phone||"").replace(/[^0-9+]/g,"")}">📞 ${s.phone}</a>` : ''}
-        ${s.email ? `<a href="mailto:${s.email}">✉️ ${s.email}</a>` : ''}
+        ${s.schedule ? `<span class="cc">🕘 ${escHtml(s.schedule)}</span>` : ''}
+        ${safeUrl(s.website) ? `<a href="${safeUrl(s.website)}" target="_blank" rel="noopener">🌐 Visit website</a>` : ''}
+        ${s.phone ? `<a href="tel:${escAttr((s.phone||"").replace(/[^0-9+]/g,""))}">📞 ${escHtml(s.phone)}</a>` : ''}
+        ${s.email ? `<a href="mailto:${escAttr(s.email)}">✉️ ${escHtml(s.email)}</a>` : ''}
         ${(!s.website && !s.phone && !s.email) ? '<span class="cc">Contact details not listed yet — claim this listing to add them.</span>' : ''}
       </div>
       <div class="cta-row">
@@ -1039,14 +1046,16 @@ const REG = {
     let stored = false;
     if (REG.supabaseUrl && REG.supabaseAnonKey) {
       try {
-        // 1) Upload photos to Supabase Storage (public bucket) → collect URLs
+        // 1) Upload photos to Supabase Storage (public bucket) → collect URLs.
+        // Random, non-guessable paths so object names never leak the submitter's
+        // school name or original filename (bucket also has no anon list/enumerate).
         const photoUrls = [];
         const files = Array.from(photos.files).slice(0, 6);
-        const slug = (data.name || "listing").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 40);
+        const rid = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : (Date.now() + "-" + Math.round(performance.now()));
         for (let i = 0; i < files.length; i++) {
           const f = files[i];
-          const safeName = f.name.replace(/[^a-zA-Z0-9._-]/g, "_");
-          const objPath = `${slug}/${Date.now()}-${i}-${safeName}`;
+          const ext = (f.name.split(".").pop() || "jpg").toLowerCase().replace(/[^a-z0-9]/g, "").slice(0, 5) || "jpg";
+          const objPath = `pending/${rid}-${i}.${ext}`;
           const up = await fetch(`${REG.supabaseUrl}/storage/v1/object/${REG.bucket}/${objPath}`, {
             method: "POST",
             headers: { "apikey": REG.supabaseAnonKey, "Authorization": `Bearer ${REG.supabaseAnonKey}`, "Content-Type": f.type || "application/octet-stream", "x-upsert": "true" },
@@ -1074,19 +1083,32 @@ const REG = {
       } catch (err) { stored = false; }
     }
 
-    if (!stored) {
-      // Fallback so no submission is ever lost before the database is live.
-      const subject = encodeURIComponent(`${mode==="claim"?"Claim/Edit":"New listing"}: ${data.name} (${data.city}, ${data.state})`);
-      const body = encodeURIComponent(
-        Object.entries({Name:data.name,Type:data.type,Model:data.model,City:data.city,State:data.state,
-          Grades:data.grades,Tuition:data.tuition,Website:data.website,Email:data.email,About:data.description})
-        .map(([k,v])=>`${k}: ${v||"—"}`).join("\n") + "\n\n(Please attach your photos to this email.)"
-      );
-      window.location.href = `mailto:${REG.contactEmail}?subject=${subject}&body=${body}`;
+    if (stored) {
+      form.style.display = "none";
+      document.getElementById("regsuccess").classList.add("show");
+      return;
     }
 
-    form.style.display = "none";
-    document.getElementById("regsuccess").classList.add("show");
+    // DB unreachable — open an email draft so nothing is lost, but DON'T claim
+    // success. Keep the form for retry. (Note: any photos already uploaded this
+    // attempt become orphaned objects; they're size/MIME-capped and swept by an
+    // admin job, never shown until a listing is approved.)
+    const subject = encodeURIComponent(`${mode==="claim"?"Claim/Edit":"New listing"}: ${data.name} (${data.city}, ${data.state})`);
+    const body = encodeURIComponent(
+      Object.entries({Name:data.name,Type:data.type,Model:data.model,City:data.city,State:data.state,
+        Grades:data.grades,Tuition:data.tuition,Website:data.website,Email:data.email,About:data.description})
+      .map(([k,v])=>`${k}: ${v||"—"}`).join("\n") + "\n\n(Please attach your photos to this email.)"
+    );
+    window.location.href = `mailto:${REG.contactEmail}?subject=${subject}&body=${body}`;
+    btn.disabled = false; btn.textContent = "Submit my listing — free";
+    let note = document.getElementById("regfallback");
+    if (!note) {
+      note = document.createElement("p");
+      note.id = "regfallback"; note.className = "reg-note";
+      note.style.color = "var(--coral-deep)"; note.style.fontWeight = "600";
+      btn.insertAdjacentElement("afterend", note);
+    }
+    note.textContent = "We couldn't reach our system just now, so we've opened an email draft with your details — send it and we'll add your listing by hand. Or try submitting again in a moment.";
   });
 })();
 
