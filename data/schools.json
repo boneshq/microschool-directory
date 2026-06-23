@@ -15,7 +15,8 @@
    "Learning Pod",
    "Homeschool Co-op"
   ],
-  "states": 44
+  "states": 44,
+  "enriched": "qwen3 site-scrape pass 2026-06-23; blank fields only, verified records untouched"
  },
  "schools": [
   {
@@ -33,7 +34,8 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "2 1/2 to 6 years"
   },
   {
    "id": "allium-montessori-cambridge-ma",
@@ -43,14 +45,16 @@
    "state": "MA",
    "lat": 42.3736,
    "lng": -71.1097,
-   "grades": "",
-   "tuition": "",
+   "grades": "1st-6th",
+   "tuition": "$24,500",
    "website": "https://www.alliummontessori.org/",
    "source": "https://www.wildflowerschools.org/our-schools",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "Ages 5.9-12",
+   "schedule": "8:30 am - 3:15 pm"
   },
   {
    "id": "birds-of-paradise-montessori-school-east-orange-nj",
@@ -67,7 +71,9 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "Ages 3-6",
+   "schedule": "Monday-Friday, 8 am -4 pm (Full Day); Extended Day: Before Care 7:00 AM - 8:00 AM, After Care 4:00 PM - 5:30 PM"
   },
   {
    "id": "brooklyn-roots-montessori-brooklyn-ny",
@@ -84,7 +90,8 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "3-6"
   },
   {
    "id": "cosmos-montessori-minneapolis-mn",
@@ -94,14 +101,16 @@
    "state": "MN",
    "lat": 44.9778,
    "lng": -93.265,
-   "grades": "",
+   "grades": "Preschool through 3rd grade",
    "tuition": "",
    "website": "https://www.cosmosmontessorischool.org/",
    "source": "https://www.wildflowerschools.org/our-schools",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "Ages three through 3rd grade",
+   "schedule": "Monday – Friday, 8:30am – 3:30pm"
   },
   {
    "id": "desert-peach-montessori-reno-nv",
@@ -118,7 +127,8 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "18 months to 6 years"
   },
   {
    "id": "gloria-alston-children-s-learning-center-bronx-ny",
@@ -128,14 +138,15 @@
    "state": "NY",
    "lat": 40.8448,
    "lng": -73.8648,
-   "grades": "",
+   "grades": "PreK-5",
    "tuition": "",
    "website": "https://www.wildflowernewyorkcharterschool.org/",
    "source": "https://www.wildflowerschools.org/our-schools",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "schedule": "Monday - Thursday 7:30 AM - 4:00"
   },
   {
    "id": "hawthorn-montessori-asheville-nc",
@@ -146,13 +157,14 @@
    "lat": 35.5951,
    "lng": -82.5515,
    "grades": "",
-   "tuition": "",
+   "tuition": "$7,800 (Half Day or Three Day a Week), $11,960 (Full Day)",
    "website": "https://www.hawthornmontessori.org/",
    "source": "https://www.wildflowerschools.org/our-schools",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "Ages 2.5 to 6"
   },
   {
    "id": "hyacinth-montessori-philadelphia-pa",
@@ -169,7 +181,8 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "6-12"
   },
   {
    "id": "ixora-montessori-school-williamsburg-va",
@@ -186,7 +199,8 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "toddlers through pre-school"
   },
   {
    "id": "lirio-montessori-minneapolis-mn",
@@ -203,7 +217,9 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "3-6",
+   "schedule": "Monday – Friday, 8:30am – 3:30pm"
   },
   {
    "id": "magnolia-blossom-montessori-louisville-ky",
@@ -220,7 +236,8 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "toddler through preschool"
   },
   {
    "id": "minnesota-wildflower-montessori-charter-school-minneapolis-mn",
@@ -230,14 +247,15 @@
    "state": "MN",
    "lat": 44.9778,
    "lng": -93.265,
-   "grades": "",
+   "grades": "PreK-8",
    "tuition": "",
    "website": "https://www.mwmscharter.org/",
    "source": "https://www.wildflowerschools.org/our-schools",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "3 to 8th grade"
   },
   {
    "id": "moving-mountains-montessori-grand-rapids-mi",
@@ -254,7 +272,8 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "2.5 - 6"
   },
   {
    "id": "orchid-montessori-west-warwick-ri",
@@ -271,7 +290,9 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "Ages 2 to 9 years",
+   "schedule": "Mon-Fri 8:00am-5:00pm (Montessori Mornings 8:30-11:30, Afternoon Program 12:00-3:00, Before Care 8:00-8:30, After Care 3"
   },
   {
    "id": "pinyon-montessori-school-salt-lake-city-ut",
@@ -339,7 +360,8 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "2 years 9 months - 6"
   },
   {
    "id": "snapdragon-montessori-school-cambridge-ma",
@@ -356,7 +378,8 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "12 months to age 3"
   },
   {
    "id": "starflower-montessori-minneapolis-mn",
@@ -373,7 +396,9 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "1-6 years",
+   "schedule": "8:15-3:45"
   },
   {
    "id": "sweet-pea-montessori-minneapolis-mn",
@@ -407,7 +432,8 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "18 months to 6 years"
   },
   {
    "id": "the-riverseed-school-washington-dc",
@@ -417,7 +443,7 @@
    "state": "DC",
    "lat": 38.9072,
    "lng": -77.0369,
-   "grades": "",
+   "grades": "PK3-5th",
    "tuition": "",
    "website": "https://wildflowerschools.org/dc/theriverseedschool/",
    "source": "https://www.wildflowerschools.org/our-schools",
@@ -434,14 +460,16 @@
    "state": "CO",
    "lat": 39.7294,
    "lng": -104.8319,
-   "grades": "",
-   "tuition": "",
+   "grades": "Preschool-6th",
+   "tuition": "$1,440/month for 3-year-olds; Free for other students",
    "website": "https://www.wfcopublicschools.org/thesunflowerschoolco-org",
    "source": "https://www.wildflowerschools.org/our-schools",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "3-9 years",
+   "seats": "up to 225 students (at full growth)"
   },
   {
    "id": "violeta-montessori-cambridge-ma",
@@ -452,13 +480,15 @@
    "lat": 42.3736,
    "lng": -71.1097,
    "grades": "",
-   "tuition": "",
+   "tuition": "$23,200/yr (Full-Day), $5,600/yr (Half-Day) for 2025-2026; $24,100/yr (Full-Day), $5,800/yr (Half-Day) for 2026-2027",
    "website": "https://www.violeta.org/",
    "source": "https://www.wildflowerschools.org/our-schools",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "2 years and 9 months to 6 years",
+   "schedule": "Full-Day Mon - Thu 8:30 am – 3:00 pm, Friday 8:30 am – 12 :00 pm; Half-Day Mon - Fri 8:30 am – 12:00 pm; Extended (Full-"
   },
   {
    "id": "wildflower-montessori-cambridge-ma",
@@ -475,7 +505,8 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "Ages 2.9 through the Kindergarten year"
   },
   {
    "id": "yellow-rose-montessori-houston-tx",
@@ -492,7 +523,8 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "3 - 6"
   },
   {
    "id": "acacia-montessori-apple-valley-mn",
@@ -519,7 +551,7 @@
    "state": "IN",
    "lat": 41.0793,
    "lng": -85.1394,
-   "grades": "",
+   "grades": "Toddler through Middle School",
    "tuition": "",
    "website": "https://alyssummontessori.org/",
    "source": "https://www.wildflowerschools.org/our-schools",
@@ -543,7 +575,8 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "3-6"
   },
   {
    "id": "blazing-stars-montessori-school-pasco-fl",
@@ -560,7 +593,8 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "3-10 years old"
   },
   {
    "id": "cactus-bloom-community-school-grand-junction-co",
@@ -577,7 +611,8 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "preschool through elementary"
   },
   {
    "id": "capucine-montessori-cambridge-ma",
@@ -588,13 +623,16 @@
    "lat": 42.3736,
    "lng": -71.1097,
    "grades": "",
-   "tuition": "",
+   "tuition": "$19,500 (Half-Day), $25,150 (Full-Day)",
    "website": "https://www.capucinemontessori.org/",
    "source": "https://www.wildflowerschools.org/our-schools",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "2.9 to 6",
+   "schedule": "Half-Day: 8:15 a.m. – 12:30 p.m., Full-Day: 8:15 a.m. – 3:15 p.m.",
+   "seats": "one spot remaining for September 2026 and one opening for January 2027"
   },
   {
    "id": "dahlia-montessori-allenhurst-nj",
@@ -611,7 +649,8 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "3-6 years"
   },
   {
    "id": "echinacea-montessori-denver-co",
@@ -628,7 +667,8 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "2.5-6 years"
   },
   {
    "id": "flame-lily-montessori-aurora-co",
@@ -645,7 +685,9 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "3-6",
+   "schedule": "Full Day 8:15 AM - 3:30 PM, Extended Day 1: 3:30 PM - 4:45 PM, Extended Day 2: 3:30 PM - 5:30 PM"
   },
   {
    "id": "goldenrod-montessori-cleveland-oh",
@@ -662,7 +704,8 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "3-6 years"
   },
   {
    "id": "hollyhock-montessori-fort-smith-ar",
@@ -679,7 +722,8 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "Ages 3-6"
   },
   {
    "id": "indigo-montessori-baltimore-md",
@@ -689,14 +733,15 @@
    "state": "MD",
    "lat": 39.2904,
    "lng": -76.6122,
-   "grades": "",
-   "tuition": "",
+   "grades": "K-3",
+   "tuition": "0% to 14% of family income",
    "website": "https://www.indigomontessori.org/",
    "source": "https://www.wildflowerschools.org/our-schools",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "5 to 9"
   },
   {
    "id": "jun-zi-lan-montessori-cambridge-ma",
@@ -713,7 +758,8 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "2 years 9 months to 6 years"
   },
   {
    "id": "little-tree-community-hollister-ca",
@@ -723,14 +769,15 @@
    "state": "CA",
    "lat": 36.8525,
    "lng": -121.4016,
-   "grades": "",
+   "grades": "PreK-6th",
    "tuition": "",
    "website": "https://www.littletreecommunity.org/",
    "source": "https://www.wildflowerschools.org/our-schools",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "2.9-12 years old"
   },
   {
    "id": "meadow-rue-montessori-aurora-co",
@@ -747,7 +794,8 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "preschool through elementary"
   },
   {
    "id": "miramelinda-montessori-cambridge-ma",
@@ -758,13 +806,15 @@
    "lat": 42.3736,
    "lng": -71.1097,
    "grades": "",
-   "tuition": "",
+   "tuition": "$30,172.00/yr",
    "website": "https://www.miramelinda.org/",
    "source": "https://www.wildflowerschools.org/our-schools",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "12-33 months",
+   "schedule": "Monday-Friday 8:30 am-3:30 pm"
   },
   {
    "id": "mountain-juniper-montessori-aurora-co",
@@ -781,7 +831,8 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "preschool through elementary"
   },
   {
    "id": "mukayuhsak-weekuw-at-weetumuw-school-mashpee-ma",
@@ -792,13 +843,15 @@
    "lat": 41.6487,
    "lng": -70.4828,
    "grades": "",
-   "tuition": "",
+   "tuition": "Free of charge to tribal members and their families",
    "website": "https://www.wlrp.org/",
    "source": "https://www.wildflowerschools.org/our-schools",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "All ages",
+   "schedule": "Classes typically run for ten weeks; Prayer Class Saturday July 11th, 2026 9am-3pm; Annual Wôpanâak Language Immersion C"
   },
   {
    "id": "our-sun-montessori-philadelphia-pa",
@@ -815,7 +868,8 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "3 to 6 years"
   },
   {
    "id": "poinciana-montessori-philadelphia-pa",
@@ -826,13 +880,14 @@
    "lat": 39.9526,
    "lng": -75.1652,
    "grades": "",
-   "tuition": "",
+   "tuition": "$800/month",
    "website": "https://www.poincianamontessori.org/home",
    "source": "https://www.wildflowerschools.org/our-schools",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "5-10"
   },
   {
    "id": "rainbow-montessori-community-school-columbus-oh",
@@ -842,8 +897,8 @@
    "state": "OH",
    "lat": 39.9612,
    "lng": -82.9988,
-   "grades": "",
-   "tuition": "",
+   "grades": "PreK-2nd",
+   "tuition": "Tuition-free for Kindergarten to 2nd grade; free or reduced for PreK families who qualify for Ohio’s publicly funded chi",
    "website": "https://www.therainbowschool.org/",
    "source": "https://www.wildflowerschools.org/our-schools",
    "description": "",
@@ -866,7 +921,8 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "2.9 through 6-years-old"
   },
   {
    "id": "sage-montessori-school-of-nashville-nashville-tn",
@@ -883,7 +939,8 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "3 through pre-kindergarten"
   },
   {
    "id": "snowdrop-montessori-haverhill-ma",
@@ -900,7 +957,9 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "Birth to 33 months",
+   "seats": "up to 20 students"
   },
   {
    "id": "the-bronx-chrysalis-montessori-school-bronx-ny",
@@ -910,14 +969,15 @@
    "state": "NY",
    "lat": 40.8448,
    "lng": -73.8648,
-   "grades": "",
+   "grades": "PreK-5",
    "tuition": "",
    "website": "https://www.wildflowernewyorkcharterschool.org/",
    "source": "https://www.wildflowerschools.org/our-schools",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "schedule": "Monday - Thursday 7:30 AM - 4:00"
   },
   {
    "id": "the-rose-school-bronx-ny",
@@ -927,14 +987,15 @@
    "state": "NY",
    "lat": 40.8448,
    "lng": -73.8648,
-   "grades": "",
+   "grades": "PreK-5",
    "tuition": "",
    "website": "https://www.wildflowernewyorkcharterschool.org/",
    "source": "https://www.wildflowerschools.org/our-schools",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "schedule": "Monday - Thursday 7:30 AM - 4:00"
   },
   {
    "id": "tiger-lily-montessori-school-providence-ri",
@@ -951,7 +1012,8 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "infant through preschool-aged"
   },
   {
    "id": "water-lily-montessori-saint-paul-mn",
@@ -968,7 +1030,8 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "Ages 3-6"
   },
   {
    "id": "wisteria-montessori-haverhill-ma",
@@ -985,7 +1048,9 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "2.9 to 6 years",
+   "schedule": "Monday – Friday 8:30am – 12:00pm (Half Day), Monday -Friday 8:30am – 2:30pm (Full Day), Monday – Friday 8:30am – 4:30pm"
   },
   {
    "id": "aster-montessori-cambridge-ma",
@@ -1002,7 +1067,9 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "Ages 3 to 6 years",
+   "schedule": "Mon-Fri 8:30 am - 12 pm (Half-day), Mon-Fri 8:30 am - 3 pm (Full-day), Mon-Fri 3 pm - 5:30 pm (Extended Day)"
   },
   {
    "id": "bergamot-montessori-gasport-ny",
@@ -1019,7 +1086,8 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "2 years 10 months to 5 years"
   },
   {
    "id": "blue-montessori-washington-dc",
@@ -1029,7 +1097,7 @@
    "state": "DC",
    "lat": 38.9072,
    "lng": -77.0369,
-   "grades": "",
+   "grades": "PK3-PK4",
    "tuition": "",
    "website": "http://www.bluemontessori.org",
    "source": "https://www.wildflowerschools.org/our-schools",
@@ -1053,7 +1121,8 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "2 years 9 months-6 years old"
   },
   {
    "id": "dandelion-montessori-somerville-ma",
@@ -1087,7 +1156,8 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "6-12"
   },
   {
    "id": "grove-montessori-grand-rapids-mi",
@@ -1097,8 +1167,8 @@
    "state": "MI",
    "lat": 42.9634,
    "lng": -85.6681,
-   "grades": "",
-   "tuition": "",
+   "grades": "K-6",
+   "tuition": "tuition-free",
    "website": "https://www.grovemontessori.org/",
    "source": "https://www.wildflowerschools.org/our-schools",
    "description": "",
@@ -1121,7 +1191,10 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "3-6",
+   "schedule": "5 full days a week, from 8:00 am to 3:00 pm. Extended Day (included before and aftercare) is 7:00 am to 5:00 pm",
+   "ratio": "1:10"
   },
   {
    "id": "inkwell-montessori-cambridge-ma",
@@ -1138,7 +1211,9 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "2.9-6 years old",
+   "schedule": "Monday-Friday from 8:00 AM to 3:00 PM (full-day), 8:00 AM to 12:00 PM (half-day), 3 days a week (part-time), Aftercare f"
   },
   {
    "id": "lilac-montessori-escondido-ca",
@@ -1155,7 +1230,9 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "Ages 18 months–5 years",
+   "schedule": "Half Day: 8:30–12:15, Regular Day: 8:30–3:00, Extended Day: 7:45–4:30 (Toddler) / 7:30–5:00 (Primary)"
   },
   {
    "id": "lotus-montessori-academy-quincy-ma",
@@ -1172,7 +1249,8 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "preschool aged"
   },
   {
    "id": "marigold-montessori-haverhill-ma",
@@ -1189,7 +1267,9 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "2.9-6 years",
+   "schedule": "Monday – Friday, 8:45am – 3:30pm"
   },
   {
    "id": "meadowsweet-montessori-johnson-city-ny",
@@ -1206,7 +1286,9 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "2.9 - 6",
+   "schedule": "full year (12 month) program"
   },
   {
    "id": "montessori-earth-school-columbus-oh",
@@ -1216,14 +1298,15 @@
    "state": "OH",
    "lat": 39.9612,
    "lng": -82.9988,
-   "grades": "",
+   "grades": "8-12",
    "tuition": "",
    "website": "https://www.montessori.earth/",
    "source": "https://www.wildflowerschools.org/our-schools",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "seats": "up to 36 students"
   },
   {
    "id": "mountain-laurel-montessori-philadelphia-pa",
@@ -1240,7 +1323,8 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "3-6"
   },
   {
    "id": "protea-montessori-miramar-fl",
@@ -1257,7 +1341,8 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "3-12"
   },
   {
    "id": "river-montessori-high-school-south-bend-in",
@@ -1267,14 +1352,15 @@
    "state": "IN",
    "lat": 41.6764,
    "lng": -86.252,
-   "grades": "",
-   "tuition": "",
+   "grades": "9th-10th",
+   "tuition": "$18,250 to $22,250",
    "website": "https://rivermontessorihs.org/",
    "source": "https://www.wildflowerschools.org/our-schools",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "seats": "60 - 70 students"
   },
   {
    "id": "sadula-rose-montessori-buffalo-ny",
@@ -1291,7 +1377,8 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "2.5 months-6 years"
   },
   {
    "id": "sankofa-learning-center-new-haven-ct",
@@ -1308,7 +1395,8 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "2 years 9 months to 5 years"
   },
   {
    "id": "spicebush-montessori-glen-mills-pa",
@@ -1325,7 +1413,9 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "Ages 3 to 6 years",
+   "schedule": "Mon-Fri 8:30 AM - 3:00 PM"
   },
   {
    "id": "sundrops-montessori-san-jose-ca",
@@ -1342,7 +1432,8 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "Ages 3-6"
   },
   {
    "id": "the-dahlia-school-of-san-francisco-san-francisco-ca",
@@ -1359,7 +1450,8 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "18 months to 6 years"
   },
   {
    "id": "the-montessori-field-school-floyds-knobs-in",
@@ -1376,7 +1468,9 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "Ages 3-6, Ages 6-12",
+   "schedule": "5-days per week - 8:15am-3:15pm, 5-days per week - 8:30am-3:30pm, 1-day per week 12:30-3:00 p.m."
   },
   {
    "id": "the-school-of-harvest-washington-dc",
@@ -1386,7 +1480,7 @@
    "state": "DC",
    "lat": 38.9072,
    "lng": -77.0369,
-   "grades": "",
+   "grades": "6th-8th",
    "tuition": "",
    "website": "https://www.theschoolofharvest.org/",
    "source": "https://www.wildflowerschools.org/our-schools",
@@ -1410,7 +1504,10 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "6-12",
+   "schedule": "8:30 AM to 3:15 PM",
+   "seats": "52 students"
   },
   {
    "id": "wild-rose-montessori-cambridge-ma",
@@ -1444,7 +1541,9 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "Ages 6 weeks to 6 years",
+   "schedule": "Monday-Friday: 7:00 am – 6:00 pm"
   },
   {
    "id": "guidepost-montessori-at-arbor-spring-ballwin-mo",
@@ -1461,7 +1560,9 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "6 weeks to 6 years",
+   "schedule": "Monday-Friday: 7:00 am – 6:00 pm"
   },
   {
    "id": "guidepost-montessori-at-baymeadows-jacksonville-fl",
@@ -1478,7 +1579,9 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "6 weeks to 6 years",
+   "schedule": "Monday-Friday: 7:00 am – 6:00 pm"
   },
   {
    "id": "guidepost-montessori-at-bee-cave-austin-tx",
@@ -1495,7 +1598,9 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "6 weeks to 6 years",
+   "schedule": "Monday-Friday: 7:00 am – 6:00 pm"
   },
   {
    "id": "guidepost-montessori-at-blue-ash-cincinnati-oh",
@@ -1512,7 +1617,9 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "6 weeks to 6 years",
+   "schedule": "Monday-Friday: 7:00 am – 6:00 pm"
   },
   {
    "id": "guidepost-montessori-at-bradley-hills-bethesda-md",
@@ -1529,7 +1636,9 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "6 weeks to 12 years",
+   "schedule": "Monday-Friday: 7:00 am – 6:00 pm"
   },
   {
    "id": "guidepost-montessori-at-brasswood-oklahoma-city-ok",
@@ -1546,7 +1655,9 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "6 weeks to 6 years",
+   "schedule": "Monday-Friday: 7:00 am – 6:00 pm"
   },
   {
    "id": "guidepost-montessori-at-bridgewater-bridgewater-nj",
@@ -1563,7 +1674,9 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "6 weeks to 6 years",
+   "schedule": "Monday-Friday: 7:00 am – 6:00 pm"
   },
   {
    "id": "guidepost-montessori-at-broadlands-ashburn-va",
@@ -1580,7 +1693,9 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "6 weeks - 6 years",
+   "schedule": "Monday-Friday: 7:00 am – 6:00 pm"
   },
   {
    "id": "guidepost-montessori-at-brushy-creek-cedar-park-tx",
@@ -1597,7 +1712,9 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "6 weeks to 6 years",
+   "schedule": "Monday-Friday: 7:00 am – 6:00 pm"
   },
   {
    "id": "guidepost-montessori-at-burr-ridge-burr-ridge-il",
@@ -1614,7 +1731,9 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "6 weeks to 6 years",
+   "schedule": "Monday-Friday: 7:00 am – 6:00 pm"
   },
   {
    "id": "guidepost-montessori-at-cary-cary-nc",
@@ -1631,7 +1750,9 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "6 weeks to 6 years",
+   "schedule": "Monday-Friday: 7:00 am – 6:00 pm; 3-day & 5-day care options; half day (pick up by 12:30pm) and all-inclusive full day ("
   },
   {
    "id": "guidepost-montessori-at-celebration-park-federal-way-wa",
@@ -1648,7 +1769,9 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "6 weeks to 6 years",
+   "schedule": "Monday-Friday: 7:00 am – 6:00 pm"
   },
   {
    "id": "guidepost-montessori-at-central-west-end-st-louis-mo",
@@ -1665,7 +1788,9 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "6 weeks to 6 years",
+   "schedule": "Monday-Friday: 7:00 am – 6:00 pm"
   },
   {
    "id": "guidepost-montessori-at-chantilly-chantilly-va",
@@ -1682,7 +1807,9 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "6 weeks to 6 years",
+   "schedule": "Monday-Friday: 7:00 am – 6:00 pm"
   },
   {
    "id": "guidepost-montessori-at-copper-hill-santa-clarita-ca",
@@ -1699,7 +1826,9 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "6 weeks to 6 years",
+   "schedule": "Monday-Friday: 7:00 am – 6:00 pm"
   },
   {
    "id": "guidepost-montessori-at-creve-coeur-creve-coeur-mo",
@@ -1716,7 +1845,9 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "6 weeks to 6 years",
+   "schedule": "Monday-Friday: 7:00 am – 6:00 pm"
   },
   {
    "id": "guidepost-montessori-at-cypress-creek-cedar-park-tx",
@@ -1733,7 +1864,9 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "6 weeks to 6 years",
+   "schedule": "Monday-Friday: 7:00 am – 6:00 pm"
   },
   {
    "id": "guidepost-montessori-at-deerbrook-deerfield-il",
@@ -1750,7 +1883,9 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "6 weeks to 6 years",
+   "schedule": "Monday-Friday: 7:00 am – 6:00 pm"
   },
   {
    "id": "guidepost-montessori-at-deerfield-milton-ga",
@@ -1767,7 +1902,9 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "6 weeks to 6 years",
+   "schedule": "Monday-Friday: 7:00 am – 6:00 pm"
   },
   {
    "id": "acton-academy-albuquerque-albuquerque-nm",
@@ -1777,7 +1914,7 @@
    "state": "NM",
    "lat": 35.0844,
    "lng": -106.6504,
-   "grades": "",
+   "grades": "K-12th grade",
    "tuition": "",
    "website": "https://www.actonabq.org/",
    "source": "https://www.actonacademy.org/find/",
@@ -1794,14 +1931,15 @@
    "state": "FL",
    "lat": 26.7148,
    "lng": -81.6109,
-   "grades": "",
+   "grades": "Pre-K through 8th-grade",
    "tuition": "",
    "website": "https://www.actonacademyalva.org/",
    "source": "https://www.actonacademy.org/find/",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "schedule": "Full-Time (Mon–Fri) & Hybrid (Mon, Wed, Fri)"
   },
   {
    "id": "acton-academy-amarillo-amarillo-tx",
@@ -1811,14 +1949,15 @@
    "state": "TX",
    "lat": 35.222,
    "lng": -101.8313,
-   "grades": "",
+   "grades": "PreK - 5th Grade",
    "tuition": "",
    "website": "https://www.amarilloacton.com/",
    "source": "https://www.actonacademy.org/find/",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "schedule": "Full-Time Studio – Monday–Friday, Hybrid Studio – Tuesday, Wednesday, Thursday, Fridays Only – Nature & Exploration Days"
   },
   {
    "id": "acton-academy-annapolis-at-the-maryland-curiosity-lab-arnold-md",
@@ -1835,7 +1974,8 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "Ages 4-18"
   },
   {
    "id": "acton-academy-at-fall-creek-pendleton-in",
@@ -1852,7 +1992,8 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "3 to 4"
   },
   {
    "id": "acton-academy-at-grant-park-atlanta-ga",
@@ -1863,13 +2004,15 @@
    "lat": 33.749,
    "lng": -84.388,
    "grades": "",
-   "tuition": "",
+   "tuition": "$12,000/yr (full time), $7,200/yr (part time)",
    "website": "https://actongrantpark.com",
    "source": "https://www.actonacademy.org/find/",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "Ages 4-11",
+   "schedule": "Part time: Tuesday, Wednesday and Thursday; Full time: Monday through Friday. All school days are 8AM until 3PM."
   },
   {
    "id": "acton-academy-austin-main-campus-austin-tx",
@@ -1879,14 +2022,16 @@
    "state": "TX",
    "lat": 30.2672,
    "lng": -97.7431,
-   "grades": "",
-   "tuition": "",
+   "grades": "1st-12th",
+   "tuition": "$14,894/yr",
    "website": "https://www.actonmain.org/",
    "source": "https://www.actonacademy.org/find/",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "6-18",
+   "schedule": "Mon-Fri 8:00am-3:15pm"
   },
   {
    "id": "acton-academy-barrington-barrington-il",
@@ -1903,7 +2048,8 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "Ages 5-18"
   },
   {
    "id": "acton-academy-basehor-basehor-ks",
@@ -1930,14 +2076,15 @@
    "state": "TX",
    "lat": 30.0802,
    "lng": -94.1266,
-   "grades": "",
-   "tuition": "",
+   "grades": "PK4-8",
+   "tuition": "$7,000/yr or $715/mo",
    "website": "https://www.actonbeaumont.org/",
    "source": "https://www.actonacademy.org/find/",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "schedule": "Labor Day to July 1st"
   },
   {
    "id": "acton-academy-bee-cave-austin-tx",
@@ -1982,13 +2129,14 @@
    "lat": 34.8762,
    "lng": -83.958,
    "grades": "",
-   "tuition": "",
+   "tuition": "$35 nonrefundable application fee",
    "website": "https://www.actonacademyblairsville.org/",
    "source": "https://www.actonacademy.org/find/",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "schedule": "1 3 days a week of scheduled in person learning"
   },
   {
    "id": "acton-academy-blue-ridge-staunton-va",
@@ -2016,13 +2164,15 @@
    "lat": 47.1632,
    "lng": -122.0268,
    "grades": "",
-   "tuition": "",
+   "tuition": "$1200/mo for an 10-month year ($12,000/yr)",
    "website": "http://actonacademybl.org",
    "source": "https://www.actonacademy.org/find/",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "5-11",
+   "schedule": "eleven month calendar"
   },
   {
    "id": "acton-academy-brenham-brenham-tx",
@@ -2049,7 +2199,7 @@
    "state": "UT",
    "lat": 41.737,
    "lng": -111.8338,
-   "grades": "",
+   "grades": "K-6",
    "tuition": "",
    "website": "https://www.actonacademycachevalley.com/",
    "source": "https://www.actonacademy.org/find/",
@@ -2073,7 +2223,8 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "schedule": "two days a week"
   },
   {
    "id": "acton-academy-columbus-dublin-oh",
@@ -2090,7 +2241,9 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "4.5-14",
+   "schedule": "Mon-Fri 8am - 5pm"
   },
   {
    "id": "acton-academy-concord-concord-ca",
@@ -2118,13 +2271,15 @@
    "lat": 27.8006,
    "lng": -97.3964,
    "grades": "",
-   "tuition": "",
+   "tuition": "$10,000/yr",
    "website": "http://actoncorpuschristi.com",
    "source": "https://www.actonacademy.org/find/",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "4-18",
+   "schedule": "9-month school year"
   },
   {
    "id": "acton-academy-cy-fair-jersey-village-tx",
@@ -2134,7 +2289,7 @@
    "state": "TX",
    "lat": 29.8888,
    "lng": -95.5763,
-   "grades": "",
+   "grades": "K-12",
    "tuition": "",
    "website": "https://www.actoncyfair.com/",
    "source": "https://www.actonacademy.org/find/",
@@ -2152,13 +2307,15 @@
    "lat": 35.4993,
    "lng": -80.8486,
    "grades": "",
-   "tuition": "",
+   "tuition": "$15,000/yr",
    "website": "https://actonacademydavidson.com/",
    "source": "https://www.actonacademy.org/find/",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "5-7",
+   "seats": "up to 10 students"
   },
   {
    "id": "acton-academy-dripping-springs-dripping-springs-tx",
@@ -2185,7 +2342,7 @@
    "state": "CA",
    "lat": 37.6819,
    "lng": -121.768,
-   "grades": "",
+   "grades": "K-12",
    "tuition": "",
    "website": "https://www.actoneastbay.org/",
    "source": "https://www.actonacademy.org/find/",
@@ -2219,7 +2376,7 @@
    "state": "AZ",
    "lat": 33.2487,
    "lng": -111.6343,
-   "grades": "",
+   "grades": "k-12",
    "tuition": "",
    "website": "http://actoneastvalley.org",
    "source": "https://www.actonacademy.org/find/",
@@ -2253,7 +2410,7 @@
    "state": "FL",
    "lat": 26.3398,
    "lng": -81.7787,
-   "grades": "",
+   "grades": "K-12",
    "tuition": "",
    "website": "https://www.actonacademyestero.org/",
    "source": "https://www.actonacademy.org/find/",
@@ -2277,7 +2434,8 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "3 to 13"
   },
   {
    "id": "acton-academy-fayetteville-fayetteville-ar",
@@ -2294,7 +2452,8 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "Ages 5 to 10 Years Old"
   },
   {
    "id": "acton-academy-fort-lauderdale-fort-lauderdale-fl",
@@ -2304,7 +2463,7 @@
    "state": "FL",
    "lat": 26.1224,
    "lng": -80.1373,
-   "grades": "",
+   "grades": "K-12",
    "tuition": "",
    "website": "https://www.actonacademyfl.com/",
    "source": "https://www.actonacademy.org/find/",
@@ -2321,14 +2480,17 @@
    "state": "TX",
    "lat": 32.7555,
    "lng": -97.3308,
-   "grades": "",
-   "tuition": "",
+   "grades": "K-5",
+   "tuition": "$10,450/yr",
    "website": "https://www.actonacademyfortworth.com/",
    "source": "https://www.actonacademy.org/find/",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "Ages 5-11",
+   "schedule": "eleven month calendar",
+   "seats": "up to 40 students per studio"
   },
   {
    "id": "acton-academy-frisco-frisco-tx",
@@ -2338,7 +2500,7 @@
    "state": "TX",
    "lat": 33.1507,
    "lng": -96.8236,
-   "grades": "",
+   "grades": "K-12",
    "tuition": "",
    "website": "https://www.actonacademyfrisco.com/",
    "source": "https://www.actonacademy.org/find/",
@@ -2372,14 +2534,15 @@
    "state": "MT",
    "lat": 46.2479,
    "lng": -114.1604,
-   "grades": "",
+   "grades": "Kindergarten through High School",
    "tuition": "",
    "website": "https://www.actonacademyhamilton.org/",
    "source": "https://www.actonacademy.org/find/",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "Ages 4.5–6, Ages 5–8, Ages 7-12, Ages 11–14, Ages 14–18"
   },
   {
    "id": "acton-academy-houston-heights-houston-tx",
@@ -2389,7 +2552,7 @@
    "state": "TX",
    "lat": 29.7604,
    "lng": -95.3698,
-   "grades": "",
+   "grades": "K-12",
    "tuition": "",
    "website": "https://actonheights.com/",
    "source": "https://www.actonacademy.org/find/",
@@ -2407,13 +2570,15 @@
    "lat": 44.9747,
    "lng": -92.7568,
    "grades": "",
-   "tuition": "",
+   "tuition": "$420/mo - $825/mo",
    "website": "https://www.actonacademyhudson.org/",
    "source": "https://www.actonacademy.org/find/",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "Ages 5-11",
+   "schedule": "Mon-Fri"
   },
   {
    "id": "acton-academy-johnson-city-johnson-city-tn",
@@ -2423,14 +2588,16 @@
    "state": "TN",
    "lat": 36.3134,
    "lng": -82.3535,
-   "grades": "",
-   "tuition": "",
+   "grades": "Preschool through 8th grade",
+   "tuition": "$873 per month (11-month year), $9,603 annually; Part-Time: $488 per month, $5,368 annually",
    "website": "http://www.actonacademyjohnsoncity.org",
    "source": "https://www.actonacademy.org/find/",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "Ages 4-14",
+   "schedule": "Monday–Friday"
   },
   {
    "id": "acton-academy-kennebunkport-kennebunk-me",
@@ -2440,14 +2607,16 @@
    "state": "ME",
    "lat": 43.3853,
    "lng": -70.5456,
-   "grades": "",
+   "grades": "K-12",
    "tuition": "",
    "website": "https://actonkennebunkport.org/",
    "source": "https://www.actonacademy.org/find/",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "~5-7",
+   "schedule": "3 day or a 5 day option; 5 Full Days: Monday - Friday; 3 Full Days: Mondays, Tuesdays, Wednesdays; 3 Full Days: Wednesda"
   },
   {
    "id": "acton-academy-kingwood-porter-tx",
@@ -2464,7 +2633,8 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "Ages 4-14"
   },
   {
    "id": "acton-academy-knoxville-knoxville-tn",
@@ -2491,7 +2661,7 @@
    "state": "HI",
    "lat": 20.79,
    "lng": -156.3319,
-   "grades": "",
+   "grades": "K-5",
    "tuition": "",
    "website": "http://actonacademykula.com",
    "source": "https://www.actonacademy.org/find/",
@@ -2515,7 +2685,9 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "Ages 4-14",
+   "schedule": "full-day and half-day (9am-12pm)"
   },
   {
    "id": "acton-academy-lakewood-dallas-tx",
@@ -2525,7 +2697,7 @@
    "state": "TX",
    "lat": 32.7767,
    "lng": -96.797,
-   "grades": "",
+   "grades": "Pre-K-12",
    "tuition": "",
    "website": "https://www.actonlakewood.org/",
    "source": "https://www.actonacademy.org/find/",
@@ -2542,7 +2714,7 @@
    "state": "NE",
    "lat": 40.8136,
    "lng": -96.7026,
-   "grades": "",
+   "grades": "PK-12",
    "tuition": "",
    "website": "https://www.actonacademylincoln.com/",
    "source": "https://www.actonacademy.org/find/",
@@ -2559,7 +2731,7 @@
    "state": "NH",
    "lat": 43.1795,
    "lng": -71.8217,
-   "grades": "",
+   "grades": "K-12",
    "tuition": "",
    "website": "https://actonmerrimackvalley.com/",
    "source": "https://www.actonacademy.org/find/",
@@ -2583,7 +2755,8 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "6 to 14 years"
   },
   {
    "id": "acton-academy-mt-rose-reno-nv",
@@ -2634,7 +2807,8 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "Ages 4-14"
   },
   {
    "id": "acton-academy-northwest-austin-austin-tx",
@@ -2651,7 +2825,8 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "5-15"
   },
   {
    "id": "acton-academy-northwest-indianapolis-indianapolis-in",
@@ -2662,13 +2837,14 @@
    "lat": 39.7684,
    "lng": -86.1581,
    "grades": "",
-   "tuition": "",
+   "tuition": "$11,490/yr",
    "website": "https://actonindy.org/",
    "source": "https://www.actonacademy.org/find/",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "schedule": "8:30am - 3:15pm: Mon. - Fri. August - May"
   },
   {
    "id": "acton-academy-of-morgantown-trafalgar-in",
@@ -2678,7 +2854,7 @@
    "state": "IN",
    "lat": 39.4109,
    "lng": -86.1494,
-   "grades": "",
+   "grades": "Pre-K, Elementary, Middle",
    "tuition": "",
    "website": "https://actonacademyofmorgantown.org/",
    "source": "https://www.actonacademy.org/find/",
@@ -2695,14 +2871,16 @@
    "state": "NE",
    "lat": 41.2565,
    "lng": -95.9345,
-   "grades": "",
+   "grades": "PK-12",
    "tuition": "",
    "website": "https://www.actonomaha.org/",
    "source": "https://www.actonacademy.org/find/",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "Ages 3-7",
+   "ratio": "10-15 students per guide"
   },
   {
    "id": "acton-academy-oshkosh-oshkosh-wi",
@@ -2719,7 +2897,9 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "4-18",
+   "schedule": "Flexible schedules for families, 10 month calendar with breaks between sessions"
   },
   {
    "id": "acton-academy-palatine-palatine-il",
@@ -2736,7 +2916,9 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "Ages 5-18",
+   "schedule": "Monday, Tuesday, and Wednesday"
   },
   {
    "id": "acton-academy-palm-harbor-palm-harbor-fl",
@@ -2746,14 +2928,16 @@
    "state": "FL",
    "lat": 28.078,
    "lng": -82.7637,
-   "grades": "",
-   "tuition": "",
+   "grades": "K-12",
+   "tuition": "$12,000 per school year",
    "website": "https://www.actonacademyph.com/",
    "source": "https://www.actonacademy.org/find/",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "Ages 5-7",
+   "schedule": "3 days per week"
   },
   {
    "id": "acton-academy-peachtree-corners-duluth-ga",
@@ -2787,7 +2971,8 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "Ages 4-18"
   },
   {
    "id": "acton-academy-pittsburgh-wexford-pa",
@@ -2797,14 +2982,16 @@
    "state": "PA",
    "lat": 40.6203,
    "lng": -80.0578,
-   "grades": "",
+   "grades": "Pre-K to 12th",
    "tuition": "",
    "website": "https://actonacademypittsburgh.com/",
    "source": "https://www.actonacademy.org/find/",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "4-18 Years Old",
+   "schedule": "Late August to early June, Mon-Fri 8:30–8:45 AM drop-off and 3:15–3:30 PM pickup"
   },
   {
    "id": "acton-academy-placer-2-sacramento-sacramento-ca",
@@ -2872,7 +3059,8 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "5-13"
   },
   {
    "id": "acton-academy-port-st-lucie-port-saint-lucie-fl",
@@ -2923,7 +3111,9 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "Ages 5-19",
+   "schedule": "8:30 am to 3:00 pm; Fun Fridays end at 12:30pm; 9-10 month calendar; Part-time option for 5-year-olds: Tuesday through T"
   },
   {
    "id": "acton-academy-rexburg-rexburg-id",
@@ -2940,7 +3130,8 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "Ages 4 - 14"
   },
   {
    "id": "acton-academy-salado-salado-tx",
@@ -2950,14 +3141,15 @@
    "state": "TX",
    "lat": 30.9476,
    "lng": -97.5394,
-   "grades": "",
+   "grades": "Pre-K to 12th-grade",
    "tuition": "",
    "website": "https://www.actonsalado.org/",
    "source": "https://www.actonacademy.org/find/",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "schedule": "Drop Off: 7:50 am - 8:30 am, Day starts at 8:30 am, Pick Up: 2.45 pm - 3:15 pm"
   },
   {
    "id": "acton-academy-santa-barbara-santa-barbara-ca",
@@ -2974,7 +3166,8 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "Ages 4-7"
   },
   {
    "id": "acton-academy-santa-cruz-santa-cruz-ca",
@@ -2991,7 +3184,8 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "Ages 4-18"
   },
   {
    "id": "acton-academy-silicon-valley-redwood-city-ca",
@@ -3001,14 +3195,16 @@
    "state": "CA",
    "lat": 37.4852,
    "lng": -122.2364,
-   "grades": "",
+   "grades": "PK-8",
    "tuition": "",
    "website": "https://www.actonsv.com/",
    "source": "https://www.actonacademy.org/find/",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "Ages 2-13",
+   "schedule": "flexible 2-day, 3-day, 5-day and half or full day options"
   },
   {
    "id": "acton-academy-sioux-falls-sioux-falls-sd",
@@ -3018,14 +3214,15 @@
    "state": "SD",
    "lat": 43.5446,
    "lng": -96.7311,
-   "grades": "",
+   "grades": "Pre-K through high school",
    "tuition": "",
    "website": "https://www.actonacademysiouxfalls.org/",
    "source": "https://www.actonacademy.org/find/",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "4-17"
   },
   {
    "id": "acton-academy-snowflake-snowflake-az",
@@ -3035,7 +3232,7 @@
    "state": "AZ",
    "lat": 34.5125,
    "lng": -110.0784,
-   "grades": "",
+   "grades": "K–8",
    "tuition": "",
    "website": "http://actonsnowflake.com",
    "source": "https://www.actonacademy.org/find/",
@@ -3052,14 +3249,15 @@
    "state": "UT",
    "lat": 37.0965,
    "lng": -113.5684,
-   "grades": "",
-   "tuition": "",
+   "grades": "Pre-K through Middle School",
+   "tuition": "Part-time preschool from $5,100/yr · Full-time enrollment from $10,200/yr + a $500 registration fee",
    "website": "https://www.actonstgeorge.com/",
    "source": "https://www.actonacademy.org/find/",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "3-18"
   },
   {
    "id": "acton-academy-stewartville-stewartville-mn",
@@ -3103,7 +3301,7 @@
    "state": "TX",
    "lat": 32.3513,
    "lng": -95.3011,
-   "grades": "",
+   "grades": "PreK-12",
    "tuition": "",
    "website": "https://www.actonacademytyler.com/",
    "source": "https://www.actonacademy.org/find/",
@@ -3127,7 +3325,9 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "Ages 4-10",
+   "seats": "up to 36 students"
   },
   {
    "id": "acton-academy-venice-beach-venice-ca",
@@ -3137,14 +3337,15 @@
    "state": "CA",
    "lat": 33.985,
    "lng": -118.4695,
-   "grades": "",
+   "grades": "K-12",
    "tuition": "",
    "website": "https://actonvenice.org/",
    "source": "https://www.actonacademy.org/find/",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "schedule": "8:00am – 3:15pm, September through July"
   },
   {
    "id": "acton-academy-west-austin-west-lake-hills-tx",
@@ -3154,14 +3355,15 @@
    "state": "TX",
    "lat": 30.2966,
    "lng": -97.8128,
-   "grades": "",
+   "grades": "Pre-K - High School",
    "tuition": "",
    "website": "https://www.actonacademywest.com/",
    "source": "https://www.actonacademy.org/find/",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "Ages 4-6, Ages 6-9, 10-12, 13-17"
   },
   {
    "id": "acton-academy-west-end-manakin-sabot-va",
@@ -3188,14 +3390,16 @@
    "state": "CA",
    "lat": 32.7678,
    "lng": -117.0231,
-   "grades": "",
+   "grades": "TK-12th",
    "tuition": "",
    "website": "https://actonsandiegoeast.org/",
    "source": "https://www.actonacademy.org/find/",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "4-12",
+   "schedule": "8:30am to 3:30pm"
   },
   {
    "id": "acton-acres-adventure-academy-sadler-tx",
@@ -3239,7 +3443,7 @@
    "state": "GA",
    "lat": 33.749,
    "lng": -84.388,
-   "grades": "",
+   "grades": "K-12",
    "tuition": "",
    "website": "https://actonbuckhead.org/",
    "source": "https://www.actonacademy.org/find/",
@@ -3256,14 +3460,16 @@
    "state": "TX",
    "lat": 29.7604,
    "lng": -95.3698,
-   "grades": "",
-   "tuition": "",
+   "grades": "K-12",
+   "tuition": "$15,500/yr",
    "website": "https://www.actonleaders.com",
    "source": "https://www.actonacademy.org/find/",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "5-18",
+   "schedule": "Monday - Friday (8:15-3:15)"
   },
   {
    "id": "acton-leadership-academy-creekside-tomball-tomball-tx",
@@ -3273,14 +3479,16 @@
    "state": "TX",
    "lat": 30.0972,
    "lng": -95.6161,
-   "grades": "",
-   "tuition": "",
+   "grades": "K-12",
+   "tuition": "$15,500/yr",
    "website": "https://www.actonleaders.com/",
    "source": "https://www.actonacademy.org/find/",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "5-18",
+   "schedule": "Monday - Friday (8:15-3:15)"
   },
   {
    "id": "acton-leadership-academy-magnolia-woodlands-magnolia-tx",
@@ -3290,14 +3498,16 @@
    "state": "TX",
    "lat": 30.2094,
    "lng": -95.7508,
-   "grades": "",
-   "tuition": "",
+   "grades": "K-12",
+   "tuition": "$15,500/yr",
    "website": "https://www.actonleaders.com/",
    "source": "https://www.actonacademy.org/find/",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "5-18",
+   "schedule": "Monday - Friday (8:15-3:15)"
   },
   {
    "id": "acton-midwest-onalaska-onalaska-wi",
@@ -3308,13 +3518,15 @@
    "lat": 43.8844,
    "lng": -91.2329,
    "grades": "",
-   "tuition": "",
+   "tuition": "$1,300/month | approx. $300/week (Full-Day Studio), $995/month | approx. $230/week (Half-Day Morning), $850/month | appr",
    "website": "https://www.actonmidwest.org/",
    "source": "https://www.actonacademy.org/find/",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "Ages 2–5",
+   "schedule": "Full-day and part-day options"
   },
   {
    "id": "acton-morristown-morristown-nj",
@@ -3410,13 +3622,15 @@
    "lat": 27.9506,
    "lng": -82.4572,
    "grades": "",
-   "tuition": "",
+   "tuition": "$13,500/yr",
    "website": "https://www.theapolloacademy.com/",
    "source": "https://www.actonacademy.org/find/",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "Ages 5-15",
+   "schedule": "Year-Round Calendar; 1-week breaks throughout the school year and two 3-week breaks bookending the summer; 11-month acad"
   },
   {
    "id": "arts-thereafter-an-acton-academy-kissimmee-fl",
@@ -3426,14 +3640,15 @@
    "state": "FL",
    "lat": 28.292,
    "lng": -81.4076,
-   "grades": "",
+   "grades": "K-12",
    "tuition": "",
    "website": "http://www.artsthereafter.org/",
    "source": "https://www.actonacademy.org/find/",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "5-18"
   },
   {
    "id": "ascent-an-acton-academy-austin-tx",
@@ -3460,14 +3675,15 @@
    "state": "NC",
    "lat": 36.2412,
    "lng": -79.9806,
-   "grades": "",
-   "tuition": "",
+   "grades": "Pre-K through 8th Grade",
+   "tuition": "$557 per month ($5,570 annually) for Half-day Pre-K; $819 per month ($8,190 annually) for Full-day Kindergarten; $893 pe",
    "website": "https://www.beaconacademync.org/",
    "source": "https://www.actonacademy.org/find/",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "schedule": "Monday through Thursday on campus; Fridays learners learn from home. Learners arrive between 8:00am and 8:20am, picked u"
   },
   {
    "id": "bozeman-innovation-academy-an-acton-affiliate-bozeman-mt",
@@ -3501,7 +3717,8 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "4-14"
   },
   {
    "id": "citizens-academy-an-acton-imprimis-renton-wa",
@@ -3535,7 +3752,9 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "4-Early Readers-11",
+   "schedule": "Monday—Thursday 8am — 3pm"
   },
   {
    "id": "deep-creek-learning-center-an-acton-academy-schwenksville-pa",
@@ -3545,7 +3764,7 @@
    "state": "PA",
    "lat": 40.257,
    "lng": -75.4641,
-   "grades": "",
+   "grades": "K-12",
    "tuition": "",
    "website": "https://www.deepcreeklearningcenter.org/",
    "source": "https://www.actonacademy.org/find/",
@@ -3569,7 +3788,9 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "Ages 3-11",
+   "schedule": "11-month calendar with 4-7 week sessions and breaks in-between"
   },
   {
    "id": "esteam-academy-round-rock-tx",
@@ -3579,14 +3800,16 @@
    "state": "TX",
    "lat": 30.5083,
    "lng": -97.6789,
-   "grades": "",
-   "tuition": "",
+   "grades": "K-12",
+   "tuition": "$1,200/mo (5-day), $1,050/mo (4-day), $1,000/mo (3-day), $850/mo (2-day)",
    "website": "https://www.esteamacademyrr.com/",
    "source": "https://www.actonacademy.org/find/",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "4-16+",
+   "schedule": "Mon-Fri 9am-4pm (5-day), Mon-Thu 9am-4pm (4-day), Tue-Thu 9am-4pm (3-day), Mon & Fri 9am-4pm (2-day)"
   },
   {
    "id": "evergreen-academy-norman-ok",
@@ -3596,14 +3819,15 @@
    "state": "OK",
    "lat": 35.2226,
    "lng": -97.4395,
-   "grades": "",
+   "grades": "K-12",
    "tuition": "",
    "website": "https://www.evergreenacton.com/",
    "source": "https://www.actonacademy.org/find/",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "schedule": "M-F 8:30-3:30"
   },
   {
    "id": "evermore-academy-an-acton-academy-el-paso-tx",
@@ -3630,14 +3854,16 @@
    "state": "TX",
    "lat": 30.5052,
    "lng": -97.8203,
-   "grades": "",
+   "grades": "K-8",
    "tuition": "",
    "website": "https://www.evokeacademy.org",
    "source": "https://www.actonacademy.org/find/",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "4 to 12",
+   "seats": "Limited to 20 new learners"
   },
   {
    "id": "extraordinary-adventures-academy-katy-an-acton-affiliate-katy-tx",
@@ -3654,7 +3880,8 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "Ages 5-18"
   },
   {
    "id": "forge-an-acton-academy-newberg-or",
@@ -3664,14 +3891,17 @@
    "state": "OR",
    "lat": 45.3001,
    "lng": -122.973,
-   "grades": "",
-   "tuition": "",
+   "grades": "K-8",
+   "tuition": "$600 registration + $4840/yr per learner (2025-2026); Annual Reg Fee $600, Tuition varies by number of heroes for 2026-2",
    "website": "https://forgeacton.com/",
    "source": "https://www.actonacademy.org/find/",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "5-14",
+   "schedule": "Quest/project schedule lasting about 4 to 6 weeks followed by 1 week off; 9 Month Option (Sept-June)",
+   "seats": "up to 30 learners"
   },
   {
    "id": "heroes-academy-boise-id",
@@ -3681,7 +3911,7 @@
    "state": "ID",
    "lat": 43.615,
    "lng": -116.2023,
-   "grades": "",
+   "grades": "Pre-K through 12th Grade",
    "tuition": "",
    "website": "https://www.heroesacademy.org/",
    "source": "https://www.actonacademy.org/find/",
@@ -3749,7 +3979,7 @@
    "state": "TX",
    "lat": 30.6332,
    "lng": -97.6779,
-   "grades": "",
+   "grades": "K-12",
    "tuition": "",
    "website": "https://www.invictusleander.org/",
    "source": "https://www.actonacademy.org/find/",
@@ -3766,14 +3996,15 @@
    "state": "MS",
    "lat": 34.2476,
    "lng": -88.999,
-   "grades": "",
-   "tuition": "",
+   "grades": "Early Kindergarten-12th Grade",
+   "tuition": "$655/mo for an 11-month year ($7,200/yr)",
    "website": "https://ivygreeneacademy.com/",
    "source": "https://www.actonacademy.org/find/",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "schedule": "eleven month calendar"
   },
   {
    "id": "journey-academy-colorado-littleton-co",
@@ -3784,13 +4015,15 @@
    "lat": 39.6133,
    "lng": -105.0166,
    "grades": "",
-   "tuition": "",
+   "tuition": "$7000/yr",
    "website": "https://journeyacademycolorado.com/",
    "source": "https://www.actonacademy.org/find/",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "Ages 4-18",
+   "schedule": "Monday-Wednesday 8:30 am-3:30 pm"
   },
   {
    "id": "journey-academy-of-grand-rapids-ada-mi",
@@ -3817,14 +4050,15 @@
    "state": "LA",
    "lat": 30.2266,
    "lng": -93.2174,
-   "grades": "",
+   "grades": "K-12",
    "tuition": "",
    "website": "https://www.joylakecharles.com",
    "source": "https://www.actonacademy.org/find/",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "4-7"
   },
   {
    "id": "lake-travis-christian-academy-an-acton-academy-spicewood-tx",
@@ -3851,14 +4085,16 @@
    "state": "TX",
    "lat": 29.5636,
    "lng": -95.286,
-   "grades": "",
+   "grades": "Pre-K to 5th Grade",
    "tuition": "",
    "website": "https://www.masterpieceacademy.org/",
    "source": "https://www.actonacademy.org/find/",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "Ages 4-11",
+   "schedule": "M-F, 7:00 am - 5:30 pm"
   },
   {
    "id": "miami-nature-school-an-acton-academy-miami-fl",
@@ -3892,7 +4128,8 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "Ages 4-14"
   },
   {
    "id": "mountain-quest-an-acton-academy-eagle-mountain-ut",
@@ -3919,14 +4156,16 @@
    "state": "MN",
    "lat": 46.8739,
    "lng": -96.7678,
-   "grades": "",
+   "grades": "K-8",
    "tuition": "",
    "website": "https://odyssey-fm.com/",
    "source": "https://www.actonacademy.org/find/",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "5-14",
+   "schedule": "Monday - Friday: 08:30 AM - 03:00 PM"
   },
   {
    "id": "origins-kc-liberty-mo",
@@ -3960,7 +4199,9 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "5-14",
+   "schedule": "Mon-Thu 9:00AM-3:30PM, optional Fridays"
   },
   {
    "id": "pace-academy-an-acton-affiliate-richmond-va",
@@ -3988,13 +4229,15 @@
    "lat": 41.2364,
    "lng": -81.6373,
    "grades": "",
-   "tuition": "",
+   "tuition": "$979/mo for a 10-month-year ($9,790/yr)",
    "website": "https://pioneeractonacademy.com/",
    "source": "https://www.actonacademy.org/find/",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "4-18",
+   "schedule": "ten month calendar"
   },
   {
    "id": "providence-of-gainesville-an-acton-imprimis-academy-gainesville-ga",
@@ -4011,7 +4254,9 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "Ages 5-18",
+   "schedule": "Monday-Thursday 8:30-2:00pm"
   },
   {
    "id": "quest-academy-north-idaho-rathdrum-id",
@@ -4045,7 +4290,8 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "5-12"
   },
   {
    "id": "river-oak-academy-st-johns-fl",
@@ -4062,7 +4308,8 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "toddlers up to age 15"
   },
   {
    "id": "roots-and-wings-forest-school-new-york-mills-mn",
@@ -4072,14 +4319,17 @@
    "state": "MN",
    "lat": 46.518,
    "lng": -95.3756,
-   "grades": "",
+   "grades": "Pre-K-3",
    "tuition": "",
    "website": "https://rwfsmn.org/",
    "source": "https://www.actonacademy.org/find/",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "Ages 3-10",
+   "schedule": "Mon-Fri 7:30am - 5:00pm",
+   "seats": "up to 30 children a day"
   },
   {
    "id": "sage-academy-granbury-granbury-tx",
@@ -4096,7 +4346,8 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "22 months – 10 years"
   },
   {
    "id": "seeds-academy-an-acton-academy-green-lane-pa",
@@ -4106,14 +4357,15 @@
    "state": "PA",
    "lat": 40.3367,
    "lng": -75.4713,
-   "grades": "",
+   "grades": "K-8",
    "tuition": "",
    "website": "https://www.theseedsacademy.org/",
    "source": "https://www.actonacademy.org/find/",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "Ages 5-7, Ages 8-11, Roughly aged 5-8, Roughly aged 8-11, Roughly aged 11-13"
   },
   {
    "id": "slope-school-provo-ut",
@@ -4123,14 +4375,17 @@
    "state": "UT",
    "lat": 40.2338,
    "lng": -111.6585,
-   "grades": "",
-   "tuition": "",
+   "grades": "Pre-K through Middle School",
+   "tuition": "$7,000-$18,000/yr",
    "website": "https://www.slope.school/",
    "source": "https://www.actonacademy.org/find/",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "Ages 4-13",
+   "schedule": "5 full days, 4 full days, 3 full days, 5 half days, or 4 half days",
+   "seats": "up to 230 students"
   },
   {
    "id": "solid-roots-academy-an-acton-imprimis-glendale-az",
@@ -4141,13 +4396,15 @@
    "lat": 33.5387,
    "lng": -112.186,
    "grades": "",
-   "tuition": "",
+   "tuition": "$7500/year",
    "website": "https://solidrootsacademy.com",
    "source": "https://www.actonacademy.org/find/",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "4-18",
+   "schedule": "eleven month calendar"
   },
   {
    "id": "solvit-academy-lancaster-pa",
@@ -4157,7 +4414,7 @@
    "state": "PA",
    "lat": 40.0379,
    "lng": -76.3055,
-   "grades": "",
+   "grades": "full-day kindergarten through 8th grade",
    "tuition": "",
    "website": "https://www.solvitacademy.com/",
    "source": "https://www.actonacademy.org/find/",
@@ -4198,7 +4455,8 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "Ages 4-14"
   },
   {
    "id": "spartek-academy-an-acton-academy-columbia-md",
@@ -4208,7 +4466,7 @@
    "state": "MD",
    "lat": 39.2037,
    "lng": -76.861,
-   "grades": "",
+   "grades": "K-12",
    "tuition": "",
    "website": "https://spartekacton.org/",
    "source": "https://www.actonacademy.org/find/",
@@ -4276,14 +4534,15 @@
    "state": "MD",
    "lat": 39.4179,
    "lng": -76.3527,
-   "grades": "",
-   "tuition": "",
+   "grades": "Kindergarten through 12th grade",
+   "tuition": "$585/mo",
    "website": "https://www.aspiringphoenix.org/",
    "source": "https://www.actonacademy.org/find/",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "schedule": "up to 3 days a week"
   },
   {
    "id": "the-ethos-school-acton-academy-montessori-cary-nc",
@@ -4293,7 +4552,7 @@
    "state": "NC",
    "lat": 35.7915,
    "lng": -78.7811,
-   "grades": "",
+   "grades": "Pre-K through 8th grade",
    "tuition": "",
    "website": "https://www.theethosschool.org/",
    "source": "https://www.actonacademy.org/find/",
@@ -4310,14 +4569,16 @@
    "state": "GA",
    "lat": 33.4148,
    "lng": -84.4549,
-   "grades": "",
+   "grades": "PreK-12",
    "tuition": "",
    "website": "https://theforest.school/",
    "source": "https://www.actonacademy.org/find/",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "3 through 18",
+   "schedule": "Mon-Fri 8:00 to 15:00"
   },
   {
    "id": "the-humanist-academy-irving-tx",
@@ -4334,7 +4595,8 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "3 through high school"
   },
   {
    "id": "the-imagine-academy-belton-tx",
@@ -4344,7 +4606,7 @@
    "state": "TX",
    "lat": 31.056,
    "lng": -97.4641,
-   "grades": "",
+   "grades": "Pre-K To 12",
    "tuition": "",
    "website": "https://www.actonimagine.org/",
    "source": "https://www.actonacademy.org/find/",
@@ -4361,14 +4623,15 @@
    "state": "CA",
    "lat": 37.7749,
    "lng": -122.4194,
-   "grades": "",
-   "tuition": "",
+   "grades": "K-5th",
+   "tuition": "$9,050/yr",
    "website": "https://neoskids.org/bayview-academy",
    "source": "https://www.actonacademy.org/find/",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "schedule": "Every Monday"
   },
   {
    "id": "the-sanctuary-academy-chicago-il",
@@ -4396,13 +4659,14 @@
    "lat": 41.0793,
    "lng": -85.1394,
    "grades": "",
-   "tuition": "",
+   "tuition": "$3,200 for 3 day per week; $3,500 for 4 days per week",
    "website": "https://www.thewildsacademy.org/",
    "source": "https://www.actonacademy.org/find/",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "schedule": "Monday/Tuesday/Wednesday/Thursday from 10:00 – 3:00"
   },
   {
    "id": "the-willow-school-an-acton-academy-noblesville-in",
@@ -4436,7 +4700,9 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "4-18",
+   "schedule": "10 month calendar"
   },
   {
    "id": "trailblazers-an-acton-academy-debary-fl",
@@ -4464,7 +4730,7 @@
    "lat": 37.7651,
    "lng": -77.3722,
    "grades": "",
-   "tuition": "",
+   "tuition": "$9,600/yr",
    "website": "https://www.treignupacademy.com/",
    "source": "https://www.actonacademy.org/find/",
    "description": "",
@@ -4481,13 +4747,14 @@
    "lat": 35.1595,
    "lng": -84.8766,
    "grades": "",
-   "tuition": "",
+   "tuition": "$740/mo, $8,880/yr (5-day); $600/mo, $7,200/yr (4-day); $500/mo, $6,000/yr (3-day)",
    "website": "https://triumphactonacademy.com/",
    "source": "https://www.actonacademy.org/find/",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "schedule": "3-day Hybrid, 4-day Hybrid, 5-day Full Time In-person; School year runs from late August through mid-July"
   },
   {
    "id": "vail-valley-unbound-eagle-co",
@@ -4497,14 +4764,15 @@
    "state": "CO",
    "lat": 39.6553,
    "lng": -106.8287,
-   "grades": "",
-   "tuition": "",
+   "grades": "K-5",
+   "tuition": "$16,060/yr",
    "website": "https://vailvalleyunbound.org/",
    "source": "https://www.actonacademy.org/find/",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "5-9"
   },
   {
    "id": "vibrant-life-an-acton-academy-caldwell-id",
@@ -4521,7 +4789,9 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "3-16",
+   "schedule": "part day"
   },
   {
    "id": "waypoint-academy-an-acton-academy-franklin-tn",
@@ -4532,13 +4802,14 @@
    "lat": 35.9251,
    "lng": -86.8689,
    "grades": "",
-   "tuition": "",
+   "tuition": "$14,000/yr",
    "website": "http://www.waypointacademy.org",
    "source": "https://www.actonacademy.org/find/",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "Ages 4-10"
   },
   {
    "id": "wild-oak-an-acton-academy-pensacola-fl",
@@ -4572,7 +4843,8 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "Ages 4-14"
   },
   {
    "id": "wonder-wichita-ks",
@@ -4589,7 +4861,9 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "3-18",
+   "schedule": "Mon-Fri 8:30am-3:30pm"
   },
   {
    "id": "wonder-kc-kansas-city-mo",
@@ -4599,14 +4873,15 @@
    "state": "MO",
    "lat": 39.0997,
    "lng": -94.5786,
-   "grades": "",
-   "tuition": "",
+   "grades": "Elementary and Middle School",
+   "tuition": "$14,800/year",
    "website": "http://www.wonder-kc.com",
    "source": "https://www.actonacademy.org/find/",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "schedule": "9:00–3:30, August - May"
   },
   {
    "id": "wonderwood-village-an-acton-academy-crossville-tn",
@@ -4617,13 +4892,15 @@
    "lat": 35.9487,
    "lng": -85.0269,
    "grades": "",
-   "tuition": "",
+   "tuition": "$175 per learner",
    "website": "http://wonderwoodvillage.org",
    "source": "https://www.actonacademy.org/find/",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "Ages 3-12",
+   "schedule": "Monday–Friday 8:30 AM – 3:0 PM"
   },
   {
    "id": "yucca-learning-an-acton-academy-midland-tx",
@@ -4640,7 +4917,8 @@
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "Ages 15 months - 15 years"
   },
   {
    "id": "primer-microschool-babcock-ranch-babcock-ranch-fl",
@@ -4650,8 +4928,8 @@
    "state": "FL",
    "lat": 26.7975,
    "lng": -81.7137,
-   "grades": "",
-   "tuition": "",
+   "grades": "K-8",
+   "tuition": "$0-3,200",
    "website": "https://primer.com/schools/babcock-ranch-fl",
    "source": "https://primer.com/schools",
    "description": "",
@@ -4667,14 +4945,15 @@
    "state": "FL",
    "lat": 25.7282,
    "lng": -80.2436,
-   "grades": "",
-   "tuition": "",
+   "grades": "K-5",
+   "tuition": "$0-3,200",
    "website": "https://primer.com/schools/coconut-grove-fl",
    "source": "https://primer.com/schools",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "schedule": "180 Minutes per day"
   },
   {
    "id": "primer-microschool-dothan-dothan-al",
@@ -4684,8 +4963,8 @@
    "state": "AL",
    "lat": 31.2232,
    "lng": -85.3905,
-   "grades": "",
-   "tuition": "",
+   "grades": "K-8",
+   "tuition": "$500 or Less Per-Year",
    "website": "https://primer.com/schools/dothan-al",
    "source": "https://primer.com/schools",
    "description": "",
@@ -4701,14 +4980,15 @@
    "state": "AL",
    "lat": 33.5186,
    "lng": -86.8104,
-   "grades": "",
-   "tuition": "",
+   "grades": "K-8",
+   "tuition": "$500 or Less Per-Year",
    "website": "https://primer.com/schools/birmingham-al",
    "source": "https://primer.com/schools",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "schedule": "180 Minutes per day"
   },
   {
    "id": "primer-microschool-fort-lauderdale-fort-lauderdale-fl",
@@ -4718,14 +4998,15 @@
    "state": "FL",
    "lat": 26.1224,
    "lng": -80.1373,
-   "grades": "",
-   "tuition": "",
+   "grades": "K-8",
+   "tuition": "$0-3,200",
    "website": "https://primer.com/schools/fort-lauderdale-fl",
    "source": "https://primer.com/schools",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "schedule": "180 Minutes per day"
   },
   {
    "id": "primer-microschool-homestead-homestead-fl",
@@ -4735,14 +5016,15 @@
    "state": "FL",
    "lat": 25.4687,
    "lng": -80.4776,
-   "grades": "",
-   "tuition": "",
+   "grades": "K-8",
+   "tuition": "$0-3,200",
    "website": "https://primer.com/schools/homestead-fl",
    "source": "https://primer.com/schools",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "schedule": "180 Minutes per day"
   },
   {
    "id": "primer-microschool-huntsville-huntsville-al",
@@ -4752,14 +5034,15 @@
    "state": "AL",
    "lat": 34.7304,
    "lng": -86.5861,
-   "grades": "",
-   "tuition": "",
+   "grades": "K-8",
+   "tuition": "$500 or Less Per-Year",
    "website": "https://primer.com/schools/huntsville-al",
    "source": "https://primer.com/schools",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "schedule": "180 Minutes per day"
   },
   {
    "id": "primer-microschool-kendall-miami-kendall-fl",
@@ -4769,14 +5052,15 @@
    "state": "FL",
    "lat": 25.6793,
    "lng": -80.3173,
-   "grades": "",
-   "tuition": "",
+   "grades": "K-8",
+   "tuition": "$0-3,200",
    "website": "https://primer.com/schools/kendall-fl",
    "source": "https://primer.com/schools",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "schedule": "180 Minutes per day"
   },
   {
    "id": "primer-microschool-live-oak-live-oak-tx",
@@ -4786,7 +5070,7 @@
    "state": "TX",
    "lat": 29.5577,
    "lng": -98.3411,
-   "grades": "",
+   "grades": "K-8",
    "tuition": "",
    "website": "https://primer.com/schools/live-oak-tx",
    "source": "https://primer.com/schools",
@@ -4803,14 +5087,15 @@
    "state": "FL",
    "lat": 25.8334,
    "lng": -80.2389,
-   "grades": "",
-   "tuition": "",
+   "grades": "K-8",
+   "tuition": "$0-3,200",
    "website": "https://primer.com/schools/liberty-city-fl",
    "source": "https://primer.com/schools",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "schedule": "180 Minutes per day"
   },
   {
    "id": "primer-microschool-miami-shores-miami-shores-fl",
@@ -4820,14 +5105,15 @@
    "state": "FL",
    "lat": 25.8634,
    "lng": -80.1934,
-   "grades": "",
-   "tuition": "",
+   "grades": "K-8",
+   "tuition": "$0-3,200",
    "website": "https://primer.com/schools/miami-shores-fl",
    "source": "https://primer.com/schools",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "schedule": "180 Minutes per day"
   },
   {
    "id": "primer-microschool-milton-milton-fl",
@@ -4837,14 +5123,15 @@
    "state": "FL",
    "lat": 30.6327,
    "lng": -87.0397,
-   "grades": "",
-   "tuition": "",
+   "grades": "K-8",
+   "tuition": "$0-3,200",
    "website": "https://primer.com/schools/milton-pace-fl",
    "source": "https://primer.com/schools",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "schedule": "180 Minutes per day"
   },
   {
    "id": "primer-microschool-montgomery-montgomery-al",
@@ -4854,14 +5141,15 @@
    "state": "AL",
    "lat": 32.3668,
    "lng": -86.3,
-   "grades": "",
-   "tuition": "",
+   "grades": "K-8",
+   "tuition": "$500 or Less Per-Year",
    "website": "https://primer.com/schools/montgomery-al",
    "source": "https://primer.com/schools",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "schedule": "180 Minutes per day"
   },
   {
    "id": "primer-microschool-ocala-ocala-fl",
@@ -4871,14 +5159,15 @@
    "state": "FL",
    "lat": 29.1872,
    "lng": -82.1401,
-   "grades": "",
-   "tuition": "",
+   "grades": "K-8",
+   "tuition": "$0-3,200",
    "website": "https://primer.com/schools/ocala-fl",
    "source": "https://primer.com/schools",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "schedule": "180 Minutes per day"
   },
   {
    "id": "primer-microschool-san-antonio-san-antonio-tx",
@@ -4888,7 +5177,7 @@
    "state": "TX",
    "lat": 29.4241,
    "lng": -98.4936,
-   "grades": "",
+   "grades": "K-8",
    "tuition": "",
    "website": "https://primer.com/schools/potranco-tx",
    "source": "https://primer.com/schools",
@@ -4905,14 +5194,15 @@
    "state": "AZ",
    "lat": 33.4942,
    "lng": -111.9261,
-   "grades": "",
-   "tuition": "",
+   "grades": "K-8",
+   "tuition": "$0-3,200",
    "website": "https://primer.com/schools/scottsdale-az",
    "source": "https://primer.com/schools",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "schedule": "180 Minutes per day"
   },
   {
    "id": "primer-microschool-tampa-tampa-fl",
@@ -4922,14 +5212,15 @@
    "state": "FL",
    "lat": 27.9506,
    "lng": -82.4572,
-   "grades": "",
-   "tuition": "",
+   "grades": "K-8",
+   "tuition": "$0-3,200",
    "website": "https://primer.com/schools/tampa-fl",
    "source": "https://primer.com/schools",
    "description": "",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "schedule": "180 Minutes per day"
   },
   {
    "id": "acton-academy-eastern-long-island-aquebogue-ny",
@@ -4963,7 +5254,8 @@
    "description": "Microschool with a 6:1 ratio and NYS-certified teachers offering personalized instruction and executive-functioning support for grades 5-8.",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ratio": "6:1"
   },
   {
    "id": "the-montessori-attic-lindenhurst-ny",
@@ -4980,7 +5272,8 @@
    "description": "Homeschool cooperative offering Montessori Children's House and Lower/Upper Elementary programs.",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "2½ to 6 years"
   },
   {
    "id": "wild-roots-bay-shore-ny",
@@ -5048,7 +5341,9 @@
    "description": "Hybrid homeschool community offering co-op enrichment classes plus core academic instruction for grades K-12.",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "Ages 1-14",
+   "schedule": "September to the First Week of June"
   },
   {
    "id": "new-beginnings-center-deer-park-ny",
@@ -5065,7 +5360,9 @@
    "description": "Private membership enrichment and activity center serving homeschooling families ages 3-17 with flexible multi-day schedules.",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "ages": "3-17 years",
+   "schedule": "minimum of 2 days"
   },
   {
    "id": "natural-learners-huntington-ny",
@@ -5133,7 +5430,8 @@
    "description": "Classical Christian homeschool community meeting weekly (Foundations, Essentials, Challenge programs) for ages 4 through 12th grade.",
    "verified": false,
    "claimable": true,
-   "placeholder": false
+   "placeholder": false,
+   "schedule": "weekly on Fridays"
   },
   {
    "id": "classical-conversations-suffolk-south-ny",
