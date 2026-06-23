@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>microschool.directory — Find Microschools &amp; Homeschool Co-ops Near You</title>
+<meta name="description" content="The interactive map directory of microschools and homeschooling cooperatives across the United States. For parents seeking a real alternative to public school — find the small, personal learning community that fits your child. Free to browse; free for schools to list through 2026." />
+<meta name="keywords" content="microschool, microschools near me, homeschool co-op, homeschool cooperative, alternative to public school, learning pod, Montessori microschool, forest school, classical microschool, learner-driven school, school choice, ESA microschool" />
+<meta name="theme-color" content="#13241d" />
+<link rel="canonical" href="https://microschool.directory/" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="microschool.directory — Find Microschools &amp; Homeschool Co-ops Near You" />
+<meta property="og:description" content="The map directory of microschools and homeschooling cooperatives across the U.S. — for parents who know public school isn't the only way." />
+<meta property="og:url" content="https://microschool.directory/" />
+<meta property="og:site_name" content="microschool.directory" />
+<meta property="og:image" content="https://microschool.directory/assets/og-image.png" />
+<meta property="og:image:width" content="1408" />
+<meta property="og:image:height" content="768" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="microschool.directory — Find Microschools &amp; Homeschool Co-ops" />
+<meta name="twitter:description" content="The map directory of microschools and homeschooling cooperatives across the U.S." />
+<meta name="twitter:image" content="https://microschool.directory/assets/og-image.png" />
+
+<!-- Favicons -->
+<link rel="icon" type="image/png" href="/assets/icon.png" />
+<link rel="apple-touch-icon" href="/assets/icon.png" />
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+<!-- Leaflet -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+<style>
+  :root {
+    --paper: #f7f3ec;
+    --paper-2: #efe9dd;
+    --ink: #13241d;
+    --ink-2: #1b3a2f;
+    --forest: #285c46;
+    --moss: #6b8f71;
+    --coral: #e8643c;
+    --coral-deep: #c64a26;
+    --amber: #f2a03d;
+    --line: #d9d0bf;
+    --card: #fffdf8;
+    --shadow: 24px 24px 60px rgba(19, 36, 29, 0.10);
+    --radius: 18px;
+    --maxw: 1480px;
+    --serif: "Fraunces", Georgia, serif;
+    --sans: "Hanken Grotesk", -apple-system, sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--paper);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
+    overflow-x: hidden;
+  }
+
+  /* subtle paper grain */
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    pointer-events: none; z-index: 9999;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  /* ---------- HEADER ---------- */
+  header {
+    position: sticky; top: 0; z-index: 1200;
+    background: rgba(247, 243, 236, 0.86);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--line);
+  }
+  .bar {
+    max-width: var(--maxw); margin: 0 auto;
+    padding: 14px 26px;
+    display: flex; align-items: center; justify-content: space-between; gap: 20px;
+  }
+  .brand { display: flex; align-items: center; gap: 11px; font-family: var(--serif); }
+  .brand .pin {
+    width: 30px; height: 30px; flex: 0 0 30px;
+    background: var(--coral); border-radius: 50% 50% 50% 2px;
+    transform: rotate(-45deg);
+    display: grid; place-items: center;
+    box-shadow: 0 4px 14px rgba(232, 100, 60, 0.4);
+  }
+  .brand .pin::after { content: ""; width: 9px; height: 9px; background: var(--paper); border-radius: 50%; }
+  .brand b { font-weight: 600; font-size: 1.22rem; letter-spacing: -0.02em; }
+  .brand b span { color: var(--coral); }
+  nav.top { display: flex; align-items: center; gap: 26px; font-size: 0.92rem; font-weight: 500; }
+  nav.top a.muted { color: var(--ink-2); opacity: 0.75; transition: opacity .2s; }
+  nav.top a.muted:hover { opacity: 1; }
+  .btn-add {
+    background: var(--ink); color: var(--paper); white-space: nowrap;
+    padding: 10px 18px; border-radius: 100px; font-weight: 600; font-size: 0.9rem;
+    transition: transform .2s, background .2s;
+  }
+  .btn-add:hover { background: var(--coral); transform: translateY(-1px); }
+  .btn-add .short { display: none; }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    max-width: var(--maxw); margin: 0 auto;
+    padding: 54px 26px 30px;
+    position: relative;
+  }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 0.74rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--coral-deep); margin-bottom: 18px;
+  }
+  .eyebrow::before { content: ""; width: 26px; height: 1.5px; background: var(--coral); }
+  .hero h1 {
+    font-family: var(--serif); font-weight: 500;
+    font-size: clamp(2.5rem, 6vw, 4.6rem);
+    line-height: 0.98; letter-spacing: -0.025em;
+    max-width: 16ch;
+  }
+  .hero h1 em { font-style: italic; color: var(--forest); }
+  .hero p.lede {
+    margin-top: 22px; max-width: 56ch;
+    font-size: clamp(1.02rem, 1.6vw, 1.2rem); color: var(--ink-2);
+  }
+
+  /* search */
+  .searchwrap {
+    margin-top: 30px; display: flex; gap: 12px; flex-wrap: wrap; align-items: center;
+  }
+  .searchbox {
+    flex: 1 1 460px; max-width: 560px;
+    display: flex; align-items: center; gap: 12px;
+    background: var(--card); border: 1.5px solid var(--line);
+    border-radius: 100px; padding: 6px 6px 6px 22px;
+    box-shadow: 0 10px 30px rgba(19, 36, 29, 0.06);
+    transition: border-color .2s, box-shadow .2s;
+  }
+  .searchbox:focus-within { border-color: var(--forest); box-shadow: 0 12px 34px rgba(40, 92, 70, 0.16); }
+  .searchbox svg { flex: 0 0 20px; color: var(--moss); }
+  .searchbox input {
+    flex: 1; border: none; outline: none; background: transparent;
+    font-family: var(--sans); font-size: 1.02rem; color: var(--ink);
+  }
+  .searchbox input::placeholder { color: #9a9384; }
+  .searchbox button {
+    border: none; cursor: pointer; font-family: var(--sans); font-weight: 600;
+    background: var(--coral); color: #fff; padding: 12px 24px; border-radius: 100px;
+    font-size: 0.95rem; transition: background .2s;
+  }
+  .searchbox button:hover { background: var(--coral-deep); }
+
+  .stats { display: flex; gap: 30px; margin-top: 26px; flex-wrap: wrap; }
+  .stat .n { font-family: var(--serif); font-size: 1.9rem; font-weight: 600; color: var(--forest); line-height: 1; }
+  .stat .l { font-size: 0.8rem; color: var(--ink-2); opacity: 0.7; margin-top: 4px; letter-spacing: 0.02em; }
+
+  /* ---------- EXPLORER (split) ---------- */
+  .explorer {
+    max-width: var(--maxw); margin: 28px auto 0;
+    padding: 0 26px 60px;
+  }
+  .toolbar {
+    display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+    padding: 18px 0; border-top: 1px solid var(--line);
+    position: sticky; top: 61px; z-index: 600; background: var(--paper);
+  }
+  .chips { display: flex; gap: 8px; flex-wrap: wrap; flex: 1; }
+  .chip {
+    border: 1.5px solid var(--line); background: var(--card);
+    padding: 7px 15px; border-radius: 100px; font-size: 0.84rem; font-weight: 500;
+    cursor: pointer; color: var(--ink-2); transition: all .18s; white-space: nowrap;
+  }
+  .chip:hover { border-color: var(--moss); }
+  .chip.active { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .toolbar select {
+    font-family: var(--sans); font-size: 0.86rem; font-weight: 500; color: var(--ink);
+    border: 1.5px solid var(--line); background: var(--card);
+    padding: 8px 14px; border-radius: 100px; cursor: pointer;
+  }
+  .count { font-size: 0.86rem; color: var(--ink-2); opacity: 0.7; font-weight: 500; white-space: nowrap; }
+
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; margin-top: 8px; align-items: start; }
+
+  .list { display: flex; flex-direction: column; gap: 16px; min-height: 200px; }
+
+  .card {
+    background: var(--card); border: 1.5px solid var(--line); border-radius: var(--radius);
+    padding: 20px 22px; cursor: pointer; position: relative; overflow: hidden;
+    transition: border-color .2s, transform .2s, box-shadow .2s;
+  }
+  .card::before {
+    content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+    background: var(--coral); transform: scaleY(0); transform-origin: top; transition: transform .25s;
+  }
+  .card:hover, .card.hot { border-color: var(--forest); transform: translateY(-2px); box-shadow: 0 16px 40px rgba(19,36,29,0.10); }
+  .card:hover::before, .card.hot::before { transform: scaleY(1); }
+  .card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 14px; }
+  .card h3 { font-family: var(--serif); font-weight: 600; font-size: 1.28rem; letter-spacing: -0.01em; line-height: 1.1; }
+  .loc { font-size: 0.88rem; color: var(--ink-2); opacity: 0.78; margin-top: 4px; display: flex; align-items: center; gap: 6px; }
+  .badge {
+    flex: 0 0 auto; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.03em; text-transform: uppercase;
+    padding: 5px 11px; border-radius: 100px; background: var(--paper-2); color: var(--forest);
+    border: 1px solid var(--line); white-space: nowrap;
+  }
+  .card p.desc { margin-top: 12px; font-size: 0.92rem; color: var(--ink-2); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .meta { display: flex; gap: 18px; margin-top: 14px; flex-wrap: wrap; }
+  .meta .m { font-size: 0.82rem; }
+  .meta .m b { font-family: var(--serif); font-weight: 600; color: var(--ink); display: block; font-size: 0.98rem; }
+  .meta .m span { color: var(--ink-2); opacity: 0.65; font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.04em; }
+  .ph { font-size: 0.68rem; color: var(--amber); font-weight: 600; margin-top: 10px; letter-spacing: 0.04em; }
+
+  /* map */
+  .mapcol { position: sticky; top: 120px; }
+  #map {
+    height: calc(100vh - 150px); min-height: 520px; border-radius: var(--radius);
+    border: 1.5px solid var(--line); box-shadow: var(--shadow); z-index: 1;
+  }
+  .leaflet-container { background: #e8e2d4; font-family: var(--sans); }
+
+  /* custom markers */
+  .pin-marker {
+    width: 22px; height: 22px; background: var(--coral); border: 3px solid #fff;
+    border-radius: 50%; box-shadow: 0 3px 10px rgba(19,36,29,0.35); cursor: pointer;
+    transition: transform .2s; position: relative;
+  }
+  .pin-marker::after {
+    content: ""; position: absolute; inset: -7px; border-radius: 50%;
+    border: 2px solid var(--coral); opacity: 0; transition: opacity .2s, transform .2s;
+  }
+  .pin-marker.hot { transform: scale(1.45); background: var(--forest); z-index: 1000; }
+  .pin-marker.hot::after { opacity: 0.6; transform: scale(1.1); border-color: var(--forest); }
+  .leaflet-popup-content-wrapper { border-radius: 12px; }
+  .leaflet-popup-content { font-family: var(--sans); margin: 14px 16px; }
+  .pop b { font-family: var(--serif); font-size: 1.05rem; }
+  .pop small { color: var(--ink-2); opacity: .7; }
+  .pop button { margin-top:8px; border:none; background:var(--ink); color:var(--paper); padding:7px 14px; border-radius:100px; font-family:var(--sans); font-weight:600; font-size:.8rem; cursor:pointer; }
+
+  /* ---------- DRAWER ---------- */
+  .drawer-bg {
+    position: fixed; inset: 0; background: rgba(19,36,29,0.4); backdrop-filter: blur(3px);
+    opacity: 0; pointer-events: none; transition: opacity .3s; z-index: 2000;
+  }
+  .drawer-bg.open { opacity: 1; pointer-events: auto; }
+  .drawer {
+    position: fixed; top: 0; right: 0; height: 100%; width: min(480px, 92vw);
+    background: var(--paper); z-index: 2001; transform: translateX(100%);
+    transition: transform .36s cubic-bezier(.5,.1,.2,1); overflow-y: auto;
+    box-shadow: -30px 0 80px rgba(19,36,29,0.25);
+  }
+  .drawer.open { transform: translateX(0); }
+  .drawer-hd { position: relative; padding: 30px 30px 24px; background: var(--ink); color: var(--paper); }
+  .drawer-hd .badge { background: rgba(255,255,255,0.12); color: var(--amber); border-color: transparent; }
+  .drawer-hd h2 { font-family: var(--serif); font-weight: 500; font-size: 2rem; line-height: 1.04; margin-top: 14px; letter-spacing: -0.02em; }
+  .drawer-hd .loc { color: rgba(247,243,236,0.8); opacity: 1; margin-top: 8px; }
+  .closex {
+    position: absolute; top: 22px; right: 22px; width: 38px; height: 38px; border-radius: 50%;
+    background: rgba(255,255,255,0.12); border: none; color: var(--paper); cursor: pointer; font-size: 1.2rem;
+    display: grid; place-items: center; transition: background .2s;
+  }
+  .closex:hover { background: var(--coral); }
+  .drawer-body { padding: 26px 30px 50px; }
+  .factgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 26px; }
+  .fact { border: 1px solid var(--line); border-radius: 12px; padding: 13px 15px; background: var(--card); }
+  .fact b { font-family: var(--serif); font-weight: 600; font-size: 1.15rem; display: block; color: var(--ink); }
+  .fact span { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-2); opacity: 0.65; }
+  .drawer-body h4 { font-family: var(--serif); font-weight: 600; font-size: 1.05rem; margin: 4px 0 10px; }
+  .drawer-body p.about { color: var(--ink-2); font-size: 0.98rem; line-height: 1.65; }
+  .hl { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 26px; }
+  .hl span { background: var(--paper-2); border: 1px solid var(--line); border-radius: 100px; padding: 6px 13px; font-size: 0.82rem; color: var(--forest); font-weight: 500; }
+  .contact { border-top: 1px solid var(--line); padding-top: 22px; display: flex; flex-direction: column; gap: 10px; }
+  .contact a, .contact span.cc { display: flex; align-items: center; gap: 10px; font-size: 0.94rem; color: var(--ink-2); }
+  .cta-row { display: flex; gap: 10px; margin-top: 22px; }
+  .cta-row a { flex: 1; text-align: center; padding: 13px; border-radius: 100px; font-weight: 600; font-size: 0.92rem; }
+  .cta-primary { background: var(--coral); color: #fff; }
+  .cta-secondary { background: transparent; border: 1.5px solid var(--line); color: var(--ink); }
+  .ph-note { font-size: 0.78rem; color: var(--amber); font-weight: 600; background: rgba(242,160,61,0.12); border: 1px solid rgba(242,160,61,0.3); border-radius: 10px; padding: 10px 13px; margin-bottom: 20px; }
+
+  /* ---------- ADD / FOOTER ---------- */
+  .band {
+    max-width: var(--maxw); margin: 0 auto; padding: 0 26px;
+  }
+  .add {
+    background: var(--ink); color: var(--paper); border-radius: 26px;
+    padding: 54px clamp(28px, 5vw, 64px); margin-bottom: 30px;
+    display: grid; grid-template-columns: 1.4fr 1fr; gap: 30px; align-items: center;
+    position: relative; overflow: hidden;
+  }
+  .add::after {
+    content: ""; position: absolute; right: -80px; top: -80px; width: 320px; height: 320px;
+    background: radial-gradient(circle, rgba(232,100,60,0.35), transparent 70%); pointer-events: none;
+  }
+  .add-flag { display: inline-block; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--amber); border: 1px solid rgba(242,160,61,0.4); padding: 6px 13px; border-radius: 100px; margin-bottom: 18px; }
+  .add h2 { font-family: var(--serif); font-weight: 500; font-size: clamp(1.8rem, 3.4vw, 2.8rem); line-height: 1.04; letter-spacing: -0.02em; }
+  .add p { color: rgba(247,243,236,0.78); margin-top: 14px; font-size: 1.02rem; max-width: 46ch; }
+  .add .actions { display: flex; flex-direction: column; gap: 12px; }
+  .add .actions a { padding: 15px 22px; border-radius: 100px; font-weight: 600; text-align: center; transition: transform .2s; }
+  .add .actions a:hover { transform: translateY(-2px); }
+  .add-1 { background: var(--coral); color: #fff; }
+  .add-2 { background: rgba(255,255,255,0.1); color: var(--paper); border: 1px solid rgba(255,255,255,0.2); }
+
+  footer { border-top: 1px solid var(--line); margin-top: 40px; }
+  .foot { max-width: var(--maxw); margin: 0 auto; padding: 40px 26px 56px; display: flex; justify-content: space-between; gap: 30px; flex-wrap: wrap; }
+  .foot .brand b { font-size: 1.1rem; }
+  .foot p { font-size: 0.86rem; color: var(--ink-2); opacity: 0.7; max-width: 40ch; margin-top: 12px; }
+  .foot nav { display: flex; gap: 40px; flex-wrap: wrap; }
+  .foot nav .col b { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink); display: block; margin-bottom: 12px; }
+  .foot nav .col a { display: block; font-size: 0.9rem; color: var(--ink-2); opacity: 0.75; margin-bottom: 8px; transition: opacity .2s; }
+  .foot nav .col a:hover { opacity: 1; color: var(--coral-deep); }
+  .legal { border-top: 1px solid var(--line); }
+  .legal div { max-width: var(--maxw); margin: 0 auto; padding: 18px 26px; font-size: 0.78rem; color: var(--ink-2); opacity: 0.6; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+
+  .empty { text-align: center; padding: 60px 20px; color: var(--ink-2); opacity: 0.7; }
+  .empty b { font-family: var(--serif); font-size: 1.3rem; display: block; margin-bottom: 8px; color: var(--ink); }
+
+  /* map toggle (mobile) */
+  .maptoggle { display: none; }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 1080px) {
+    .split { grid-template-columns: 1fr; }
+    .mapcol { position: relative; top: 0; order: -1; }
+    #map { height: 56vh; min-height: 360px; }
+    .add { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 680px) {
+    .bar { padding: 12px 18px; gap: 10px; }
+    nav.top { gap: 10px; }
+    nav.top a.muted { display: none; }
+    .brand b { font-size: 1.04rem; }
+    .brand .pin { width: 26px; height: 26px; flex-basis: 26px; }
+    .btn-add { padding: 9px 14px; font-size: 0.82rem; }
+    .btn-add .full { display: none; }
+    .btn-add .short { display: inline; }
+    .hero { padding: 36px 20px 24px; }
+    .explorer { padding: 0 18px 50px; }
+    .toolbar { top: 53px; }
+    .mapcol.hidden { display: none; }
+    .maptoggle {
+      display: inline-flex; align-items: center; gap: 8px; cursor: pointer;
+      border: 1.5px solid var(--ink); background: var(--ink); color: var(--paper);
+      padding: 8px 16px; border-radius: 100px; font-size: 0.84rem; font-weight: 600; font-family: var(--sans);
+    }
+  }
+
+  /* ---------- FAQ ---------- */
+  .faq { max-width: var(--maxw); margin: 30px auto 0; padding: 30px 26px; }
+  .faq-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px; margin-bottom: 28px; }
+  .faq-head h2 { font-family: var(--serif); font-weight: 500; font-size: clamp(1.8rem, 3.6vw, 2.8rem); letter-spacing: -0.02em; line-height: 1.02; max-width: 18ch; }
+  .faq-head p { color: var(--ink-2); max-width: 40ch; font-size: 0.98rem; }
+  .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 28px; }
+  details.q { border-bottom: 1px solid var(--line); padding: 6px 0; }
+  details.q summary {
+    list-style: none; cursor: pointer; padding: 14px 0; font-family: var(--serif);
+    font-size: 1.12rem; font-weight: 600; color: var(--ink); display: flex; justify-content: space-between; gap: 16px; align-items: center;
+  }
+  details.q summary::-webkit-details-marker { display: none; }
+  details.q summary::after { content: "+"; font-family: var(--sans); font-size: 1.4rem; color: var(--coral); transition: transform .2s; flex: 0 0 auto; }
+  details.q[open] summary::after { transform: rotate(45deg); }
+  details.q p { color: var(--ink-2); font-size: 0.96rem; line-height: 1.62; padding: 0 0 16px; max-width: 60ch; }
+
+  /* ---------- REGISTER FORM ---------- */
+  .register { max-width: var(--maxw); margin: 30px auto 0; padding: 0 26px; }
+  .reg-inner {
+    background: var(--card); border: 1.5px solid var(--line); border-radius: 26px;
+    padding: clamp(26px, 4vw, 50px); box-shadow: var(--shadow);
+    display: grid; grid-template-columns: 0.85fr 1.15fr; gap: clamp(28px, 4vw, 56px); align-items: start;
+  }
+  .reg-pitch .eyebrow { margin-bottom: 14px; }
+  .reg-pitch h2 { font-family: var(--serif); font-weight: 500; font-size: clamp(1.8rem, 3.4vw, 2.6rem); line-height: 1.04; letter-spacing: -0.02em; }
+  .reg-pitch p { color: var(--ink-2); margin-top: 16px; font-size: 1rem; }
+  .reg-pitch ul { list-style: none; margin-top: 22px; display: flex; flex-direction: column; gap: 12px; }
+  .reg-pitch li { display: flex; gap: 11px; font-size: 0.95rem; color: var(--ink-2); align-items: flex-start; }
+  .reg-pitch li::before { content: "✓"; color: var(--forest); font-weight: 700; flex: 0 0 auto; }
+  form .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  form label { display: block; font-size: 0.8rem; font-weight: 600; color: var(--ink); margin: 0 0 6px; letter-spacing: 0.01em; }
+  form .field { margin-bottom: 14px; }
+  form input, form select, form textarea {
+    width: 100%; font-family: var(--sans); font-size: 0.95rem; color: var(--ink);
+    border: 1.5px solid var(--line); background: var(--paper); border-radius: 12px; padding: 11px 14px; outline: none; transition: border-color .2s;
+  }
+  form input:focus, form select:focus, form textarea:focus { border-color: var(--forest); }
+  form textarea { resize: vertical; min-height: 90px; }
+  .toggle-row { display: inline-flex; background: var(--paper-2); border-radius: 100px; padding: 4px; margin-bottom: 20px; gap: 4px; }
+  .toggle-row button { border: none; background: transparent; font-family: var(--sans); font-weight: 600; font-size: 0.86rem; color: var(--ink-2); padding: 9px 18px; border-radius: 100px; cursor: pointer; transition: all .2s; }
+  .toggle-row button.on { background: var(--ink); color: var(--paper); }
+  .filedrop {
+    border: 1.5px dashed var(--moss); border-radius: 12px; padding: 18px; text-align: center;
+    background: var(--paper); cursor: pointer; transition: border-color .2s, background .2s; font-size: 0.9rem; color: var(--ink-2);
+  }
+  .filedrop:hover { border-color: var(--forest); background: var(--paper-2); }
+  .filedrop b { color: var(--forest); }
+  #filelist { font-size: 0.82rem; color: var(--forest); margin-top: 8px; }
+  .reg-submit {
+    width: 100%; border: none; cursor: pointer; font-family: var(--sans); font-weight: 700; font-size: 1rem;
+    background: var(--coral); color: #fff; padding: 15px; border-radius: 100px; margin-top: 8px; transition: background .2s, transform .2s;
+  }
+  .reg-submit:hover { background: var(--coral-deep); transform: translateY(-1px); }
+  .reg-note { font-size: 0.78rem; color: var(--ink-2); opacity: 0.7; text-align: center; margin-top: 12px; }
+  .reg-success { display: none; text-align: center; padding: 30px 10px; }
+  .reg-success.show { display: block; }
+  .reg-success b { font-family: var(--serif); font-size: 1.5rem; color: var(--forest); display: block; margin-bottom: 8px; }
+  @media (max-width: 880px) {
+    .faq-grid { grid-template-columns: 1fr; }
+    .reg-inner { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 520px) {
+    form .grid2 { grid-template-columns: 1fr; }
+  }
+
+  /* load animation */
+  .reveal { opacity: 0; transform: translateY(16px); animation: rise .7s cubic-bezier(.2,.7,.2,1) forwards; }
+  @media (prefers-reduced-motion: reduce) { .reveal { animation: none; opacity: 1; transform: none; } }
+  @keyframes rise { to { opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="bar">
+    <a class="brand" href="/">
+      <span class="pin"></span>
+      <b>microschool<span>.</span>directory</b>
+    </a>
+    <nav class="top">
+      <a class="muted" href="#explore">Browse</a>
+      <a class="muted" href="#models">Models</a>
+      <a class="muted" href="#add">For Founders</a>
+      <a class="btn-add" href="#register"><span class="full">List your school — free</span><span class="short">+ List free</span></a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <span class="eyebrow reveal">Microschools &amp; homeschool co-ops · United States</span>
+  <h1 class="reveal" style="animation-delay:.05s">Public school isn't the only way. Find the <em>small school</em> that fits your kid.</h1>
+  <p class="lede reveal" style="animation-delay:.12s">
+    For the growing number of families choosing a different path. Microschools, homeschooling
+    cooperatives, learning pods, forest schools, Montessori studios, and learner-driven programs —
+    mapped, searchable, and explained, so you can find the right one near you.
+  </p>
+
+  <div class="searchwrap reveal" style="animation-delay:.18s">
+    <div class="searchbox">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input id="search" type="text" placeholder="Search by city, state, or school name…" autocomplete="off" />
+      <button id="searchbtn">Search</button>
+    </div>
+  </div>
+
+  <div class="stats reveal" style="animation-delay:.24s">
+    <div class="stat"><div class="n" id="stat-schools">—</div><div class="l">Schools listed</div></div>
+    <div class="stat"><div class="n" id="stat-states">—</div><div class="l">States covered</div></div>
+    <div class="stat"><div class="n" id="stat-models">8</div><div class="l">Learning models</div></div>
+    <div class="stat"><div class="n">Free</div><div class="l">To browse &amp; list</div></div>
+  </div>
+</section>
+
+<section class="explorer" id="explore">
+  <div class="toolbar" id="models">
+    <div class="chips" id="chips"></div>
+    <select id="sort" aria-label="Sort schools">
+      <option value="name">Sort: A–Z</option>
+      <option value="tuition-asc">Tuition: low → high</option>
+      <option value="tuition-desc">Tuition: high → low</option>
+      <option value="ratio">Smallest ratio</option>
+      <option value="newest">Newest</option>
+    </select>
+    <span class="count" id="count">—</span>
+    <button class="maptoggle" id="maptoggle">🗺️ Map</button>
+  </div>
+
+  <div class="split">
+    <div class="list" id="list"></div>
+    <div class="mapcol" id="mapcol"><div id="map"></div></div>
+  </div>
+</section>
+
+<section class="faq" id="faq">
+  <div class="faq-head">
+    <h2>Questions parents ask before leaving public school</h2>
+    <p>The basics on microschools, homeschool co-ops, and how this directory works.</p>
+  </div>
+  <div class="faq-grid">
+    <div>
+      <details class="q" open>
+        <summary>What is a microschool?</summary>
+        <p>A microschool is a small, independent school — usually 5 to 40 students across mixed ages — that offers a personalized alternative to traditional public or large private schools. They typically run low student-to-teacher ratios, flexible schedules, and learning tailored to each child, often blending modern curricula with hands-on, real-world projects.</p>
+      </details>
+      <details class="q">
+        <summary>How is a homeschool co-op different from a microschool?</summary>
+        <p>A homeschooling cooperative (co-op) is a group of homeschooling families who share teaching, resources, and community — parents stay in charge of their child's overall education while kids learn some subjects together. A microschool is a standalone small school with its own staff. This directory lists both, so you can compare.</p>
+      </details>
+      <details class="q">
+        <summary>Why are families choosing alternatives to public school?</summary>
+        <p>Parents tell us the same things again and again: they want a safer, smaller, more personal environment; learning that moves at their child's pace; more say in values and curriculum; flexibility for their family's life; and a real relationship between teacher and child. Microschools and co-ops are built around exactly those things.</p>
+      </details>
+    </div>
+    <div>
+      <details class="q">
+        <summary>How much do microschools cost?</summary>
+        <p>It varies widely — many microschools range from roughly $5,000 to $15,000 per year, while homeschool co-ops are often far less. In a growing number of states, school-choice programs and Education Savings Accounts (ESAs) can offset tuition. Each listing shows the school's own tuition where available.</p>
+      </details>
+      <details class="q">
+        <summary>How do I use this directory?</summary>
+        <p>Browse the live map or search by city, state, or name. Filter by learning model — Montessori, classical, forest/nature, learner-driven, project-based, faith-based, or homeschool co-op. Click any school for a full explanation of how it works, its grades, tuition, ratio, schedule, and contact details.</p>
+      </details>
+      <details class="q">
+        <summary>I run a microschool or co-op — how do I get listed?</summary>
+        <p>List your school free using the form below. Listing is free for every microschool and homeschooling cooperative through the end of 2026. Already see your school on the map? You can claim and edit your listing anytime, Yelp-style, so your information stays accurate.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="register" id="register">
+  <div class="reg-inner">
+    <div class="reg-pitch">
+      <span class="eyebrow">List your school or co-op</span>
+      <h2>Get your program on the map.</h2>
+      <p>Reach the families already searching for a smaller, more personal alternative to public school. It takes a few minutes.</p>
+      <ul>
+        <li>Free for every microschool &amp; homeschool co-op through 2026</li>
+        <li>Add photos, your learning model, tuition, and schedule</li>
+        <li>Claim &amp; edit your listing anytime — you stay in control</li>
+        <li>Appear on the live map and in search the moment you're approved</li>
+      </ul>
+    </div>
+
+    <div>
+      <form id="regform" novalidate>
+        <div class="toggle-row" role="tablist">
+          <button type="button" class="on" data-mode="new" id="t-new">List a new school</button>
+          <button type="button" data-mode="claim" id="t-claim">Claim / edit existing</button>
+        </div>
+
+        <div class="field">
+          <label for="f-name">School / co-op name *</label>
+          <input id="f-name" name="name" type="text" required placeholder="e.g. Acorn Grove Microschool" />
+        </div>
+        <div class="grid2">
+          <div class="field">
+            <label for="f-type">Type *</label>
+            <select id="f-type" name="type" required>
+              <option value="Microschool">Microschool</option>
+              <option value="Homeschool Co-op">Homeschool Co-op</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="f-model">Learning model</label>
+            <select id="f-model" name="model">
+              <option>Montessori</option><option>Forest / Nature</option><option>Classical</option>
+              <option>Learner-Driven</option><option>Project-Based</option><option>Faith-Based</option>
+              <option selected>Microschool</option><option>Learning Pod</option><option>Homeschool Co-op</option>
+            </select>
+          </div>
+        </div>
+        <div class="grid2">
+          <div class="field"><label for="f-city">City *</label><input id="f-city" name="city" type="text" required placeholder="Austin" /></div>
+          <div class="field"><label for="f-state">State *</label><input id="f-state" name="state" type="text" required maxlength="2" placeholder="TX" /></div>
+        </div>
+        <div class="grid2">
+          <div class="field"><label for="f-grades">Grades served</label><input id="f-grades" name="grades" type="text" placeholder="K–8" /></div>
+          <div class="field"><label for="f-tuition">Tuition / year</label><input id="f-tuition" name="tuition" type="text" placeholder="$8,400/yr" /></div>
+        </div>
+        <div class="field">
+          <label for="f-desc">Tell families about your school</label>
+          <textarea id="f-desc" name="description" placeholder="What makes your program special — your approach, daily rhythm, and who it's for."></textarea>
+        </div>
+        <div class="grid2">
+          <div class="field"><label for="f-web">Website</label><input id="f-web" name="website" type="url" placeholder="https://" /></div>
+          <div class="field"><label for="f-email">Your email *</label><input id="f-email" name="email" type="email" required placeholder="you@school.com" /></div>
+        </div>
+        <div class="field">
+          <label>Photos of your school</label>
+          <label class="filedrop" for="f-photos">
+            📷 <b>Click to upload</b> classroom &amp; campus photos<br/><small>JPG or PNG, up to 6 images</small>
+            <input id="f-photos" name="photos" type="file" accept="image/*" multiple hidden />
+          </label>
+          <div id="filelist"></div>
+        </div>
+        <button class="reg-submit" type="submit" id="regsubmit">Submit my listing — free</button>
+        <p class="reg-note">By submitting you agree to be contacted about your listing. Free for microschools &amp; homeschool co-ops through 2026.</p>
+      </form>
+      <div class="reg-success" id="regsuccess">
+        <b>Thank you — you're on the way!</b>
+        <p>We've received your details and we'll review your listing shortly. Watch your inbox for confirmation from <strong>hello@microschool.directory</strong>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="add">
+  <div class="add">
+    <div>
+      <span class="add-flag">Free for every school &amp; co-op through 2026</span>
+      <h2>Run a microschool or homeschool co-op?<br/>Get on the map.</h2>
+      <p>List your program free and reach the families already searching for a smaller, more personal
+        alternative to public school. Founders, pod leaders, co-op organizers, and guides — your
+        community belongs here. Already listed? Claim and edit your page anytime, Yelp-style.</p>
+    </div>
+    <div class="actions">
+      <a class="add-1" href="#register">List your school or co-op — free</a>
+      <a class="add-2" href="#register">Claim or edit a listing</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot">
+    <div>
+      <a class="brand" href="/"><span class="pin"></span><b>microschool<span>.</span>directory</b></a>
+      <p>The interactive map directory of microschools and small learning communities across the United States.</p>
+    </div>
+    <nav>
+      <div class="col">
+        <b>Explore</b>
+        <a href="#explore">Browse the map</a>
+        <a href="#models">By learning model</a>
+        <a href="#explore">By state</a>
+      </div>
+      <div class="col">
+        <b>Founders</b>
+        <a href="#add">List your school</a>
+        <a href="#add">Claim a listing</a>
+        <a href="mailto:hello@microschool.directory">Contact</a>
+      </div>
+      <div class="col">
+        <b>About</b>
+        <a href="#">What is a microschool?</a>
+        <a href="#">How listings work</a>
+        <a href="#">Privacy</a>
+      </div>
+    </nav>
+  </div>
+  <div class="legal"><div>
+    <span>© 2026 microschool.directory</span>
+    <span>Listings shown are sample data pending verification.</span>
+  </div></div>
+</footer>
+
+<!-- Drawer -->
+<div class="drawer-bg" id="drawerbg"></div>
+<aside class="drawer" id="drawer" aria-hidden="true"></aside>
+
+<!-- SEO: ItemList schema injected by JS -->
+<script id="ld" type="application/ld+json"></script>
+
+<script>
+const MAP_CENTER = [39.5, -98.35]; // geographic center of contiguous US
+let SCHOOLS = [], FILTERED = [], MARKERS = {}, MAP, activeModel = "All", activeId = null;
+
+const $ = s => document.querySelector(s);
+const fmtTuition = t => t;
+const tuitionNum = s => { const m = (s.tuition||"").replace(/[^0-9]/g,""); return m ? parseInt(m,10) : 999999; };
+const ratioNum = s => { const m = (s.ratio||"").match(/1:(\d+)/); return m ? parseInt(m[1],10) : 999; };
+const descOf = s => (s.description && s.description.trim())
+  ? s.description
+  : `${s.model} program in ${s.city}, ${s.state}. This listing was added from public sources and isn't claimed yet — if it's your school, claim it free to add your story, photos, tuition, and schedule.`;
+const noteOf = s => s.placeholder
+  ? '<div class="ph">◔ Sample listing — details pending verification</div>'
+  : (s.verified ? '' : '<div class="ph">○ Unclaimed listing — claim it free to complete</div>');
+
+async function boot() {
+  try {
+    const res = await fetch("data/schools.json", {cache: "no-store"});
+    const data = await res.json();
+    SCHOOLS = data.schools || [];
+  } catch (e) {
+    $("#list").innerHTML = '<div class="empty"><b>Could not load listings.</b>Please refresh.</div>';
+    return;
+  }
+  initStats();
+  initChips();
+  initMap();
+  bindUI();
+  apply();
+  injectSchema();
+}
+
+function initStats() {
+  $("#stat-schools").textContent = SCHOOLS.length;
+  $("#stat-states").textContent = new Set(SCHOOLS.map(s => s.state)).size;
+}
+
+function initChips() {
+  const models = ["All", ...Array.from(new Set(SCHOOLS.map(s => s.model)))];
+  $("#chips").innerHTML = models.map(m =>
+    `<button class="chip${m==='All'?' active':''}" data-model="${m}">${m}</button>`).join("");
+  $("#chips").addEventListener("click", e => {
+    const b = e.target.closest(".chip"); if (!b) return;
+    activeModel = b.dataset.model;
+    document.querySelectorAll(".chip").forEach(c => c.classList.toggle("active", c===b));
+    apply();
+  });
+}
+
+function initMap() {
+  MAP = L.map("map", { scrollWheelZoom: true, zoomControl: true }).setView(MAP_CENTER, 4);
+  L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
+    subdomains: "abcd", maxZoom: 19
+  }).addTo(MAP);
+}
+
+function bindUI() {
+  $("#search").addEventListener("input", apply);
+  $("#searchbtn").addEventListener("click", apply);
+  $("#sort").addEventListener("change", apply);
+  $("#drawerbg").addEventListener("click", closeDrawer);
+  document.addEventListener("keydown", e => { if (e.key === "Escape") closeDrawer(); });
+  const mt = $("#maptoggle");
+  if (mt) mt.addEventListener("click", () => {
+    $("#mapcol").classList.toggle("hidden");
+    setTimeout(() => MAP.invalidateSize(), 60);
+  });
+}
+
+function apply() {
+  const q = $("#search").value.trim().toLowerCase();
+  FILTERED = SCHOOLS.filter(s => {
+    if (activeModel !== "All" && s.model !== activeModel) return false;
+    if (!q) return true;
+    return [s.name, s.city, s.state, s.model, s.grades].join(" ").toLowerCase().includes(q);
+  });
+  const sort = $("#sort").value;
+  FILTERED.sort((a,b) => {
+    switch (sort) {
+      case "tuition-asc": return tuitionNum(a) - tuitionNum(b);
+      case "tuition-desc": return tuitionNum(b) - tuitionNum(a);
+      case "ratio": return ratioNum(a) - ratioNum(b);
+      case "newest": return (b.founded||0) - (a.founded||0);
+      default: return a.name.localeCompare(b.name);
+    }
+  });
+  renderList();
+  renderMarkers();
+}
+
+function renderList() {
+  $("#count").textContent = `${FILTERED.length} school${FILTERED.length===1?"":"s"}`;
+  if (!FILTERED.length) {
+    $("#list").innerHTML = '<div class="empty"><b>No schools match yet.</b>Try a different model or clear your search.</div>';
+    return;
+  }
+  $("#list").innerHTML = FILTERED.map(s => `
+    <article class="card" data-id="${s.id}">
+      <div class="card-top">
+        <div>
+          <h3>${s.name}</h3>
+          <div class="loc">📍 ${s.city}, ${s.state}</div>
+        </div>
+        <span class="badge">${s.model}</span>
+      </div>
+      <p class="desc">${descOf(s)}</p>
+      <div class="meta">
+        <div class="m"><b>${s.grades}</b><span>Grades</span></div>
+        <div class="m"><b>${s.tuition}</b><span>Tuition</span></div>
+        <div class="m"><b>${s.ratio||"—"}</b><span>Ratio</span></div>
+        <div class="m"><b>${s.capacity||"—"}</b><span>Seats</span></div>
+      </div>
+      ${noteOf(s)}
+    </article>`).join("");
+
+  document.querySelectorAll(".card").forEach(c => {
+    const id = c.dataset.id;
+    c.addEventListener("click", () => openDrawer(id));
+    c.addEventListener("mouseenter", () => highlight(id, true));
+    c.addEventListener("mouseleave", () => highlight(id, false));
+  });
+}
+
+function renderMarkers() {
+  Object.values(MARKERS).forEach(m => MAP.removeLayer(m));
+  MARKERS = {};
+  const ids = new Set(FILTERED.map(s => s.id));
+  const pts = [];
+  FILTERED.forEach(s => {
+    const icon = L.divIcon({ className: "", html: `<div class="pin-marker" data-id="${s.id}"></div>`, iconSize: [22,22], iconAnchor: [11,11] });
+    const mk = L.marker([s.lat, s.lng], { icon }).addTo(MAP);
+    mk.bindPopup(`<div class="pop"><b>${s.name}</b><br/><small>${s.city}, ${s.state} · ${s.model}</small><br/><button onclick="openDrawer('${s.id}')">View details →</button></div>`);
+    mk.on("click", () => { highlight(s.id, true); scrollToCard(s.id); });
+    mk.on("mouseover", () => highlight(s.id, true));
+    mk.on("mouseout", () => { if (activeId !== s.id) highlight(s.id, false); });
+    MARKERS[s.id] = mk;
+    pts.push([s.lat, s.lng]);
+  });
+  if (pts.length) {
+    try { MAP.fitBounds(pts, { padding: [50,50], maxZoom: 11 }); } catch(e){}
+  }
+}
+
+function markerEl(id){ const m = MARKERS[id]; return m && m._icon ? m._icon.querySelector(".pin-marker") : null; }
+
+function highlight(id, on) {
+  const card = document.querySelector(`.card[data-id="${id}"]`);
+  if (card) card.classList.toggle("hot", on);
+  const el = markerEl(id);
+  if (el) el.classList.toggle("hot", on);
+}
+
+function scrollToCard(id) {
+  const card = document.querySelector(`.card[data-id="${id}"]`);
+  if (card) card.scrollIntoView({ behavior: "smooth", block: "center" });
+}
+
+function openDrawer(id) {
+  const s = SCHOOLS.find(x => x.id === id); if (!s) return;
+  activeId = id;
+  MAP.flyTo([s.lat, s.lng], 12, { duration: 0.8 });
+  if (MARKERS[id]) MARKERS[id].openPopup();
+  highlight(id, true);
+  const hasContact = !s.placeholder;
+  $("#drawer").innerHTML = `
+    <div class="drawer-hd">
+      <button class="closex" onclick="closeDrawer()" aria-label="Close">✕</button>
+      <span class="badge">${s.model}</span>
+      <h2>${s.name}</h2>
+      <div class="loc">📍 ${s.city}, ${s.state} · Founded ${s.founded||"—"}</div>
+    </div>
+    <div class="drawer-body">
+      ${s.placeholder ? '<div class="ph-note">◔ This is a sample listing. Names and contact details are placeholders pending verification.</div>' : (!s.verified ? '<div class="ph-note">○ Added from public sources and not yet claimed. If this is your school or co-op, claim it free to verify details and add photos.</div>' : '')}
+      <div class="factgrid">
+        <div class="fact"><b>${s.grades}</b><span>Grades</span></div>
+        <div class="fact"><b>${s.ages||"—"}</b><span>Ages</span></div>
+        <div class="fact"><b>${s.tuition}</b><span>Tuition / year</span></div>
+        <div class="fact"><b>${s.ratio||"—"}</b><span>Student–guide ratio</span></div>
+        <div class="fact"><b>${s.capacity||"—"}</b><span>Total seats</span></div>
+        <div class="fact"><b>${(s.schedule||"—").split(",")[0]}</b><span>Schedule</span></div>
+      </div>
+      <h4>About this school</h4>
+      <p class="about">${descOf(s)}</p>
+      ${(s.highlights && s.highlights.length) ? `<div class="hl">${s.highlights.map(h => `<span>${h}</span>`).join("")}</div>` : ''}
+      <div class="contact">
+        <h4>Hours &amp; contact</h4>
+        ${s.schedule ? `<span class="cc">🕘 ${s.schedule}</span>` : ''}
+        ${s.website ? `<a href="${s.website}" target="_blank" rel="noopener">🌐 Visit website</a>` : ''}
+        ${s.phone ? `<a href="tel:${(s.phone||"").replace(/[^0-9+]/g,"")}">📞 ${s.phone}</a>` : ''}
+        ${s.email ? `<a href="mailto:${s.email}">✉️ ${s.email}</a>` : ''}
+        ${(!s.website && !s.phone && !s.email) ? '<span class="cc">Contact details not listed yet — claim this listing to add them.</span>' : ''}
+      </div>
+      <div class="cta-row">
+        <a class="cta-primary" href="mailto:hello@microschool.directory?subject=Inquiry%20about%20${encodeURIComponent(s.name)}">Request info</a>
+        <a class="cta-secondary" href="mailto:hello@microschool.directory?subject=Claim%20${encodeURIComponent(s.name)}">Claim this listing</a>
+      </div>
+    </div>`;
+  $("#drawer").classList.add("open");
+  $("#drawer").setAttribute("aria-hidden","false");
+  $("#drawerbg").classList.add("open");
+}
+
+window.openDrawer = openDrawer;
+
+function closeDrawer() {
+  $("#drawer").classList.remove("open");
+  $("#drawer").setAttribute("aria-hidden","true");
+  $("#drawerbg").classList.remove("open");
+  if (activeId) highlight(activeId, false);
+  activeId = null;
+}
+window.openDrawer = openDrawer;
+window.closeDrawer = closeDrawer;
+
+function injectSchema() {
+  const ld = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Microschool Directory",
+    "itemListElement": SCHOOLS.map((s,i) => ({
+      "@type": "ListItem", "position": i+1,
+      "item": {
+        "@type": "School", "name": s.name,
+        "address": { "@type": "PostalAddress", "addressLocality": s.city, "addressRegion": s.state, "addressCountry": "US" },
+        "geo": { "@type": "GeoCoordinates", "latitude": s.lat, "longitude": s.lng },
+        "description": s.description
+      }
+    }))
+  };
+  $("#ld").textContent = JSON.stringify(ld);
+}
+
+boot();
+
+/* ---------- Registration form ---------- */
+const REG = {
+  // Wired to Supabase once the backend project is provisioned.
+  supabaseUrl: "",      // e.g. https://xxxx.supabase.co
+  supabaseAnonKey: "",  // public anon key
+  table: "listings",
+  contactEmail: "hello@microschool.directory"
+};
+
+(function initRegForm(){
+  const form = document.getElementById("regform");
+  if (!form) return;
+  let mode = "new";
+  const photos = document.getElementById("f-photos");
+  const filelist = document.getElementById("filelist");
+
+  document.getElementById("t-new").addEventListener("click", () => setMode("new"));
+  document.getElementById("t-claim").addEventListener("click", () => setMode("claim"));
+  function setMode(m){
+    mode = m;
+    document.getElementById("t-new").classList.toggle("on", m==="new");
+    document.getElementById("t-claim").classList.toggle("on", m==="claim");
+    document.getElementById("regsubmit").textContent = m==="claim" ? "Request my listing edit — free" : "Submit my listing — free";
+  }
+
+  photos.addEventListener("change", () => {
+    const files = Array.from(photos.files).slice(0, 6);
+    filelist.textContent = files.length ? `${files.length} photo${files.length>1?"s":""} attached: ` + files.map(f=>f.name).join(", ") : "";
+  });
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById("regsubmit");
+    const data = Object.fromEntries(new FormData(form).entries());
+    data.mode = mode;
+    data.submitted_at = new Date().toISOString();
+    if (!data.name || !data.city || !data.state || !data.email) {
+      alert("Please fill in the school name, city, state, and your email.");
+      return;
+    }
+    btn.disabled = true; btn.textContent = "Submitting…";
+
+    let stored = false;
+    if (REG.supabaseUrl && REG.supabaseAnonKey) {
+      try {
+        const res = await fetch(`${REG.supabaseUrl}/rest/v1/${REG.table}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "apikey": REG.supabaseAnonKey,
+            "Authorization": `Bearer ${REG.supabaseAnonKey}`,
+            "Prefer": "return-minimal"
+          },
+          body: JSON.stringify({
+            name: data.name, type: data.type, model: data.model, city: data.city,
+            state: (data.state||"").toUpperCase(), grades: data.grades, tuition: data.tuition,
+            description: data.description, website: data.website, email: data.email,
+            mode: data.mode, status: "pending"
+          })
+        });
+        stored = res.ok;
+      } catch (err) { stored = false; }
+      // (Photo upload to Supabase Storage is wired alongside the backend.)
+    }
+
+    if (!stored) {
+      // Fallback so no submission is ever lost before the database is live.
+      const subject = encodeURIComponent(`${mode==="claim"?"Claim/Edit":"New listing"}: ${data.name} (${data.city}, ${data.state})`);
+      const body = encodeURIComponent(
+        Object.entries({Name:data.name,Type:data.type,Model:data.model,City:data.city,State:data.state,
+          Grades:data.grades,Tuition:data.tuition,Website:data.website,Email:data.email,About:data.description})
+        .map(([k,v])=>`${k}: ${v||"—"}`).join("\n") + "\n\n(Please attach your photos to this email.)"
+      );
+      window.location.href = `mailto:${REG.contactEmail}?subject=${subject}&body=${body}`;
+    }
+
+    form.style.display = "none";
+    document.getElementById("regsuccess").classList.add("show");
+  });
+})();
+</script>
+
+<!-- FAQ schema for search engines + LLMs -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"What is a microschool?","acceptedAnswer":{"@type":"Answer","text":"A microschool is a small, independent school — usually 5 to 40 students across mixed ages — that offers a personalized alternative to traditional public or large private schools, with low student-to-teacher ratios, flexible schedules, and learning tailored to each child."}},
+  {"@type":"Question","name":"How is a homeschool co-op different from a microschool?","acceptedAnswer":{"@type":"Answer","text":"A homeschooling cooperative is a group of homeschooling families who share teaching, resources, and community while parents stay in charge of their child's overall education. A microschool is a standalone small school with its own staff. microschool.directory lists both."}},
+  {"@type":"Question","name":"How much do microschools cost?","acceptedAnswer":{"@type":"Answer","text":"Costs vary widely — many microschools range from about $5,000 to $15,000 per year, while homeschool co-ops are often far less. In many states, school-choice programs and Education Savings Accounts (ESAs) can offset tuition."}},
+  {"@type":"Question","name":"How do I find a microschool or homeschool co-op near me?","acceptedAnswer":{"@type":"Answer","text":"Use the interactive map at microschool.directory to browse or search by city, state, or name, and filter by learning model such as Montessori, classical, forest/nature, learner-driven, project-based, faith-based, or homeschool co-op."}},
+  {"@type":"Question","name":"How does a microschool or co-op get listed?","acceptedAnswer":{"@type":"Answer","text":"Owners can list their school free through the end of 2026 using the registration form on microschool.directory, and can claim and edit their listing at any time."}}
+  ]
+}
+</script>
+</body>
+</html>
