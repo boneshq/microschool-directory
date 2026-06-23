@@ -425,6 +425,56 @@
   .reveal { opacity: 0; transform: translateY(16px); animation: rise .7s cubic-bezier(.2,.7,.2,1) forwards; }
   @media (prefers-reduced-motion: reduce) { .reveal { animation: none; opacity: 1; transform: none; } }
   @keyframes rise { to { opacity: 1; transform: none; } }
+
+  /* ---------- Community forum ---------- */
+  .forum { max-width: var(--maxw); margin: 0 auto; padding: 84px 40px; border-top: 1px solid var(--line); }
+  .forum-head { max-width: 720px; margin-bottom: 36px; }
+  .forum-head h2 { font-family: var(--serif); font-size: clamp(1.7rem, 3.2vw, 2.5rem); font-weight: 600; line-height: 1.1; letter-spacing: -0.02em; }
+  .forum-head p { margin-top: 12px; font-size: 1.02rem; color: var(--ink-2); opacity: 0.85; }
+  .forum-grid { display: grid; grid-template-columns: 0.9fr 1.3fr; gap: 38px; align-items: start; }
+  .forum-new { background: var(--card); border: 1.5px solid var(--line); border-radius: var(--radius); padding: 26px; position: sticky; top: 92px; }
+  .forum-new h3 { font-family: var(--serif); font-size: 1.25rem; font-weight: 600; margin-bottom: 4px; }
+  .forum-new .sub { font-size: 0.9rem; color: var(--ink-2); opacity: 0.75; margin-bottom: 18px; }
+  .forum-new .field { margin-bottom: 14px; }
+  .forum-new label { display: block; font-size: 0.82rem; font-weight: 600; color: var(--ink-2); margin-bottom: 6px; }
+  .forum-new input, .forum-new textarea, .forum-new select {
+    width: 100%; font-family: var(--sans); font-size: 0.96rem; color: var(--ink);
+    background: var(--paper); border: 1.5px solid var(--line); border-radius: 12px; padding: 11px 13px; transition: border-color .18s, box-shadow .18s;
+  }
+  .forum-new input:focus, .forum-new textarea:focus, .forum-new select:focus { outline: none; border-color: var(--forest); box-shadow: 0 6px 18px rgba(40,92,70,0.12); }
+  .forum-new textarea { min-height: 96px; resize: vertical; }
+  .forum-post-btn { width: 100%; margin-top: 4px; background: var(--coral); color: #fff; border: none; font-family: var(--sans); font-weight: 600; font-size: 1rem; padding: 13px; border-radius: 100px; cursor: pointer; transition: background .18s, transform .18s; }
+  .forum-post-btn:hover { background: var(--coral-deep); transform: translateY(-1px); }
+  .forum-post-btn:disabled { opacity: 0.6; cursor: default; transform: none; }
+  .forum-tip { margin-top: 12px; font-size: 0.78rem; color: var(--ink-2); opacity: 0.65; }
+
+  .thread-list { display: flex; flex-direction: column; gap: 16px; min-height: 120px; }
+  .thread { background: var(--card); border: 1.5px solid var(--line); border-radius: var(--radius); padding: 22px 24px; transition: border-color .18s, box-shadow .18s; }
+  .thread:hover { border-color: var(--moss); }
+  .thread .t-topic { display: inline-block; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--forest); background: var(--paper-2); border: 1px solid var(--line); border-radius: 100px; padding: 3px 10px; }
+  .thread .t-title { font-family: var(--serif); font-size: 1.2rem; font-weight: 600; margin: 10px 0 6px; line-height: 1.25; }
+  .thread .t-body { font-size: 0.95rem; color: var(--ink-2); line-height: 1.55; white-space: pre-wrap; }
+  .thread .t-meta { margin-top: 12px; font-size: 0.8rem; color: var(--ink-2); opacity: 0.7; display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+  .thread .t-meta button { background: none; border: none; color: var(--coral-deep); font-family: var(--sans); font-weight: 600; font-size: 0.82rem; cursor: pointer; padding: 0; }
+  .thread .t-meta button:hover { text-decoration: underline; }
+  .replies { margin-top: 16px; padding-top: 14px; border-top: 1px dashed var(--line); display: none; }
+  .replies.open { display: block; }
+  .reply { padding: 10px 0; border-bottom: 1px solid var(--paper-2); }
+  .reply:last-of-type { border-bottom: none; }
+  .reply .r-body { font-size: 0.92rem; color: var(--ink); line-height: 1.5; white-space: pre-wrap; }
+  .reply .r-meta { font-size: 0.76rem; color: var(--ink-2); opacity: 0.65; margin-top: 4px; }
+  .reply-form { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+  .reply-form input[type=text] { flex: 1 1 120px; min-width: 0; font-family: var(--sans); font-size: 0.9rem; border: 1.5px solid var(--line); background: var(--paper); border-radius: 10px; padding: 9px 11px; color: var(--ink); }
+  .reply-form textarea { flex: 1 1 100%; font-family: var(--sans); font-size: 0.9rem; border: 1.5px solid var(--line); background: var(--paper); border-radius: 10px; padding: 9px 11px; min-height: 54px; resize: vertical; color: var(--ink); }
+  .reply-form input:focus, .reply-form textarea:focus { outline: none; border-color: var(--forest); }
+  .reply-form button { background: var(--ink); color: var(--paper); border: none; font-family: var(--sans); font-weight: 600; font-size: 0.86rem; padding: 9px 18px; border-radius: 100px; cursor: pointer; }
+  .reply-form button:hover { background: var(--forest); }
+  .forum-empty, .forum-loading { color: var(--ink-2); opacity: 0.7; font-size: 0.95rem; padding: 30px 0; text-align: center; }
+  @media (max-width: 900px) {
+    .forum { padding: 60px 22px; }
+    .forum-grid { grid-template-columns: 1fr; gap: 26px; }
+    .forum-new { position: static; }
+  }
 </style>
 </head>
 <body>
@@ -437,7 +487,8 @@
     </a>
     <nav class="top">
       <a class="muted" href="#explore">Browse</a>
-      <a class="muted" href="#models">Models</a>
+      <a class="muted" href="#faq">Guide</a>
+      <a class="muted" href="#community">Community</a>
       <a class="muted" href="#add">For Founders</a>
       <a class="btn-add" href="#register"><span class="full">List your school — free</span><span class="short">+ List free</span></a>
     </nav>
@@ -598,6 +649,55 @@
       <div class="reg-success" id="regsuccess">
         <b>Thank you — you're on the way!</b>
         <p>We've received your details and we'll review your listing shortly. Watch your inbox for confirmation from <strong>hello@microschool.directory</strong>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="forum" id="community">
+  <div class="forum-head">
+    <span class="eyebrow">Community</span>
+    <h2>Ask other parents, founders &amp; co-op leaders.</h2>
+    <p>Leaving public school raises a lot of questions. Ask them here — and share what's working for your family or your program. Real people, no accounts required.</p>
+  </div>
+  <div class="forum-grid">
+    <div class="forum-new">
+      <h3>Start a discussion</h3>
+      <p class="sub">Post a question or share something useful. It appears for everyone instantly.</p>
+      <form id="threadform" novalidate>
+        <div class="field">
+          <label for="th-topic">Topic</label>
+          <select id="th-topic" name="topic">
+            <option>General</option>
+            <option>Getting Started</option>
+            <option>Choosing a School</option>
+            <option>Homeschool Co-ops</option>
+            <option>Curriculum &amp; Learning</option>
+            <option>Cost &amp; ESAs / Funding</option>
+            <option>Starting a Microschool</option>
+            <option>Legal &amp; Compliance</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="th-title">Title *</label>
+          <input id="th-title" name="title" type="text" required maxlength="140" placeholder="e.g. How did you know it was time to leave public school?" />
+        </div>
+        <div class="field">
+          <label for="th-body">Your question or post *</label>
+          <textarea id="th-body" name="body" required placeholder="Share the details — where you are, your child's age, what you're weighing…"></textarea>
+        </div>
+        <div class="field">
+          <label for="th-author">Your name or handle</label>
+          <input id="th-author" name="author" type="text" maxlength="60" placeholder="Optional — defaults to Guest" />
+        </div>
+        <button type="submit" class="forum-post-btn" id="threadsubmit">Post to the community</button>
+        <p class="forum-tip">Be kind and helpful. Posts are public and moderated — no spam, no contact info harvesting.</p>
+      </form>
+    </div>
+
+    <div>
+      <div class="thread-list" id="threadlist">
+        <div class="forum-loading" id="forumloading">Loading discussions…</div>
       </div>
     </div>
   </div>
@@ -988,6 +1088,158 @@ const REG = {
     form.style.display = "none";
     document.getElementById("regsuccess").classList.add("show");
   });
+})();
+
+/* ---------- Community forum (Supabase-backed) ---------- */
+(function initForum(){
+  const list = document.getElementById("threadlist");
+  const form = document.getElementById("threadform");
+  if (!list || !form) return;
+
+  const headers = (extra) => Object.assign({
+    "apikey": REG.supabaseAnonKey,
+    "Authorization": `Bearer ${REG.supabaseAnonKey}`
+  }, extra || {});
+  const configured = () => REG.supabaseUrl && REG.supabaseAnonKey;
+
+  const esc = (s) => String(s == null ? "" : s)
+    .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+
+  function timeAgo(iso){
+    const then = new Date(iso).getTime();
+    if (isNaN(then)) return "";
+    const s = Math.max(1, Math.floor((Date.now() - then) / 1000));
+    const u = [[31536000,"yr"],[2592000,"mo"],[604800,"wk"],[86400,"d"],[3600,"h"],[60,"m"]];
+    for (const [secs,label] of u) { if (s >= secs) return Math.floor(s/secs) + label + " ago"; }
+    return "just now";
+  }
+
+  async function loadThreads(){
+    if (!configured()) {
+      list.innerHTML = '<div class="forum-empty">The community forum is warming up. Check back shortly.</div>';
+      return;
+    }
+    try {
+      const res = await fetch(`${REG.supabaseUrl}/rest/v1/forum_threads?select=*&status=eq.visible&order=created_at.desc&limit=50`, { headers: headers() });
+      const threads = await res.json();
+      if (!Array.isArray(threads) || threads.length === 0) {
+        list.innerHTML = '<div class="forum-empty">No discussions yet — be the first to start one.</div>';
+        return;
+      }
+      list.innerHTML = "";
+      threads.forEach(renderThread);
+    } catch (e) {
+      list.innerHTML = '<div class="forum-empty">Couldn\'t load discussions right now. Please refresh.</div>';
+    }
+  }
+
+  function renderThread(t, prepend){
+    const el = document.createElement("div");
+    el.className = "thread";
+    el.dataset.id = t.id;
+    el.innerHTML =
+      `<span class="t-topic">${esc(t.topic || "General")}</span>
+       <div class="t-title">${esc(t.title)}</div>
+       <div class="t-body">${esc(t.body)}</div>
+       <div class="t-meta">
+         <span>${esc(t.author || "Guest")} · ${esc(timeAgo(t.created_at))}</span>
+         <button type="button" data-act="toggle">Replies</button>
+       </div>
+       <div class="replies" data-replies></div>`;
+    el.querySelector('[data-act="toggle"]').addEventListener("click", () => toggleReplies(el, t.id));
+    if (prepend) list.insertBefore(el, list.firstChild);
+    else list.appendChild(el);
+  }
+
+  async function toggleReplies(el, threadId){
+    const box = el.querySelector("[data-replies]");
+    if (box.classList.contains("open")) { box.classList.remove("open"); return; }
+    box.classList.add("open");
+    if (box.dataset.loaded) return;
+    box.innerHTML = '<div class="forum-loading" style="padding:10px 0">Loading replies…</div>';
+    let repliesHtml = "";
+    try {
+      const res = await fetch(`${REG.supabaseUrl}/rest/v1/forum_replies?select=*&status=eq.visible&thread_id=eq.${threadId}&order=created_at.asc`, { headers: headers() });
+      const replies = await res.json();
+      repliesHtml = (Array.isArray(replies) ? replies : []).map(r =>
+        `<div class="reply"><div class="r-body">${esc(r.body)}</div><div class="r-meta">${esc(r.author || "Guest")} · ${esc(timeAgo(r.created_at))}</div></div>`
+      ).join("");
+    } catch (e) { repliesHtml = ""; }
+    box.dataset.loaded = "1";
+    box.innerHTML = repliesHtml +
+      `<form class="reply-form">
+         <textarea required placeholder="Write a helpful reply…" maxlength="2000"></textarea>
+         <input type="text" placeholder="Name (optional)" maxlength="60" />
+         <button type="submit">Reply</button>
+       </form>`;
+    const rf = box.querySelector("form");
+    rf.addEventListener("submit", (ev) => postReply(ev, rf, threadId, box));
+  }
+
+  async function postReply(ev, rf, threadId, box){
+    ev.preventDefault();
+    const ta = rf.querySelector("textarea");
+    const nameInput = rf.querySelector('input[type=text]');
+    const body = ta.value.trim();
+    if (!body) return;
+    const btn = rf.querySelector("button");
+    btn.disabled = true; btn.textContent = "Posting…";
+    try {
+      const res = await fetch(`${REG.supabaseUrl}/rest/v1/forum_replies`, {
+        method: "POST",
+        headers: headers({ "Content-Type": "application/json", "Prefer": "return-representation" }),
+        body: JSON.stringify({ thread_id: threadId, body, author: (nameInput.value.trim() || "Guest"), status: "visible" })
+      });
+      if (!res.ok) throw new Error("post failed");
+      const rows = await res.json();
+      const r = Array.isArray(rows) ? rows[0] : rows;
+      const node = document.createElement("div");
+      node.className = "reply";
+      node.innerHTML = `<div class="r-body">${esc(r.body)}</div><div class="r-meta">${esc(r.author || "Guest")} · just now</div>`;
+      box.insertBefore(node, rf);
+      ta.value = ""; nameInput.value = "";
+    } catch (e) {
+      alert("Sorry — your reply didn't post. Please try again.");
+    } finally {
+      btn.disabled = false; btn.textContent = "Reply";
+    }
+  }
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const title = document.getElementById("th-title").value.trim();
+    const body = document.getElementById("th-body").value.trim();
+    if (!title || !body) return;
+    if (!configured()) { alert("The forum is warming up — please try again in a moment."); return; }
+    const btn = document.getElementById("threadsubmit");
+    btn.disabled = true; btn.textContent = "Posting…";
+    try {
+      const res = await fetch(`${REG.supabaseUrl}/rest/v1/forum_threads`, {
+        method: "POST",
+        headers: headers({ "Content-Type": "application/json", "Prefer": "return-representation" }),
+        body: JSON.stringify({
+          title, body,
+          topic: document.getElementById("th-topic").value,
+          author: (document.getElementById("th-author").value.trim() || "Guest"),
+          status: "visible"
+        })
+      });
+      if (!res.ok) throw new Error("post failed");
+      const rows = await res.json();
+      const t = Array.isArray(rows) ? rows[0] : rows;
+      const empty = list.querySelector(".forum-empty, .forum-loading");
+      if (empty) empty.remove();
+      renderThread(t, true);
+      form.reset();
+    } catch (err) {
+      alert("Sorry — your post didn't go through. Please try again.");
+    } finally {
+      btn.disabled = false; btn.textContent = "Post to the community";
+    }
+  });
+
+  loadThreads();
 })();
 </script>
 
