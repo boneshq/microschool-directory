@@ -347,7 +347,23 @@
     .btn-add .short { display: inline; }
     .hero { padding: 36px 20px 24px; }
     .explorer { padding: 0 18px 50px; }
-    .toolbar { top: 53px; }
+    /* compact filter rail: chips scroll sideways in one row instead of
+       stacking into a tall sticky block that eats the screen while scrolling */
+    .toolbar {
+      top: 52px; gap: 10px; padding: 10px 0;
+      flex-wrap: nowrap; align-items: center;
+    }
+    .chips {
+      flex: 1 1 auto; flex-wrap: nowrap; overflow-x: auto;
+      -webkit-overflow-scrolling: touch; scrollbar-width: none;
+      margin: 0 -18px; padding: 2px 18px;
+      -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 14px, #000 calc(100% - 26px), transparent 100%);
+              mask-image: linear-gradient(90deg, transparent 0, #000 14px, #000 calc(100% - 26px), transparent 100%);
+    }
+    .chips::-webkit-scrollbar { display: none; }
+    .chip { flex: 0 0 auto; }
+    .toolbar select, .count { display: none; }
+    .maptoggle { flex: 0 0 auto; }
     .mapcol.hidden { display: none; }
     .maptoggle {
       display: inline-flex; align-items: center; gap: 8px; cursor: pointer;
@@ -874,12 +890,7 @@ function renderList() {
         <span class="badge">${escHtml(s.model)}</span>
       </div>
       <p class="desc">${escHtml(descOf(s))}</p>
-      <div class="meta">
-        <div class="m"><b>${escHtml(s.grades)}</b><span>Grades</span></div>
-        <div class="m"><b>${escHtml(s.tuition)}</b><span>Tuition</span></div>
-        <div class="m"><b>${escHtml(s.ratio||"—")}</b><span>Ratio</span></div>
-        <div class="m"><b>${escHtml(s.capacity||"—")}</b><span>Seats</span></div>
-      </div>
+      ${(() => { const it = metaItems([["Grades",s.grades],["Tuition",s.tuition],["Ratio",s.ratio],["Seats",s.seats]], "m"); return it ? `<div class="meta">${it}</div>` : ""; })()}
       ${noteOf(s)}
     </article>`).join("");
 
@@ -928,6 +939,15 @@ function scrollToCard(id) {
   if (card) card.scrollIntoView({ behavior: "smooth", block: "center" });
 }
 
+// Build fact/meta items, skipping any field with no real value so we never
+// render an empty or "—" placeholder. Field reappears once data is added.
+function metaItems(pairs, itemClass) {
+  return pairs
+    .filter(([, v]) => v != null && String(v).trim() && String(v).trim() !== "—")
+    .map(([l, v]) => `<div class="${itemClass}"><b>${escHtml(v)}</b><span>${escHtml(l)}</span></div>`)
+    .join("");
+}
+
 function openDrawer(id) {
   const s = SCHOOLS.find(x => x.id === id); if (!s) return;
   activeId = id;
@@ -940,18 +960,11 @@ function openDrawer(id) {
       <button class="closex" onclick="closeDrawer()" aria-label="Close">✕</button>
       <span class="badge">${escHtml(s.model)}</span>
       <h2>${escHtml(s.name)}</h2>
-      <div class="loc">📍 ${escHtml(s.city)}, ${escHtml(s.state)} · Founded ${escHtml(s.founded||"—")}</div>
+      <div class="loc">📍 ${escHtml(s.city)}, ${escHtml(s.state)}${s.founded ? ` · Founded ${escHtml(s.founded)}` : ""}</div>
     </div>
     <div class="drawer-body">
       ${s.placeholder ? '<div class="ph-note">◔ This is a sample listing. Names and contact details are placeholders pending verification.</div>' : (!s.verified ? '<div class="ph-note">○ Added from public sources and not yet claimed. If this is your school or co-op, claim it free to verify details and add photos.</div>' : '')}
-      <div class="factgrid">
-        <div class="fact"><b>${escHtml(s.grades)}</b><span>Grades</span></div>
-        <div class="fact"><b>${escHtml(s.ages||"—")}</b><span>Ages</span></div>
-        <div class="fact"><b>${escHtml(s.tuition)}</b><span>Tuition / year</span></div>
-        <div class="fact"><b>${escHtml(s.ratio||"—")}</b><span>Student–guide ratio</span></div>
-        <div class="fact"><b>${escHtml(s.capacity||"—")}</b><span>Total seats</span></div>
-        <div class="fact"><b>${escHtml((s.schedule||"—").split(",")[0])}</b><span>Schedule</span></div>
-      </div>
+      <div class="factgrid">${metaItems([["Grades",s.grades],["Ages",s.ages],["Tuition / year",s.tuition],["Student–guide ratio",s.ratio],["Total seats",s.seats],["Schedule",(s.schedule||"").split(",")[0]]], "fact")}</div>
       <h4>About this school</h4>
       <p class="about">${escHtml(descOf(s))}</p>
       ${(s.highlights && s.highlights.length) ? `<div class="hl">${s.highlights.map(h => `<span>${escHtml(h)}</span>`).join("")}</div>` : ''}
