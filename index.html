@@ -803,7 +803,7 @@ function initStats() {
 function initChips() {
   const models = ["All", ...Array.from(new Set(SCHOOLS.map(s => s.model)))];
   $("#chips").innerHTML = models.map(m =>
-    `<button class="chip${m==='All'?' active':''}" data-model="${m}">${m}</button>`).join("");
+    `<button class="chip${m==='All'?' active':''}" data-model="${escAttr(m)}">${escHtml(m)}</button>`).join("");
   $("#chips").addEventListener("click", e => {
     const b = e.target.closest(".chip"); if (!b) return;
     activeModel = b.dataset.model;
@@ -1050,8 +1050,16 @@ const REG = {
         // Random, non-guessable paths so object names never leak the submitter's
         // school name or original filename (bucket also has no anon list/enumerate).
         const photoUrls = [];
-        const files = Array.from(photos.files).slice(0, 6);
-        const rid = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : (Date.now() + "-" + Math.round(performance.now()));
+        // Secure-random id only — never a predictable Date.now()-based path.
+        let rid = null;
+        if (window.crypto && crypto.randomUUID) {
+          rid = crypto.randomUUID();
+        } else if (window.crypto && crypto.getRandomValues) {
+          const a = new Uint8Array(16); crypto.getRandomValues(a);
+          rid = Array.from(a, b => b.toString(16).padStart(2, "0")).join("");
+        }
+        // If no secure RNG, skip photo upload (listing still submits) rather than use a guessable path.
+        const files = rid ? Array.from(photos.files).slice(0, 6) : [];
         for (let i = 0; i < files.length; i++) {
           const f = files[i];
           const ext = (f.name.split(".").pop() || "jpg").toLowerCase().replace(/[^a-z0-9]/g, "").slice(0, 5) || "jpg";
