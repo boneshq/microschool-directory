@@ -1,15 +1,2 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://microschool.directory/</loc>
-    <lastmod>2026-06-23</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>https://microschool.directory/glossary/</loc>
-    <lastmod>2026-06-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-</urlset>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><sitemap><loc>https://microschool.directory/sitemap-static.xml</loc><lastmod>2026-06-23</lastmod></sitemap><sitemap><loc>https://microschool.directory/sitemap-states.xml</loc><lastmod>2026-06-23</lastmod></sitemap><sitemap><loc>https://microschool.directory/sitemap-cities.xml</loc><lastmod>2026-06-23</lastmod></sitemap><sitemap><loc>https://microschool.directory/sitemap-listings-1.xml</loc><lastmod>2026-06-23</lastmod></sitemap></sitemapindex>
