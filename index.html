@@ -58,7 +58,7 @@
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; overflow-x: clip; }
 
   body {
     font-family: var(--sans);
@@ -66,7 +66,8 @@
     color: var(--ink);
     -webkit-font-smoothing: antialiased;
     line-height: 1.5;
-    overflow-x: hidden;
+    overflow-x: clip;
+    max-width: 100%;
   }
 
   /* subtle paper grain */
@@ -194,8 +195,13 @@
   .count { font-size: 0.86rem; color: var(--ink-2); opacity: 0.7; font-weight: 500; white-space: nowrap; }
 
   .split { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; margin-top: 8px; align-items: start; }
+  /* grid items default to min-width:auto, which lets content (Leaflet map,
+     long card text) force a 1fr track wider than its container and push the
+     whole page past the viewport on mobile. Pin them to min-width:0 so the
+     tracks shrink to fit. */
+  .split > .list, .split > .mapcol { min-width: 0; }
 
-  .list { display: flex; flex-direction: column; gap: 16px; min-height: 200px; }
+  .list { display: flex; flex-direction: column; gap: 16px; min-height: 200px; min-width: 0; }
 
   .card {
     background: var(--card); border: 1.5px solid var(--line); border-radius: var(--radius);
@@ -228,6 +234,7 @@
   #map {
     height: calc(100vh - 150px); min-height: 520px; border-radius: var(--radius);
     border: 1.5px solid var(--line); box-shadow: var(--shadow); z-index: 1;
+    min-width: 0; max-width: 100%;
   }
   .leaflet-container { background: #e8e2d4; font-family: var(--sans); }
 
@@ -370,6 +377,12 @@
       border: 1.5px solid var(--ink); background: var(--ink); color: var(--paper);
       padding: 8px 16px; border-radius: 100px; font-size: 0.84rem; font-weight: 600; font-family: var(--sans);
     }
+    /* 16px form controls on mobile so iOS Safari doesn't zoom-on-focus.
+       !important because the base form rules are declared later in source
+       with equal specificity and would otherwise win. */
+    form input, form select, form textarea,
+    .forum-new input, .forum-new textarea, .forum-new select,
+    .reply-form input, .reply-form textarea { font-size: 16px !important; }
   }
 
   /* ---------- FAQ ---------- */
