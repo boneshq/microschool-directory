@@ -409,6 +409,41 @@
   details.q[open] summary::after { transform: rotate(45deg); }
   details.q p { color: var(--ink-2); font-size: 0.96rem; line-height: 1.62; padding: 0 0 16px; max-width: 60ch; }
 
+  /* ---------- EXPLORE BY MODEL ---------- */
+  .models-sec { max-width: var(--maxw); margin: 30px auto 0; padding: 30px 26px; }
+  .sec-head { margin-bottom: 26px; }
+  .sec-head h2 { font-family: var(--serif); font-weight: 500; font-size: clamp(1.8rem, 3.6vw, 2.8rem); letter-spacing: -0.02em; line-height: 1.02; max-width: 20ch; }
+  .sec-head p { color: var(--ink-2); max-width: 56ch; font-size: 0.98rem; margin-top: 10px; }
+  .modelgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+  .modelcard {
+    text-align: left; background: var(--card); border: 1.5px solid var(--line); border-radius: 14px;
+    padding: 20px 22px; cursor: pointer; font-family: var(--sans); position: relative; overflow: hidden;
+    transition: border-color .2s, transform .2s, box-shadow .2s;
+  }
+  .modelcard:hover { border-color: var(--forest); transform: translateY(-2px); box-shadow: 0 14px 34px rgba(19,36,29,0.10); }
+  .modelcard .mc-top { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+  .modelcard h3 { font-family: var(--serif); font-weight: 600; font-size: 1.18rem; letter-spacing: -0.01em; color: var(--ink); }
+  .modelcard .mc-n { font-size: 0.78rem; font-weight: 600; color: var(--forest); white-space: nowrap; }
+  .modelcard p { margin-top: 8px; font-size: 0.9rem; line-height: 1.5; color: var(--ink-2); }
+  .modelcard .mc-go { margin-top: 12px; font-size: 0.8rem; font-weight: 600; color: var(--coral-deep); opacity: 0; transition: opacity .2s; }
+  .modelcard:hover .mc-go { opacity: 1; }
+  .models-sec .glossary-link { margin-top: 22px; font-size: 0.92rem; color: var(--ink-2); }
+  .models-sec .glossary-link a { color: var(--coral-deep); font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
+
+  /* ---------- PROOF / DATA BAND ---------- */
+  .proof { max-width: var(--maxw); margin: 30px auto 0; padding: 30px 26px; }
+  .proof .sec-head p { max-width: 62ch; }
+  .proofgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px; }
+  .proofstat {
+    background: var(--card); border: 1.5px solid var(--line); border-radius: 16px; padding: 24px 24px 20px;
+    position: relative; overflow: hidden;
+  }
+  .proofstat::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--coral); }
+  .proofstat .ps-n { font-family: var(--serif); font-weight: 600; font-size: 2.5rem; line-height: 1; color: var(--forest); letter-spacing: -0.02em; }
+  .proofstat .ps-claim { margin-top: 12px; font-size: 0.94rem; line-height: 1.5; color: var(--ink-2); }
+  .proofstat .ps-src { margin-top: 14px; font-size: 0.72rem; letter-spacing: 0.02em; color: var(--ink-2); opacity: 0.62; }
+  .proof .proof-note { margin-top: 18px; font-size: 0.8rem; color: var(--ink-2); opacity: 0.7; max-width: 70ch; border-left: 2px solid var(--line); padding-left: 12px; }
+
   /* ---------- REGISTER FORM ---------- */
   .register { max-width: var(--maxw); margin: 30px auto 0; padding: 0 26px; }
   .reg-inner {
@@ -569,7 +604,6 @@
       <option value="tuition-asc">Tuition: low → high</option>
       <option value="tuition-desc">Tuition: high → low</option>
       <option value="ratio">Smallest ratio</option>
-      <option value="newest">Newest</option>
     </select>
     <span class="count" id="count">—</span>
     <button class="maptoggle" id="maptoggle">🗺️ Map</button>
@@ -579,6 +613,55 @@
     <div class="list" id="list"></div>
     <div class="mapcol" id="mapcol"><div id="map"></div></div>
   </div>
+</section>
+
+<section class="models-sec" id="models-explore">
+  <div class="sec-head">
+    <h2>Find your kid's kind of school</h2>
+    <p>Microschools come in many flavors. Pick the learning model that fits your child and we'll filter the map and list above to match.</p>
+  </div>
+  <div class="modelgrid" id="modelgrid">
+    <button class="modelcard" data-model="Microschool" type="button"><div class="mc-top"><h3>Microschool</h3><span class="mc-n" data-count="Microschool"></span></div><p>A small, independent school — usually 5 to 40 students across mixed ages, with low ratios and learning paced to each child.</p><div class="mc-go">Show these schools →</div></button>
+    <button class="modelcard" data-model="Montessori" type="button"><div class="mc-top"><h3>Montessori</h3><span class="mc-n" data-count="Montessori"></span></div><p>Child-led learning with hands-on materials and mixed-age classrooms, following the Montessori method of independence and discovery.</p><div class="mc-go">Show these schools →</div></button>
+    <button class="modelcard" data-model="Acton" type="button"><div class="mc-top"><h3>Acton Academy</h3><span class="mc-n" data-count="Acton"></span></div><p>A learner-driven network where students set their own goals and grow through Socratic discussion and real-world quests.</p><div class="mc-go">Show these schools →</div></button>
+    <button class="modelcard" data-model="Learner-Driven" type="button"><div class="mc-top"><h3>Learner-Driven</h3><span class="mc-n" data-count="Learner-Driven"></span></div><p>Students direct their own learning — choosing projects and pacing — while adults act as guides rather than lecturers.</p><div class="mc-go">Show these schools →</div></button>
+    <button class="modelcard" data-model="Classical" type="button"><div class="mc-top"><h3>Classical</h3><span class="mc-n" data-count="Classical"></span></div><p>The classical trivium — grammar, logic, and rhetoric — built on great books, history, and structured reasoning.</p><div class="mc-go">Show these schools →</div></button>
+    <button class="modelcard" data-model="Forest / Nature" type="button"><div class="mc-top"><h3>Forest &amp; Nature</h3><span class="mc-n" data-count="Forest / Nature"></span></div><p>Outdoor, play-based education where children learn through nature, exploration, and hands-on discovery.</p><div class="mc-go">Show these schools →</div></button>
+    <button class="modelcard" data-model="Project-Based" type="button"><div class="mc-top"><h3>Project-Based</h3><span class="mc-n" data-count="Project-Based"></span></div><p>Learning organized around real, hands-on projects that build knowledge and skills through doing, not memorizing.</p><div class="mc-go">Show these schools →</div></button>
+    <button class="modelcard" data-model="Hybrid" type="button"><div class="mc-top"><h3>Hybrid</h3><span class="mc-n" data-count="Hybrid"></span></div><p>A blend of in-person classes and at-home learning, often two to three days a week on campus and the rest at home.</p><div class="mc-go">Show these schools →</div></button>
+    <button class="modelcard" data-model="Homeschool Co-op" type="button"><div class="mc-top"><h3>Homeschool Co-op</h3><span class="mc-n" data-count="Homeschool Co-op"></span></div><p>Families who share teaching and community so children learn some subjects together while parents stay in charge.</p><div class="mc-go">Show these schools →</div></button>
+  </div>
+  <p class="glossary-link">New to these terms? Our <a href="/glossary/">plain-English glossary</a> explains every learning model and homeschooling word in one place.</p>
+</section>
+
+<section class="proof" id="why">
+  <div class="sec-head">
+    <h2>Why families are making the switch</h2>
+    <p>Choosing a smaller, more personal school isn't a fringe move anymore — it's one of the fastest-growing shifts in American education, and the public data shows it.</p>
+  </div>
+  <div class="proofgrid">
+    <div class="proofstat">
+      <div class="ps-n">750,000</div>
+      <div class="ps-claim">homeschooled students in Texas alone — about 6% of all K-12 kids — with roughly 50,000 more withdrawing from public school each year.</div>
+      <div class="ps-src">Texas Home School Coalition / U.S. Census, 2024</div>
+    </div>
+    <div class="proofstat">
+      <div class="ps-n">+178%</div>
+      <div class="ps-claim">growth in New York homeschooling over the past decade — the fastest-growing segment of any school sector in the state.</div>
+      <div class="ps-src">Empire Center / Johns Hopkins Homeschool Hub, 2025</div>
+    </div>
+    <div class="proofstat">
+      <div class="ps-n">100,000+</div>
+      <div class="ps-claim">students funded by Arizona's universal Education Savings Account in 2025-26, with most awards of $7,000-$8,000 usable for tuition, tutoring, and curricula.</div>
+      <div class="ps-src">Arizona Department of Education / EdChoice, 2026</div>
+    </div>
+    <div class="proofstat">
+      <div class="ps-n">+46%</div>
+      <div class="ps-claim">rise in Florida home-education enrollment since 2020, reaching 155,532 students — alongside an $8,000-average state education savings account.</div>
+      <div class="ps-src">Florida DOE / Step Up For Students, 2024-25</div>
+    </div>
+  </div>
+  <p class="proof-note">Figures reflect the most recent state and federal reporting available as of 2026; school-choice and Education Savings Account (ESA) programs vary by state and change often, so confirm current eligibility with your state's education agency.</p>
 </section>
 
 <section class="faq" id="faq">
@@ -818,6 +901,22 @@ const noteOf = s => s.placeholder
   ? '<div class="ph">◔ Sample listing — details pending verification</div>'
   : (s.verified ? '' : '<div class="ph">○ Unclaimed listing — claim it free to complete</div>');
 
+// state abbreviation -> full name, so a parent typing "Florida" matches data stored as "FL"
+const STATE_NAMES = {AL:"Alabama",AK:"Alaska",AZ:"Arizona",AR:"Arkansas",CA:"California",CO:"Colorado",CT:"Connecticut",DE:"Delaware",DC:"District of Columbia",FL:"Florida",GA:"Georgia",HI:"Hawaii",ID:"Idaho",IL:"Illinois",IN:"Indiana",IA:"Iowa",KS:"Kansas",KY:"Kentucky",LA:"Louisiana",ME:"Maine",MD:"Maryland",MA:"Massachusetts",MI:"Michigan",MN:"Minnesota",MS:"Mississippi",MO:"Missouri",MT:"Montana",NE:"Nebraska",NV:"Nevada",NH:"New Hampshire",NJ:"New Jersey",NM:"New Mexico",NY:"New York",NC:"North Carolina",ND:"North Dakota",OH:"Ohio",OK:"Oklahoma",OR:"Oregon",PA:"Pennsylvania",RI:"Rhode Island",SC:"South Carolina",SD:"South Dakota",TN:"Tennessee",TX:"Texas",UT:"Utah",VT:"Vermont",VA:"Virginia",WA:"Washington",WV:"West Virginia",WI:"Wisconsin",WY:"Wyoming",PR:"Puerto Rico",GU:"Guam",VI:"U.S. Virgin Islands"};
+const stateFull = s => STATE_NAMES[String(s.state||"").toUpperCase()] || "";
+// cached, lowercased searchable text per school (built once after load)
+const blobOf = s => s._blob || (s._blob = [s.name, s.city, s.state, stateFull(s), s.model, s.grades, s.ages]
+  .filter(Boolean).join(" ").toLowerCase());
+
+function debounce(fn, ms) { let t; return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms); }; }
+
+// single source of truth for the model filter — keeps chips + model cards in sync
+function setModel(model) {
+  activeModel = model;
+  document.querySelectorAll(".chip").forEach(c => c.classList.toggle("active", c.dataset.model === model));
+  apply();
+}
+
 async function boot() {
   try {
     const res = await fetch("data/schools.json", {cache: "no-store"});
@@ -829,6 +928,7 @@ async function boot() {
   }
   initStats();
   initChips();
+  initModelCards();
   initMap();
   bindUI();
   apply();
@@ -846,9 +946,24 @@ function initChips() {
     `<button class="chip${m==='All'?' active':''}" data-model="${escAttr(m)}">${escHtml(m)}</button>`).join("");
   $("#chips").addEventListener("click", e => {
     const b = e.target.closest(".chip"); if (!b) return;
-    activeModel = b.dataset.model;
-    document.querySelectorAll(".chip").forEach(c => c.classList.toggle("active", c===b));
-    apply();
+    setModel(b.dataset.model);
+  });
+}
+
+// "Explore by model" cards: fill live counts + filter the directory on click
+function initModelCards() {
+  const counts = {};
+  SCHOOLS.forEach(s => { counts[s.model] = (counts[s.model] || 0) + 1; });
+  document.querySelectorAll("#modelgrid .mc-n").forEach(el => {
+    const n = counts[el.dataset.count] || 0;
+    el.textContent = n ? `${n} listed` : "";
+  });
+  document.querySelectorAll("#modelgrid .modelcard").forEach(card => {
+    card.addEventListener("click", () => {
+      setModel(card.dataset.model);
+      $("#search").value = "";
+      document.getElementById("explore").scrollIntoView({ behavior: "smooth", block: "start" });
+    });
   });
 }
 
@@ -861,7 +976,7 @@ function initMap() {
 }
 
 function bindUI() {
-  $("#search").addEventListener("input", apply);
+  $("#search").addEventListener("input", debounce(apply, 120));
   $("#searchbtn").addEventListener("click", apply);
   $("#sort").addEventListener("change", apply);
   $("#drawerbg").addEventListener("click", closeDrawer);
@@ -873,23 +988,42 @@ function bindUI() {
   });
 }
 
+// score a school against the query tokens; -1 means "no match", higher = more relevant
+function matchScore(s, tokens) {
+  if (!tokens.length) return 0;
+  const blob = blobOf(s), name = s.name.toLowerCase(), city = (s.city||"").toLowerCase();
+  let score = 0;
+  for (const t of tokens) {
+    if (!blob.includes(t)) return -1;              // AND: every token must appear somewhere
+    if (name.startsWith(t)) score += 5;            // strongest: name prefix
+    else if (name.includes(t)) score += 3;         // name contains
+    else if (city.startsWith(t)) score += 2;       // city prefix
+    else if (city.includes(t)) score += 1;         // city contains
+  }
+  return score;
+}
+
 function apply() {
   const q = $("#search").value.trim().toLowerCase();
+  const tokens = q ? q.split(/\s+/) : [];
   FILTERED = SCHOOLS.filter(s => {
     if (activeModel !== "All" && s.model !== activeModel) return false;
-    if (!q) return true;
-    return [s.name, s.city, s.state, s.model, s.grades].join(" ").toLowerCase().includes(q);
+    return matchScore(s, tokens) >= 0;
   });
   const sort = $("#sort").value;
-  FILTERED.sort((a,b) => {
-    switch (sort) {
-      case "tuition-asc": return tuitionNum(a) - tuitionNum(b);
-      case "tuition-desc": return tuitionNum(b) - tuitionNum(a);
-      case "ratio": return ratioNum(a) - ratioNum(b);
-      case "newest": return (b.founded||0) - (a.founded||0);
-      default: return a.name.localeCompare(b.name);
-    }
-  });
+  // with a query and the default sort, rank by relevance; explicit sorts still win
+  if (tokens.length && sort === "name") {
+    FILTERED.sort((a,b) => matchScore(b,tokens) - matchScore(a,tokens) || a.name.localeCompare(b.name));
+  } else {
+    FILTERED.sort((a,b) => {
+      switch (sort) {
+        case "tuition-asc": return tuitionNum(a) - tuitionNum(b);
+        case "tuition-desc": return tuitionNum(b) - tuitionNum(a);
+        case "ratio": return ratioNum(a) - ratioNum(b);
+        default: return a.name.localeCompare(b.name);
+      }
+    });
+  }
   renderList();
   renderMarkers();
 }
