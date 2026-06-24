@@ -547,6 +547,14 @@
     .forum-grid { grid-template-columns: 1fr; gap: 26px; }
     .forum-new { position: static; }
   }
+  /* community teaser */
+  .community-teaser{max-width:var(--maxw);margin:30px auto 0;padding:0 26px}
+  .ct-inner{background:var(--paper-2);border:1.5px solid var(--line);border-radius:24px;padding:clamp(28px,4vw,46px);display:grid;grid-template-columns:1.5fr auto;gap:26px;align-items:center}
+  .ct-inner h2{font-family:var(--serif);font-weight:500;font-size:clamp(1.6rem,3vw,2.3rem);line-height:1.06;letter-spacing:-.02em;margin-top:10px}
+  .ct-inner p{color:var(--ink-2);margin-top:12px;max-width:60ch;font-size:1rem}
+  .ct-inner .ct-cta{white-space:nowrap;background:var(--ink);color:var(--paper);padding:14px 26px;border-radius:100px;font-weight:600;transition:background .2s,transform .2s}
+  .ct-inner .ct-cta:hover{background:var(--coral);transform:translateY(-1px)}
+  @media(max-width:780px){.ct-inner{grid-template-columns:1fr}}
 </style>
 <!-- Google Analytics 4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-KVM4X9RRJ7"></script>
@@ -565,7 +573,7 @@
       <a class="muted" href="/microschools/">By state</a>
       <a class="muted" href="/blog/">Blog</a>
       <a class="muted" href="/glossary/">Glossary</a>
-      <a class="muted" href="#community">Community</a>
+      <a class="muted" href="/community/">Community</a>
       <a class="btn-add" href="#register"><span class="full">List your school — free</span><span class="short">+ List free</span></a>
     </nav>
   </div>
@@ -596,6 +604,24 @@
   </div>
 </section>
 
+<section class="models-sec" id="models-explore">
+  <div class="sec-head">
+    <h2>Find your kid's kind of school</h2>
+    <p>Microschools come in many flavors. Pick the learning model that fits your child and we'll filter the map and list above to match.</p>
+  </div>
+  <div class="modelgrid" id="modelgrid">
+    <button class="modelcard" data-model="Microschool" type="button"><div class="mc-top"><h3>Microschool</h3><span class="mc-n" data-count="Microschool"></span></div><p>A small, independent school — usually 5 to 40 students across mixed ages, with low ratios and learning paced to each child.</p><div class="mc-go">Show these schools →</div></button>
+    <button class="modelcard" data-model="Montessori" type="button"><div class="mc-top"><h3>Montessori</h3><span class="mc-n" data-count="Montessori"></span></div><p>Child-led learning with hands-on materials and mixed-age classrooms, following the Montessori method of independence and discovery.</p><div class="mc-go">Show these schools →</div></button>
+    <button class="modelcard" data-model="Acton" type="button"><div class="mc-top"><h3>Acton Academy</h3><span class="mc-n" data-count="Acton"></span></div><p>A learner-driven network where students set their own goals and grow through Socratic discussion and real-world quests.</p><div class="mc-go">Show these schools →</div></button>
+    <button class="modelcard" data-model="Learner-Driven" type="button"><div class="mc-top"><h3>Learner-Driven</h3><span class="mc-n" data-count="Learner-Driven"></span></div><p>Students direct their own learning — choosing projects and pacing — while adults act as guides rather than lecturers.</p><div class="mc-go">Show these schools →</div></button>
+    <button class="modelcard" data-model="Classical" type="button"><div class="mc-top"><h3>Classical</h3><span class="mc-n" data-count="Classical"></span></div><p>The classical trivium — grammar, logic, and rhetoric — built on great books, history, and structured reasoning.</p><div class="mc-go">Show these schools →</div></button>
+    <button class="modelcard" data-model="Forest / Nature" type="button"><div class="mc-top"><h3>Forest &amp; Nature</h3><span class="mc-n" data-count="Forest / Nature"></span></div><p>Outdoor, play-based education where children learn through nature, exploration, and hands-on discovery.</p><div class="mc-go">Show these schools →</div></button>
+    <button class="modelcard" data-model="Project-Based" type="button"><div class="mc-top"><h3>Project-Based</h3><span class="mc-n" data-count="Project-Based"></span></div><p>Learning organized around real, hands-on projects that build knowledge and skills through doing, not memorizing.</p><div class="mc-go">Show these schools →</div></button>
+    <button class="modelcard" data-model="Hybrid" type="button"><div class="mc-top"><h3>Hybrid</h3><span class="mc-n" data-count="Hybrid"></span></div><p>A blend of in-person classes and at-home learning, often two to three days a week on campus and the rest at home.</p><div class="mc-go">Show these schools →</div></button>
+    <button class="modelcard" data-model="Homeschool Co-op" type="button"><div class="mc-top"><h3>Homeschool Co-op</h3><span class="mc-n" data-count="Homeschool Co-op"></span></div><p>Families who share teaching and community so children learn some subjects together while parents stay in charge.</p><div class="mc-go">Show these schools →</div></button>
+  </div>
+  <p class="glossary-link">New to these terms? Our <a href="/glossary/">plain-English glossary</a> explains every learning model and homeschooling word in one place.</p>
+</section>
 <section class="explorer" id="explore">
   <div class="toolbar" id="models">
     <div class="chips" id="chips"></div>
@@ -615,24 +641,6 @@
   </div>
 </section>
 
-<section class="models-sec" id="models-explore">
-  <div class="sec-head">
-    <h2>Find your kid's kind of school</h2>
-    <p>Microschools come in many flavors. Pick the learning model that fits your child and we'll filter the map and list above to match.</p>
-  </div>
-  <div class="modelgrid" id="modelgrid">
-    <button class="modelcard" data-model="Microschool" type="button"><div class="mc-top"><h3>Microschool</h3><span class="mc-n" data-count="Microschool"></span></div><p>A small, independent school — usually 5 to 40 students across mixed ages, with low ratios and learning paced to each child.</p><div class="mc-go">Show these schools →</div></button>
-    <button class="modelcard" data-model="Montessori" type="button"><div class="mc-top"><h3>Montessori</h3><span class="mc-n" data-count="Montessori"></span></div><p>Child-led learning with hands-on materials and mixed-age classrooms, following the Montessori method of independence and discovery.</p><div class="mc-go">Show these schools →</div></button>
-    <button class="modelcard" data-model="Acton" type="button"><div class="mc-top"><h3>Acton Academy</h3><span class="mc-n" data-count="Acton"></span></div><p>A learner-driven network where students set their own goals and grow through Socratic discussion and real-world quests.</p><div class="mc-go">Show these schools →</div></button>
-    <button class="modelcard" data-model="Learner-Driven" type="button"><div class="mc-top"><h3>Learner-Driven</h3><span class="mc-n" data-count="Learner-Driven"></span></div><p>Students direct their own learning — choosing projects and pacing — while adults act as guides rather than lecturers.</p><div class="mc-go">Show these schools →</div></button>
-    <button class="modelcard" data-model="Classical" type="button"><div class="mc-top"><h3>Classical</h3><span class="mc-n" data-count="Classical"></span></div><p>The classical trivium — grammar, logic, and rhetoric — built on great books, history, and structured reasoning.</p><div class="mc-go">Show these schools →</div></button>
-    <button class="modelcard" data-model="Forest / Nature" type="button"><div class="mc-top"><h3>Forest &amp; Nature</h3><span class="mc-n" data-count="Forest / Nature"></span></div><p>Outdoor, play-based education where children learn through nature, exploration, and hands-on discovery.</p><div class="mc-go">Show these schools →</div></button>
-    <button class="modelcard" data-model="Project-Based" type="button"><div class="mc-top"><h3>Project-Based</h3><span class="mc-n" data-count="Project-Based"></span></div><p>Learning organized around real, hands-on projects that build knowledge and skills through doing, not memorizing.</p><div class="mc-go">Show these schools →</div></button>
-    <button class="modelcard" data-model="Hybrid" type="button"><div class="mc-top"><h3>Hybrid</h3><span class="mc-n" data-count="Hybrid"></span></div><p>A blend of in-person classes and at-home learning, often two to three days a week on campus and the rest at home.</p><div class="mc-go">Show these schools →</div></button>
-    <button class="modelcard" data-model="Homeschool Co-op" type="button"><div class="mc-top"><h3>Homeschool Co-op</h3><span class="mc-n" data-count="Homeschool Co-op"></span></div><p>Families who share teaching and community so children learn some subjects together while parents stay in charge.</p><div class="mc-go">Show these schools →</div></button>
-  </div>
-  <p class="glossary-link">New to these terms? Our <a href="/glossary/">plain-English glossary</a> explains every learning model and homeschooling word in one place.</p>
-</section>
 
 <section class="proof" id="why">
   <div class="sec-head">
@@ -701,6 +709,16 @@
   </div>
 </section>
 
+<section class="community-teaser" id="community">
+  <div class="ct-inner">
+    <div>
+      <span class="eyebrow">Community</span>
+      <h2>Questions? Ask parents who've actually done it.</h2>
+      <p>Our community forum is where parents, founders, and co-op leaders trade real advice — choosing a school, funding and ESAs, curricula, and making the leap. Free to read; a quick free account keeps it spam-free to post.</p>
+    </div>
+    <a class="ct-cta" href="/community/">Visit the community &rarr;</a>
+  </div>
+</section>
 <section class="register" id="register">
   <div class="reg-inner">
     <div class="reg-pitch">
@@ -778,54 +796,6 @@
   </div>
 </section>
 
-<section class="forum" id="community">
-  <div class="forum-head">
-    <span class="eyebrow">Community</span>
-    <h2>Ask other parents, founders &amp; co-op leaders.</h2>
-    <p>Leaving public school raises a lot of questions. Ask them here — and share what's working for your family or your program. Real people, no accounts required.</p>
-  </div>
-  <div class="forum-grid">
-    <div class="forum-new">
-      <h3>Start a discussion</h3>
-      <p class="sub">Post a question or share something useful. It appears for everyone instantly.</p>
-      <form id="threadform" novalidate>
-        <div class="field">
-          <label for="th-topic">Topic</label>
-          <select id="th-topic" name="topic">
-            <option>General</option>
-            <option>Getting Started</option>
-            <option>Choosing a School</option>
-            <option>Homeschool Co-ops</option>
-            <option>Curriculum &amp; Learning</option>
-            <option>Cost &amp; ESAs / Funding</option>
-            <option>Starting a Microschool</option>
-            <option>Legal &amp; Compliance</option>
-          </select>
-        </div>
-        <div class="field">
-          <label for="th-title">Title *</label>
-          <input id="th-title" name="title" type="text" required maxlength="140" placeholder="e.g. How did you know it was time to leave public school?" />
-        </div>
-        <div class="field">
-          <label for="th-body">Your question or post *</label>
-          <textarea id="th-body" name="body" required placeholder="Share the details — where you are, your child's age, what you're weighing…"></textarea>
-        </div>
-        <div class="field">
-          <label for="th-author">Your name or handle</label>
-          <input id="th-author" name="author" type="text" maxlength="60" placeholder="Optional — defaults to Guest" />
-        </div>
-        <button type="submit" class="forum-post-btn" id="threadsubmit">Post to the community</button>
-        <p class="forum-tip">Be kind and helpful. Posts are public and moderated — no spam, no contact info harvesting.</p>
-      </form>
-    </div>
-
-    <div>
-      <div class="thread-list" id="threadlist">
-        <div class="forum-loading" id="forumloading">Loading discussions…</div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <section class="band" id="add">
   <div class="add">
@@ -1287,157 +1257,6 @@ const REG = {
   });
 })();
 
-/* ---------- Community forum (Supabase-backed) ---------- */
-(function initForum(){
-  const list = document.getElementById("threadlist");
-  const form = document.getElementById("threadform");
-  if (!list || !form) return;
-
-  const headers = (extra) => Object.assign({
-    "apikey": REG.supabaseAnonKey,
-    "Authorization": `Bearer ${REG.supabaseAnonKey}`
-  }, extra || {});
-  const configured = () => REG.supabaseUrl && REG.supabaseAnonKey;
-
-  const esc = (s) => String(s == null ? "" : s)
-    .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;").replace(/'/g,"&#39;");
-
-  function timeAgo(iso){
-    const then = new Date(iso).getTime();
-    if (isNaN(then)) return "";
-    const s = Math.max(1, Math.floor((Date.now() - then) / 1000));
-    const u = [[31536000,"yr"],[2592000,"mo"],[604800,"wk"],[86400,"d"],[3600,"h"],[60,"m"]];
-    for (const [secs,label] of u) { if (s >= secs) return Math.floor(s/secs) + label + " ago"; }
-    return "just now";
-  }
-
-  async function loadThreads(){
-    if (!configured()) {
-      list.innerHTML = '<div class="forum-empty">The community forum is warming up. Check back shortly.</div>';
-      return;
-    }
-    try {
-      const res = await fetch(`${REG.supabaseUrl}/rest/v1/forum_threads?select=*&status=eq.visible&order=created_at.desc&limit=50`, { headers: headers() });
-      const threads = await res.json();
-      if (!Array.isArray(threads) || threads.length === 0) {
-        list.innerHTML = '<div class="forum-empty">No discussions yet — be the first to start one.</div>';
-        return;
-      }
-      list.innerHTML = "";
-      threads.forEach(renderThread);
-    } catch (e) {
-      list.innerHTML = '<div class="forum-empty">Couldn\'t load discussions right now. Please refresh.</div>';
-    }
-  }
-
-  function renderThread(t, prepend){
-    const el = document.createElement("div");
-    el.className = "thread";
-    el.dataset.id = t.id;
-    el.innerHTML =
-      `<span class="t-topic">${esc(t.topic || "General")}</span>
-       <div class="t-title">${esc(t.title)}</div>
-       <div class="t-body">${esc(t.body)}</div>
-       <div class="t-meta">
-         <span>${esc(t.author || "Guest")} · ${esc(timeAgo(t.created_at))}</span>
-         <button type="button" data-act="toggle">Replies</button>
-       </div>
-       <div class="replies" data-replies></div>`;
-    el.querySelector('[data-act="toggle"]').addEventListener("click", () => toggleReplies(el, t.id));
-    if (prepend) list.insertBefore(el, list.firstChild);
-    else list.appendChild(el);
-  }
-
-  async function toggleReplies(el, threadId){
-    const box = el.querySelector("[data-replies]");
-    if (box.classList.contains("open")) { box.classList.remove("open"); return; }
-    box.classList.add("open");
-    if (box.dataset.loaded) return;
-    box.innerHTML = '<div class="forum-loading" style="padding:10px 0">Loading replies…</div>';
-    let repliesHtml = "";
-    try {
-      const res = await fetch(`${REG.supabaseUrl}/rest/v1/forum_replies?select=*&status=eq.visible&thread_id=eq.${threadId}&order=created_at.asc`, { headers: headers() });
-      const replies = await res.json();
-      repliesHtml = (Array.isArray(replies) ? replies : []).map(r =>
-        `<div class="reply"><div class="r-body">${esc(r.body)}</div><div class="r-meta">${esc(r.author || "Guest")} · ${esc(timeAgo(r.created_at))}</div></div>`
-      ).join("");
-    } catch (e) { repliesHtml = ""; }
-    box.dataset.loaded = "1";
-    box.innerHTML = repliesHtml +
-      `<form class="reply-form">
-         <textarea required placeholder="Write a helpful reply…" maxlength="2000"></textarea>
-         <input type="text" placeholder="Name (optional)" maxlength="60" />
-         <button type="submit">Reply</button>
-       </form>`;
-    const rf = box.querySelector("form");
-    rf.addEventListener("submit", (ev) => postReply(ev, rf, threadId, box));
-  }
-
-  async function postReply(ev, rf, threadId, box){
-    ev.preventDefault();
-    const ta = rf.querySelector("textarea");
-    const nameInput = rf.querySelector('input[type=text]');
-    const body = ta.value.trim();
-    if (!body) return;
-    const btn = rf.querySelector("button");
-    btn.disabled = true; btn.textContent = "Posting…";
-    try {
-      const res = await fetch(`${REG.supabaseUrl}/rest/v1/forum_replies`, {
-        method: "POST",
-        headers: headers({ "Content-Type": "application/json", "Prefer": "return-representation" }),
-        body: JSON.stringify({ thread_id: threadId, body, author: (nameInput.value.trim() || "Guest"), status: "visible" })
-      });
-      if (!res.ok) throw new Error("post failed");
-      const rows = await res.json();
-      const r = Array.isArray(rows) ? rows[0] : rows;
-      const node = document.createElement("div");
-      node.className = "reply";
-      node.innerHTML = `<div class="r-body">${esc(r.body)}</div><div class="r-meta">${esc(r.author || "Guest")} · just now</div>`;
-      box.insertBefore(node, rf);
-      ta.value = ""; nameInput.value = "";
-    } catch (e) {
-      alert("Sorry — your reply didn't post. Please try again.");
-    } finally {
-      btn.disabled = false; btn.textContent = "Reply";
-    }
-  }
-
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const title = document.getElementById("th-title").value.trim();
-    const body = document.getElementById("th-body").value.trim();
-    if (!title || !body) return;
-    if (!configured()) { alert("The forum is warming up — please try again in a moment."); return; }
-    const btn = document.getElementById("threadsubmit");
-    btn.disabled = true; btn.textContent = "Posting…";
-    try {
-      const res = await fetch(`${REG.supabaseUrl}/rest/v1/forum_threads`, {
-        method: "POST",
-        headers: headers({ "Content-Type": "application/json", "Prefer": "return-representation" }),
-        body: JSON.stringify({
-          title, body,
-          topic: document.getElementById("th-topic").value,
-          author: (document.getElementById("th-author").value.trim() || "Guest"),
-          status: "visible"
-        })
-      });
-      if (!res.ok) throw new Error("post failed");
-      const rows = await res.json();
-      const t = Array.isArray(rows) ? rows[0] : rows;
-      const empty = list.querySelector(".forum-empty, .forum-loading");
-      if (empty) empty.remove();
-      renderThread(t, true);
-      form.reset();
-    } catch (err) {
-      alert("Sorry — your post didn't go through. Please try again.");
-    } finally {
-      btn.disabled = false; btn.textContent = "Post to the community";
-    }
-  });
-
-  loadThreads();
-})();
 </script>
 
 <!-- FAQ schema for search engines + LLMs -->

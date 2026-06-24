@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Community Forum — Ask Parents, Founders &amp; Co-op Leaders | microschool.directory</title>
+<meta name="description" content="A friendly community for parents, microschool founders, and homeschool co-op leaders. Ask questions, share what's working, and learn from families who left traditional school. Free account required to post."/>
+<meta name="robots" content="index,follow"/>
+<meta name="theme-color" content="#13241d"/>
+<link rel="canonical" href="https://microschool.directory/community/"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="Community Forum — microschool.directory"/>
+<meta property="og:description" content="Ask parents, founders, and co-op leaders about microschools and homeschooling. Free account required to post."/>
+<meta property="og:url" content="https://microschool.directory/community/"/>
+<meta property="og:site_name" content="microschool.directory"/>
+<meta property="og:image" content="https://microschool.directory/assets/og-image.png"/>
+<meta property="og:image:width" content="1408"/><meta property="og:image:height" content="768"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://microschool.directory/assets/og-image.png"/>
+<link rel="icon" type="image/png" href="/assets/icon.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="/assets/site.css"/>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"DiscussionForumPosting","@id":"https://microschool.directory/community/#forum","headline":"microschool.directory Community Forum","url":"https://microschool.directory/community/","isPartOf":{"@id":"https://microschool.directory/#website"},"author":{"@id":"https://microschool.directory/#org"}},
+{"@type":"BreadcrumbList","itemListElement":[
+{"@type":"ListItem","position":1,"name":"Home","item":"https://microschool.directory/"},
+{"@type":"ListItem","position":2,"name":"Community"}]}
+]}
+</script>
+<style>
+  .c-hero{max-width:var(--maxw);margin:0 auto;padding:30px 26px 6px}
+  .c-hero h1{font-family:var(--serif);font-weight:500;font-size:clamp(2rem,4.4vw,3.1rem);line-height:1.04;letter-spacing:-.025em;max-width:20ch}
+  .c-hero h1 em{font-style:italic;color:var(--forest)}
+  .c-hero p.lede{margin-top:14px;max-width:62ch;font-size:1.05rem;color:var(--ink-2)}
+  .authbar{max-width:var(--maxw);margin:22px auto 0;padding:0 26px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+  .authbar .who{font-size:.95rem;color:var(--ink-2)}
+  .authbar .who b{color:var(--ink);font-weight:600}
+  .authbar .who .utag{font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--forest);background:var(--paper-2);border:1px solid var(--line);border-radius:100px;padding:3px 9px;margin-left:8px}
+  .authbar .grp{display:flex;gap:10px;flex-wrap:wrap}
+  .btn{border:none;cursor:pointer;font-family:var(--sans);font-weight:600;font-size:.92rem;padding:11px 20px;border-radius:100px;transition:transform .2s,background .2s}
+  .btn-primary{background:var(--coral);color:#fff}.btn-primary:hover{background:var(--coral-deep);transform:translateY(-1px)}
+  .btn-ghost{background:transparent;border:1.5px solid var(--line);color:var(--ink)}.btn-ghost:hover{border-color:var(--forest)}
+  .c-wrap{max-width:var(--maxw);margin:24px auto 0;padding:0 26px;display:grid;grid-template-columns:1fr;gap:20px}
+  .composer{background:var(--card);border:1.5px solid var(--line);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)}
+  .composer h2{font-family:var(--serif);font-weight:600;font-size:1.3rem;margin-bottom:4px}
+  .composer .sub{color:var(--ink-2);opacity:.8;font-size:.92rem;margin-bottom:16px}
+  .composer.locked{text-align:center;padding:34px 24px}
+  .composer.locked p{color:var(--ink-2);max-width:46ch;margin:0 auto 16px}
+  .field{margin-bottom:14px}
+  .field label{display:block;font-size:.8rem;font-weight:600;color:var(--ink);margin-bottom:6px}
+  .field input,.field select,.field textarea{width:100%;font-family:var(--sans);font-size:.95rem;color:var(--ink);border:1.5px solid var(--line);background:var(--paper);border-radius:12px;padding:11px 14px;outline:none;transition:border-color .2s}
+  .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--forest)}
+  .field textarea{resize:vertical;min-height:96px}
+  .hp{position:absolute!important;left:-9999px!important;width:1px;height:1px;overflow:hidden}
+  .threads{display:flex;flex-direction:column;gap:16px;min-height:120px}
+  .thread{background:var(--card);border:1.5px solid var(--line);border-radius:var(--radius);padding:22px 24px;transition:border-color .18s}
+  .thread:hover{border-color:var(--moss)}
+  .thread .t-topic{display:inline-block;font-size:.72rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--forest);background:var(--paper-2);border:1px solid var(--line);border-radius:100px;padding:3px 10px}
+  .thread .t-title{font-family:var(--serif);font-size:1.25rem;font-weight:600;margin:10px 0 6px;line-height:1.25}
+  .thread .t-body{font-size:.95rem;color:var(--ink-2);line-height:1.55;white-space:pre-wrap}
+  .thread .t-meta{margin-top:12px;font-size:.8rem;color:var(--ink-2);opacity:.72;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+  .thread .t-meta button{background:none;border:none;color:var(--coral-deep);font-family:var(--sans);font-weight:600;font-size:.82rem;cursor:pointer;padding:0}
+  .thread .t-meta button:hover{text-decoration:underline}
+  .replies{margin-top:14px;padding-top:8px;border-top:1px solid var(--line);display:none;flex-direction:column;gap:12px}
+  .replies.open{display:flex}
+  .reply{background:var(--paper-2);border:1px solid var(--line);border-radius:12px;padding:12px 15px}
+  .reply .r-body{font-size:.92rem;color:var(--ink-2);line-height:1.5;white-space:pre-wrap}
+  .reply .r-meta{margin-top:7px;font-size:.74rem;color:var(--ink-2);opacity:.65}
+  .reply-form{display:flex;flex-direction:column;gap:8px;margin-top:6px}
+  .reply-form textarea{width:100%;font-family:var(--sans);font-size:.92rem;border:1.5px solid var(--line);background:var(--card);border-radius:10px;padding:10px 12px;outline:none;min-height:64px;resize:vertical}
+  .reply-locked{font-size:.85rem;color:var(--ink-2);opacity:.8;padding:6px 0}
+  .reply-locked a{color:var(--coral-deep);font-weight:600;cursor:pointer}
+  .loading,.c-empty{padding:40px 10px;text-align:center;color:var(--ink-2);opacity:.72}
+  .c-empty b{font-family:var(--serif);font-size:1.2rem;display:block;margin-bottom:6px;color:var(--ink)}
+  .tip{font-size:.8rem;color:var(--ink-2);opacity:.7;margin-top:10px}
+  /* modal */
+  .modal-bg{position:fixed;inset:0;background:rgba(19,36,29,.45);backdrop-filter:blur(3px);z-index:2000;display:none;align-items:center;justify-content:center;padding:20px}
+  .modal-bg.open{display:flex}
+  .modal{background:var(--card);border:1.5px solid var(--line);border-radius:22px;box-shadow:var(--shadow);width:100%;max-width:440px;padding:30px;position:relative;max-height:92vh;overflow-y:auto}
+  .modal .closex{position:absolute;top:18px;right:18px;width:34px;height:34px;border-radius:50%;background:var(--paper-2);border:none;color:var(--ink);cursor:pointer;font-size:1.1rem}
+  .modal .closex:hover{background:var(--coral);color:#fff}
+  .modal h2{font-family:var(--serif);font-weight:500;font-size:1.7rem;letter-spacing:-.02em;margin-bottom:4px}
+  .modal .msub{color:var(--ink-2);font-size:.92rem;margin-bottom:20px}
+  .tabs{display:inline-flex;background:var(--paper-2);border-radius:100px;padding:4px;margin-bottom:20px;gap:4px}
+  .tabs button{border:none;background:transparent;font-family:var(--sans);font-weight:600;font-size:.86rem;color:var(--ink-2);padding:9px 18px;border-radius:100px;cursor:pointer}
+  .tabs button.on{background:var(--ink);color:var(--paper)}
+  .modal .err{background:rgba(198,74,38,.1);border:1px solid rgba(198,74,38,.3);color:var(--coral-deep);border-radius:10px;padding:10px 13px;font-size:.85rem;margin-bottom:14px;display:none}
+  .modal .ok{background:rgba(40,92,70,.1);border:1px solid rgba(40,92,70,.3);color:var(--forest);border-radius:10px;padding:12px 14px;font-size:.9rem;margin-bottom:14px;display:none;line-height:1.5}
+  .modal .submit{width:100%;border:none;cursor:pointer;font-family:var(--sans);font-weight:700;font-size:1rem;background:var(--coral);color:#fff;padding:14px;border-radius:100px;margin-top:4px}
+  .modal .submit:hover{background:var(--coral-deep)}
+  .modal .submit:disabled{opacity:.6;cursor:default}
+  .modal .fineprint{font-size:.76rem;color:var(--ink-2);opacity:.7;text-align:center;margin-top:12px;line-height:1.5}
+  @media(max-width:680px){.c-hero{padding:22px 18px 6px}.authbar,.c-wrap{padding-left:18px;padding-right:18px}}
+</style>
+</head>
+<body>
+<header><div class="bar">
+<a class="brand" href="/"><span class="pin"></span><b>microschool<span>.</span>directory</b></a>
+<nav class="top">
+<a class="muted" href="/microschools/">Browse by state</a>
+<a class="muted" href="/blog/">Blog</a>
+<a class="muted" href="/glossary/">Glossary</a>
+<a class="muted" href="/community/">Community</a>
+<a class="btn-add" href="/#register"><span class="full">List your school — free</span><span class="short">+ List free</span></a>
+</nav></div></header>
+
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">›</span><span>Community</span></nav>
+
+<section class="c-hero">
+  <span class="eyebrow">Community</span>
+  <h1>Ask other parents, founders &amp; <em>co-op leaders</em></h1>
+  <p class="lede">Leaving traditional school raises a lot of questions. Ask them here — and share what's working for your family or your program. A free account keeps the conversation real and spam-free.</p>
+</section>
+
+<div class="authbar">
+  <div class="who" id="who">Browse freely. Create a free account to join the conversation.</div>
+  <div class="grp" id="authbtns">
+    <button class="btn btn-ghost" id="loginBtn">Log in</button>
+    <button class="btn btn-primary" id="signupBtn">Sign up to post</button>
+  </div>
+</div>
+
+<div class="c-wrap">
+  <div id="composerHost"></div>
+  <div class="threads" id="threads"><div class="loading">Loading discussions…</div></div>
+</div>
+
+<!-- Auth modal -->
+<div class="modal-bg" id="modalbg">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="closex" id="modalClose" aria-label="Close">✕</button>
+    <div class="tabs"><button data-tab="signup" class="on">Sign up</button><button data-tab="login">Log in</button></div>
+    <h2 id="modalTitle">Join the community</h2>
+    <p class="msub" id="modalSub">Free, takes a minute. We'll email a confirmation link.</p>
+    <div class="err" id="authErr"></div>
+    <div class="ok" id="authOk"></div>
+    <form id="authForm" novalidate>
+      <div class="signup-only">
+        <div class="field"><label for="su-name">Display name</label><input id="su-name" type="text" maxlength="60" placeholder="How you'll show up in the forum" autocomplete="nickname"/></div>
+        <div class="field"><label for="su-type">I'm a…</label>
+          <select id="su-type"><option value="Parent">Parent / guardian</option><option value="Educator">Educator / guide</option><option value="Founder">Microschool or co-op founder</option><option value="Other">Other</option></select>
+        </div>
+      </div>
+      <div class="field"><label for="au-email">Email</label><input id="au-email" type="email" required placeholder="you@example.com" autocomplete="email"/></div>
+      <div class="field"><label for="au-pass">Password</label><input id="au-pass" type="password" required minlength="8" placeholder="At least 8 characters" autocomplete="current-password"/></div>
+      <!-- honeypot: real users never fill this -->
+      <input class="hp" type="text" id="au-website" name="website" tabindex="-1" autocomplete="off" aria-hidden="true"/>
+      <button class="submit" id="authSubmit" type="submit">Create account</button>
+      <p class="fineprint" id="authFine">By signing up you agree to keep it kind and spam-free. We only use your email to confirm your account and send replies you opt into.</p>
+    </form>
+  </div>
+</div>
+
+<footer><div class="foot">
+<div><a class="brand" href="/"><span class="pin"></span><b>microschool<span>.</span>directory</b></a>
+<p>The interactive map directory of microschools and homeschool co-ops across the United States.</p></div>
+<nav>
+<div class="col"><b>Explore</b><a href="/microschools/">Browse by state</a><a href="/#explore">Map &amp; search</a><a href="/blog/">Blog</a><a href="/glossary/">Glossary</a></div>
+<div class="col"><b>Community</b><a href="/community/">Forum</a><a href="/#register">List your school</a><a href="mailto:hello@microschool.directory">Contact</a></div>
+</nav></div>
+<div class="legal"><div><span>© 2026 microschool.directory</span><span>Be kind. Posts are public and moderated — no spam, no harvesting contact info.</span></div></div></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script>
+const SUPA_URL = "https://fhbczvfrsgkbpvammxip.supabase.co";
+const SUPA_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZoYmN6dmZyc2drYnB2YW1teGlwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIyMjg1NjUsImV4cCI6MjA5NzgwNDU2NX0.LNl2t1-cAYPny71aKHeZK094Zf_YawnKMvo8W15NQuE";
+const TOPICS = ["General","Getting Started","Choosing a School","Homeschool Co-ops","Curriculum & Learning","Cost & ESAs / Funding","Starting a Microschool","Legal & Compliance"];
+
+const sb = window.supabase.createClient(SUPA_URL, SUPA_ANON, { auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true } });
+const $ = s => document.querySelector(s);
+const esc = s => String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+let SESSION = null, PROFILE = null;
+
+function timeAgo(iso){const t=new Date(iso).getTime();if(isNaN(t))return"";let s=Math.max(1,Math.floor((Date.now()-t)/1000));for(const[secs,l]of[[31536000,"yr"],[2592000,"mo"],[604800,"wk"],[86400,"d"],[3600,"h"],[60,"m"]])if(s>=secs)return Math.floor(s/secs)+l+" ago";return"just now";}
+
+/* ---------- auth state ---------- */
+async function refreshAuth(){
+  const { data } = await sb.auth.getSession();
+  SESSION = data.session;
+  if (SESSION){
+    const { data: p } = await sb.from("profiles").select("display_name,user_type").eq("id", SESSION.user.id).maybeSingle();
+    PROFILE = p || { display_name: (SESSION.user.email||"").split("@")[0], user_type: "Parent" };
+  } else { PROFILE = null; }
+  renderAuthBar();
+  renderComposer();
+}
+function renderAuthBar(){
+  const who=$("#who"), btns=$("#authbtns");
+  if (SESSION && PROFILE){
+    who.innerHTML = `Signed in as <b>${esc(PROFILE.display_name)}</b><span class="utag">${esc(PROFILE.user_type)}</span>`;
+    btns.innerHTML = `<button class="btn btn-ghost" id="logoutBtn">Log out</button>`;
+    $("#logoutBtn").onclick = async()=>{ await sb.auth.signOut(); await refreshAuth(); };
+  } else {
+    who.textContent = "Browse freely. Create a free account to join the conversation.";
+    btns.innerHTML = `<button class="btn btn-ghost" id="loginBtn">Log in</button><button class="btn btn-primary" id="signupBtn">Sign up to post</button>`;
+    $("#loginBtn").onclick = ()=>openModal("login");
+    $("#signupBtn").onclick = ()=>openModal("signup");
+  }
+}
+function renderComposer(){
+  const host=$("#composerHost");
+  if (!SESSION){
+    host.innerHTML = `<div class="composer locked"><p>Want to start a discussion or reply? Create a free account — it keeps the forum human and spam-free.</p><button class="btn btn-primary" id="lockSignup">Sign up to post</button></div>`;
+    $("#lockSignup").onclick = ()=>openModal("signup");
+    return;
+  }
+  host.innerHTML = `<div class="composer"><h2>Start a discussion</h2><p class="sub">Post a question or share something useful — it appears for everyone right away.</p>
+    <form id="threadform" novalidate>
+      <div class="field"><label for="th-topic">Topic</label><select id="th-topic">${TOPICS.map(t=>`<option>${esc(t)}</option>`).join("")}</select></div>
+      <div class="field"><label for="th-title">Title</label><input id="th-title" type="text" maxlength="160" required placeholder="e.g. How did you know it was time to leave public school?"/></div>
+      <div class="field"><label for="th-body">Your question or post</label><textarea id="th-body" maxlength="8000" required placeholder="Share the details — where you are, your child's age, what you're weighing…"></textarea></div>
+      <input class="hp" type="text" id="th-website" tabindex="-1" autocomplete="off" aria-hidden="true"/>
+      <button class="btn btn-primary" id="threadsubmit" type="submit">Post to the community</button>
+      <p class="tip">Be kind and helpful. Posts are public and moderated.</p>
+    </form></div>`;
+  $("#threadform").addEventListener("submit", postThread);
+}
+
+/* ---------- threads ---------- */
+async function loadThreads(){
+  const box=$("#threads");
+  const { data, error } = await sb.from("forum_threads").select("*").eq("status","visible").order("created_at",{ascending:false}).limit(80);
+  if (error){ box.innerHTML = `<div class="c-empty"><b>Couldn't load discussions</b>Please refresh in a moment.</div>`; return; }
+  if (!data.length){ box.innerHTML = `<div class="c-empty"><b>No discussions yet</b>Be the first to start one.</div>`; return; }
+  box.innerHTML = "";
+  data.forEach(t => box.appendChild(threadEl(t)));
+}
+function threadEl(t, prepend){
+  const el=document.createElement("div"); el.className="thread"; el.dataset.id=t.id;
+  el.innerHTML = `<span class="t-topic">${esc(t.topic||"General")}</span>
+    <div class="t-title">${esc(t.title)}</div>
+    <div class="t-body">${esc(t.body)}</div>
+    <div class="t-meta"><span>${esc(t.author||"Member")} · ${esc(timeAgo(t.created_at))}</span><button type="button">Replies</button></div>
+    <div class="replies"></div>`;
+  el.querySelector("button").addEventListener("click", ()=>toggleReplies(el, t.id));
+  return el;
+}
+async function postThread(e){
+  e.preventDefault();
+  if ($("#th-website").value){ return; } // honeypot tripped
+  const title=$("#th-title").value.trim(), body=$("#th-body").value.trim(), topic=$("#th-topic").value;
+  if (title.length<3 || !body) return;
+  const btn=$("#threadsubmit"); btn.disabled=true; btn.textContent="Posting…";
+  const { data, error } = await sb.from("forum_threads")
+    .insert({ title, body, topic, author: PROFILE.display_name, author_id: SESSION.user.id, status:"visible" })
+    .select().single();
+  btn.disabled=false; btn.textContent="Post to the community";
+  if (error){ alert(error.message.includes("rate_limit") ? "You're posting quickly — please wait a few minutes and try again." : "Sorry, that didn't post. Please try again."); return; }
+  const box=$("#threads"); const empty=box.querySelector(".c-empty"); if (empty) box.innerHTML="";
+  box.insertBefore(threadEl(data, true), box.firstChild);
+  $("#th-title").value=""; $("#th-body").value="";
+}
+
+async function toggleReplies(el, threadId){
+  const box=el.querySelector(".replies");
+  if (box.classList.contains("open")){ box.classList.remove("open"); return; }
+  box.classList.add("open");
+  if (box.dataset.loaded) return;
+  box.innerHTML = `<div class="loading" style="padding:10px 0">Loading replies…</div>`;
+  const { data } = await sb.from("forum_replies").select("*").eq("thread_id",threadId).eq("status","visible").order("created_at",{ascending:true});
+  box.dataset.loaded="1";
+  box.innerHTML = (data||[]).map(r=>`<div class="reply"><div class="r-body">${esc(r.body)}</div><div class="r-meta">${esc(r.author||"Member")} · ${esc(timeAgo(r.created_at))}</div></div>`).join("");
+  if (SESSION){
+    const f=document.createElement("form"); f.className="reply-form";
+    f.innerHTML = `<textarea required maxlength="4000" placeholder="Write a helpful reply…"></textarea><input class="hp" type="text" tabindex="-1" autocomplete="off" aria-hidden="true"/><button class="btn btn-primary" type="submit">Reply</button>`;
+    f.addEventListener("submit", ev=>postReply(ev,f,threadId,box));
+    box.appendChild(f);
+  } else {
+    const d=document.createElement("div"); d.className="reply-locked";
+    d.innerHTML = `<a id="rl-${threadId}">Sign up</a> or log in to reply.`;
+    box.appendChild(d);
+    box.querySelector(`#rl-${threadId}`).onclick=()=>openModal("signup");
+  }
+}
+async function postReply(ev, f, threadId, box){
+  ev.preventDefault();
+  if (f.querySelector(".hp").value) return; // honeypot
+  const ta=f.querySelector("textarea"); const body=ta.value.trim(); if (!body) return;
+  const btn=f.querySelector("button"); btn.disabled=true; btn.textContent="Posting…";
+  const { data, error } = await sb.from("forum_replies")
+    .insert({ thread_id:threadId, body, author:PROFILE.display_name, author_id:SESSION.user.id, status:"visible" })
+    .select().single();
+  btn.disabled=false; btn.textContent="Reply";
+  if (error){ alert(error.message.includes("rate_limit") ? "You're replying quickly — please slow down a moment." : "Sorry, that didn't post."); return; }
+  const node=document.createElement("div"); node.className="reply";
+  node.innerHTML = `<div class="r-body">${esc(data.body)}</div><div class="r-meta">${esc(data.author||"Member")} · just now</div>`;
+  box.insertBefore(node, f); ta.value="";
+}
+
+/* ---------- modal + auth actions ---------- */
+let MODE="signup";
+function openModal(mode){ setMode(mode); $("#authErr").style.display="none"; $("#authOk").style.display="none"; $("#modalbg").classList.add("open"); }
+function closeModal(){ $("#modalbg").classList.remove("open"); }
+function setMode(mode){
+  MODE=mode;
+  document.querySelectorAll(".tabs button").forEach(b=>b.classList.toggle("on", b.dataset.tab===mode));
+  document.querySelectorAll(".signup-only").forEach(e=>e.style.display = mode==="signup"?"block":"none");
+  $("#modalTitle").textContent = mode==="signup"?"Join the community":"Welcome back";
+  $("#modalSub").textContent = mode==="signup"?"Free, takes a minute. We'll email a confirmation link.":"Log in to post and reply.";
+  $("#authSubmit").textContent = mode==="signup"?"Create account":"Log in";
+  $("#au-pass").autocomplete = mode==="signup"?"new-password":"current-password";
+  $("#authFine").style.display = mode==="signup"?"block":"none";
+}
+$("#modalClose").onclick=closeModal;
+$("#modalbg").addEventListener("click",e=>{ if(e.target===$("#modalbg")) closeModal(); });
+document.addEventListener("keydown",e=>{ if(e.key==="Escape") closeModal(); });
+document.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>{ setMode(b.dataset.tab); $("#authErr").style.display="none"; $("#authOk").style.display="none"; });
+$("#loginBtn") && ($("#loginBtn").onclick=()=>openModal("login"));
+$("#signupBtn") && ($("#signupBtn").onclick=()=>openModal("signup"));
+
+$("#authForm").addEventListener("submit", async e=>{
+  e.preventDefault();
+  if ($("#au-website").value) return; // honeypot
+  const email=$("#au-email").value.trim(), pass=$("#au-pass").value;
+  const errBox=$("#authErr"), okBox=$("#authOk"), btn=$("#authSubmit");
+  errBox.style.display="none"; okBox.style.display="none";
+  if (!email || pass.length<8){ errBox.textContent="Enter your email and a password of at least 8 characters."; errBox.style.display="block"; return; }
+  btn.disabled=true; const orig=btn.textContent; btn.textContent="Please wait…";
+  try {
+    if (MODE==="signup"){
+      const name=$("#su-name").value.trim() || email.split("@")[0];
+      const utype=$("#su-type").value;
+      const { error } = await sb.auth.signUp({ email, password:pass, options:{ data:{ display_name:name, user_type:utype }, emailRedirectTo:"https://microschool.directory/community/?confirmed=1" } });
+      if (error) throw error;
+      okBox.innerHTML = `Check your inbox — we sent a confirmation link to <b>${esc(email)}</b>. Click it, then come back and log in to post.`;
+      okBox.style.display="block"; $("#authForm").reset();
+    } else {
+      const { error } = await sb.auth.signInWithPassword({ email, password:pass });
+      if (error) throw error;
+      closeModal(); await refreshAuth(); await loadThreads();
+    }
+  } catch(err){
+    errBox.textContent = /confirm|not confirmed/i.test(err.message) ? "Please confirm your email first — check your inbox for the link." : (err.message || "Something went wrong. Please try again.");
+    errBox.style.display="block";
+  } finally { btn.disabled=false; btn.textContent=orig; }
+});
+
+sb.auth.onAuthStateChange(()=>{ refreshAuth(); });
+(async function init(){
+  setMode("signup");
+  await refreshAuth();
+  await loadThreads();
+  // arrived from a confirmation link
+  if (/confirmed=1/.test(location.search)){
+    const { data } = await sb.auth.getSession();
+    if (data.session){ history.replaceState({},"","/community/"); }
+  }
+})();
+</script>
+</body>
+</html>
