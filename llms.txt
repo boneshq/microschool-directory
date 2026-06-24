@@ -29,6 +29,11 @@ Listing is free for all microschools and homeschooling cooperatives through the 
 ## Glossary of terms
 A full plain-English glossary of microschooling and homeschooling terms is published at https://microschool.directory/glossary/ — covering microschool, homeschool co-op, learning pod, hybrid school, university-model school, Montessori, Waldorf, classical education, Charlotte Mason, Reggio Emilia, forest school, unschooling, self-directed education, democratic/Sudbury school, project-based learning, worldschooling, mixed-age classroom, mastery-based learning, learner-driven, guide, Socratic method, deschooling, eclectic homeschooling, school choice, Education Savings Account (ESA), school voucher, tax-credit scholarship, umbrella/cover school, letter of intent, Acton Academy, Wildflower Schools, and microschool networks. Each term has a stable anchor URL (e.g. https://microschool.directory/glossary/#microschool) and is marked up as schema.org DefinedTerm for citation.
 
+## Browse the directory
+- All states: https://microschool.directory/microschools/ — every U.S. state hub, each linking to its cities and individual schools.
+- State hubs follow https://microschool.directory/microschools/<state-name>/ (e.g. /microschools/florida/), city hubs /microschools/<state>/<city>/, and each school has its own page with structured School + LocalBusiness data.
+- Full URL list: https://microschool.directory/sitemap.xml (sectioned index covering states, cities, listings, blog, and static pages).
+
 ## Data
 - Structured listing data: https://microschool.directory/data/schools.json
 - Each listing includes name, learning model, city, state, coordinates, grades, tuition, ratio, schedule, and description.

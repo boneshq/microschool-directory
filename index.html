@@ -9,6 +9,14 @@
 <meta name="theme-color" content="#13241d" />
 <link rel="canonical" href="https://microschool.directory/" />
 
+<!-- Site entity graph: defines #website + #org that every state/city/listing page references via isPartOf/publisher. Static (not JS-injected) so non-rendering AI crawlers see it. -->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"WebSite","@id":"https://microschool.directory/#website","url":"https://microschool.directory/","name":"microschool.directory","description":"The interactive map directory of microschools and homeschooling cooperatives across the United States.","publisher":{"@id":"https://microschool.directory/#org"},"inLanguage":"en-US"},
+{"@type":"Organization","@id":"https://microschool.directory/#org","name":"microschool.directory","url":"https://microschool.directory/","description":"A free U.S. directory that helps families find microschools and homeschool co-ops, and lets founders list and claim their programs.","logo":{"@type":"ImageObject","url":"https://microschool.directory/assets/icon.png"},"email":"hello@microschool.directory","areaServed":"US"}
+]}
+</script>
+
 <!-- Open Graph -->
 <meta property="og:type" content="website" />
 <meta property="og:title" content="microschool.directory — Find Microschools &amp; Homeschool Co-ops Near You" />
