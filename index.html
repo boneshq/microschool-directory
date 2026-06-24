@@ -788,7 +788,6 @@ const $ = s => document.querySelector(s);
 const escHtml = v => String(v == null ? "" : v).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
 const escAttr = escHtml;
 const safeUrl = v => { const s = String(v == null ? "" : v).trim(); return /^https?:\/\//i.test(s) ? escAttr(s) : ""; };
-const fmtTuition = t => t;
 const tuitionNum = s => { const m = (s.tuition||"").replace(/[^0-9]/g,""); return m ? parseInt(m,10) : 999999; };
 const ratioNum = s => { const m = (s.ratio||"").match(/1:(\d+)/); return m ? parseInt(m[1],10) : 999; };
 const descOf = s => (s.description && s.description.trim())
@@ -905,9 +904,9 @@ function renderList() {
 function renderMarkers() {
   Object.values(MARKERS).forEach(m => MAP.removeLayer(m));
   MARKERS = {};
-  const ids = new Set(FILTERED.map(s => s.id));
   const pts = [];
   FILTERED.forEach(s => {
+    if (s.lat == null || s.lng == null) return;
     const icon = L.divIcon({ className: "", html: `<div class="pin-marker" data-id="${escAttr(s.id)}"></div>`, iconSize: [22,22], iconAnchor: [11,11] });
     const mk = L.marker([s.lat, s.lng], { icon }).addTo(MAP);
     const pop = L.DomUtil.create("div", "pop");
@@ -928,14 +927,14 @@ function renderMarkers() {
 function markerEl(id){ const m = MARKERS[id]; return m && m._icon ? m._icon.querySelector(".pin-marker") : null; }
 
 function highlight(id, on) {
-  const card = document.querySelector(`.card[data-id="${id}"]`);
+  const card = document.querySelector(`.card[data-id="${CSS.escape(String(id))}"]`);
   if (card) card.classList.toggle("hot", on);
   const el = markerEl(id);
   if (el) el.classList.toggle("hot", on);
 }
 
 function scrollToCard(id) {
-  const card = document.querySelector(`.card[data-id="${id}"]`);
+  const card = document.querySelector(`.card[data-id="${CSS.escape(String(id))}"]`);
   if (card) card.scrollIntoView({ behavior: "smooth", block: "center" });
 }
 
@@ -951,10 +950,9 @@ function metaItems(pairs, itemClass) {
 function openDrawer(id) {
   const s = SCHOOLS.find(x => x.id === id); if (!s) return;
   activeId = id;
-  MAP.flyTo([s.lat, s.lng], 12, { duration: 0.8 });
+  if (s.lat != null && s.lng != null) MAP.flyTo([s.lat, s.lng], 12, { duration: 0.8 });
   if (MARKERS[id]) MARKERS[id].openPopup();
   highlight(id, true);
-  const hasContact = !s.placeholder;
   $("#drawer").innerHTML = `
     <div class="drawer-hd">
       <button class="closex" onclick="closeDrawer()" aria-label="Close">✕</button>
@@ -986,8 +984,6 @@ function openDrawer(id) {
   $("#drawerbg").classList.add("open");
 }
 
-window.openDrawer = openDrawer;
-
 function closeDrawer() {
   $("#drawer").classList.remove("open");
   $("#drawer").setAttribute("aria-hidden","true");
@@ -1008,7 +1004,7 @@ function injectSchema() {
       "item": {
         "@type": "School", "name": s.name,
         "address": { "@type": "PostalAddress", "addressLocality": s.city, "addressRegion": s.state, "addressCountry": "US" },
-        "geo": { "@type": "GeoCoordinates", "latitude": s.lat, "longitude": s.lng },
+        ...(s.lat != null && s.lng != null ? { "geo": { "@type": "GeoCoordinates", "latitude": s.lat, "longitude": s.lng } } : {}),
         "description": s.description
       }
     }))
@@ -1053,7 +1049,6 @@ const REG = {
     const btn = document.getElementById("regsubmit");
     const data = Object.fromEntries(new FormData(form).entries());
     data.mode = mode;
-    data.submitted_at = new Date().toISOString();
     if (!data.name || !data.city || !data.state || !data.email) {
       alert("Please fill in the school name, city, state, and your email.");
       return;
@@ -1125,7 +1120,7 @@ const REG = {
       .map(([k,v])=>`${k}: ${v||"—"}`).join("\n") + "\n\n(Please attach your photos to this email.)"
     );
     window.location.href = `mailto:${REG.contactEmail}?subject=${subject}&body=${body}`;
-    btn.disabled = false; btn.textContent = "Submit my listing — free";
+    btn.disabled = false; btn.textContent = mode==="claim" ? "Request my listing edit — free" : "Submit my listing — free";
     let note = document.getElementById("regfallback");
     if (!note) {
       note = document.createElement("p");
