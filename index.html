@@ -789,8 +789,9 @@
         <p class="reg-note">By submitting you agree to be contacted about your listing. Free for microschools &amp; homeschool co-ops through 2026.</p>
       </form>
       <div class="reg-success" id="regsuccess">
-        <b>Thank you — you're on the way!</b>
-        <p>We've received your details and we'll review your listing shortly. Watch your inbox for confirmation from <strong>hello@microschool.directory</strong>.</p>
+        <b>Thank you — we've got your listing!</b>
+        <p>Your details are saved and our team will review them shortly. We'll reach out at the email you provided if we need anything, and your listing will appear on the map once it's approved. Questions? Email <strong>hello@microschool.directory</strong>.</p>
+        <p data-photo-note style="display:none;color:var(--coral-deep);font-weight:600;">One note: we couldn't attach your photo this time. No problem — reply to our confirmation with your images and we'll add them to your listing.</p>
       </div>
     </div>
   </div>
@@ -1181,6 +1182,7 @@ const REG = {
     btn.disabled = true; btn.textContent = "Submitting…";
 
     let stored = false;
+    let photoFailed = false;
     if (REG.supabaseUrl && REG.supabaseAnonKey) {
       try {
         // 1) Upload photos to Supabase Storage (public bucket) → collect URLs.
@@ -1197,16 +1199,29 @@ const REG = {
         }
         // If no secure RNG, skip photo upload (listing still submits) rather than use a guessable path.
         const files = rid ? Array.from(photos.files).slice(0, 6) : [];
+        // Storage RLS only permits these extensions for anon uploads. Pick a safe
+        // one from the file extension, falling back to the MIME type, then jpg.
+        const ALLOWED_EXT = ["jpg", "jpeg", "png", "webp", "gif"];
         for (let i = 0; i < files.length; i++) {
           const f = files[i];
-          const ext = (f.name.split(".").pop() || "jpg").toLowerCase().replace(/[^a-z0-9]/g, "").slice(0, 5) || "jpg";
+          let ext = (f.name.split(".").pop() || "").toLowerCase().replace(/[^a-z0-9]/g, "");
+          if (!ALLOWED_EXT.includes(ext)) {
+            ext = (f.type === "image/png") ? "png" : (f.type === "image/webp") ? "webp" : (f.type === "image/gif") ? "gif" : "jpg";
+          }
           const objPath = `pending/${rid}-${i}.${ext}`;
-          const up = await fetch(`${REG.supabaseUrl}/storage/v1/object/${REG.bucket}/${objPath}`, {
-            method: "POST",
-            headers: { "apikey": REG.supabaseAnonKey, "Authorization": `Bearer ${REG.supabaseAnonKey}`, "Content-Type": f.type || "application/octet-stream", "x-upsert": "true" },
-            body: f
-          });
+          // NOTE: no "x-upsert" header — upsert requires UPDATE/SELECT policies anon
+          // lacks (returns RLS 403 and silently loses the photo). Paths are random
+          // UUIDs so a plain INSERT never collides.
+          let up;
+          try {
+            up = await fetch(`${REG.supabaseUrl}/storage/v1/object/${REG.bucket}/${objPath}`, {
+              method: "POST",
+              headers: { "apikey": REG.supabaseAnonKey, "Authorization": `Bearer ${REG.supabaseAnonKey}`, "Content-Type": f.type || "application/octet-stream" },
+              body: f
+            });
+          } catch (_) { up = { ok: false }; }
           if (up.ok) photoUrls.push(`${REG.supabaseUrl}/storage/v1/object/public/${REG.bucket}/${objPath}`);
+          else photoFailed = true;
         }
         // 2) Insert the listing row
         const res = await fetch(`${REG.supabaseUrl}/rest/v1/${REG.table}`, {
@@ -1229,31 +1244,41 @@ const REG = {
     }
 
     if (stored) {
+      const sx = document.getElementById("regsuccess");
+      // If the photo(s) couldn't be saved, the listing is still in — just tell the
+      // user so they can re-add images after we reach out (no silent data loss).
+      if (photoFailed && data.mode !== "claim") {
+        const ps = sx.querySelector("[data-photo-note]");
+        if (ps) ps.style.display = "block";
+      }
       form.style.display = "none";
-      document.getElementById("regsuccess").classList.add("show");
+      sx.classList.add("show");
+      sx.scrollIntoView({ behavior: "smooth", block: "center" });
       return;
     }
 
-    // DB unreachable — open an email draft so nothing is lost, but DON'T claim
-    // success. Keep the form for retry. (Note: any photos already uploaded this
-    // attempt become orphaned objects; they're size/MIME-capped and swept by an
-    // admin job, never shown until a listing is approved.)
+    // Submission did NOT store. Show a VISIBLE error in-page (never a blind
+    // window.location mailto redirect — that does nothing on desktops without a
+    // mail client and looks like the form silently failed). Offer a real,
+    // clickable mailto link as a fallback and keep the form for retry.
     const subject = encodeURIComponent(`${mode==="claim"?"Claim/Edit":"New listing"}: ${data.name} (${data.city}, ${data.state})`);
     const body = encodeURIComponent(
       Object.entries({Name:data.name,Type:data.type,Model:data.model,City:data.city,State:data.state,
         Grades:data.grades,Tuition:data.tuition,Website:data.website,Email:data.email,About:data.description})
       .map(([k,v])=>`${k}: ${v||"—"}`).join("\n") + "\n\n(Please attach your photos to this email.)"
     );
-    window.location.href = `mailto:${REG.contactEmail}?subject=${subject}&body=${body}`;
     btn.disabled = false; btn.textContent = mode==="claim" ? "Request my listing edit — free" : "Submit my listing — free";
     let note = document.getElementById("regfallback");
     if (!note) {
-      note = document.createElement("p");
+      note = document.createElement("div");
       note.id = "regfallback"; note.className = "reg-note";
-      note.style.color = "var(--coral-deep)"; note.style.fontWeight = "600";
+      note.style.color = "var(--coral-deep)"; note.style.fontWeight = "600"; note.style.marginTop = "12px";
       btn.insertAdjacentElement("afterend", note);
     }
-    note.textContent = "We couldn't reach our system just now, so we've opened an email draft with your details — send it and we'll add your listing by hand. Or try submitting again in a moment.";
+    note.innerHTML = `We couldn't save your listing just now. Please try again in a moment — or `
+      + `<a href="mailto:${REG.contactEmail}?subject=${subject}&body=${body}" style="color:var(--coral-deep);text-decoration:underline;">email your details to ${REG.contactEmail}</a>`
+      + ` and we'll add it by hand.`;
+    note.scrollIntoView({ behavior: "smooth", block: "center" });
   });
 })();
 
