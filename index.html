@@ -559,6 +559,8 @@
 <!-- Google Analytics 4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-KVM4X9RRJ7"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-KVM4X9RRJ7');</script>
+<!-- Cloudflare Turnstile (bot protection on the listing form) -->
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 <body>
 
@@ -785,6 +787,7 @@
           </label>
           <div id="filelist"></div>
         </div>
+        <div class="cf-turnstile" data-sitekey="0x4AAAAAADr7kfdQ2qHuYk8v" data-action="list-school" style="margin:14px 0"></div>
         <button class="reg-submit" type="submit" id="regsubmit">Submit my listing — free</button>
         <p class="reg-note">By submitting you agree to be contacted about your listing. Free for microschools &amp; homeschool co-ops through 2026.</p>
       </form>
@@ -1223,23 +1226,29 @@ const REG = {
           if (up.ok) photoUrls.push(`${REG.supabaseUrl}/storage/v1/object/public/${REG.bucket}/${objPath}`);
           else photoFailed = true;
         }
-        // 2) Insert the listing row
-        const res = await fetch(`${REG.supabaseUrl}/rest/v1/${REG.table}`, {
+        // 2) Insert via the Turnstile-verified edge function. The anon REST insert is
+        // revoked, so every submission must pass the captcha server-side before a row
+        // is written (a DB trigger also auto-flags obvious spam).
+        const tToken = (window.turnstile && turnstile.getResponse) ? turnstile.getResponse() : "";
+        if (!tToken) {
+          alert("Please complete the “Verify you are human” check, then submit again.");
+          btn.disabled = false;
+          btn.textContent = mode === "claim" ? "Request my listing edit — free" : "Submit my listing — free";
+          return;
+        }
+        const res = await fetch(`${REG.supabaseUrl}/functions/v1/submit-listing`, {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "apikey": REG.supabaseAnonKey,
-            "Authorization": `Bearer ${REG.supabaseAnonKey}`,
-            "Prefer": "return-minimal"
-          },
+          headers: { "Content-Type": "application/json", "apikey": REG.supabaseAnonKey, "Authorization": `Bearer ${REG.supabaseAnonKey}` },
           body: JSON.stringify({
+            turnstileToken: tToken,
             name: data.name, type: data.type, model: data.model, city: data.city,
             state: (data.state||"").toUpperCase(), grades: data.grades, tuition: data.tuition,
-            description: data.description, website: data.website, email: data.email,
-            mode: data.mode, status: "pending", photo_urls: photoUrls
+            description: data.description, website: data.website, email: data.email, phone: data.phone,
+            mode: data.mode, photo_urls: photoUrls
           })
         });
         stored = res.ok;
+        if (window.turnstile && turnstile.reset) { try { turnstile.reset(); } catch (_) {} }
       } catch (err) { stored = false; }
     }
 
