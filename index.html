@@ -867,7 +867,7 @@
     </div>
     <div class="actions">
       <a class="add-1" href="#register">List your school or co-op — free</a>
-      <a class="add-2" href="/?claim=1#register">Claim or edit a listing</a>
+      <a class="add-2" href="/claim/">Claim or edit a listing</a>
     </div>
   </div>
 </section>
@@ -888,7 +888,7 @@
       <div class="col">
         <b>Founders</b>
         <a href="#register">List your school</a>
-        <a href="/?claim=1#register">Claim a listing</a>
+        <a href="/claim/">Claim a listing</a>
         <a href="mailto:hello@microschool.directory">Contact</a>
       </div>
       <div class="col">
@@ -1178,7 +1178,7 @@ function openDrawer(id) {
       </div>
       <div class="cta-row">
         <a class="cta-primary" href="mailto:hello@microschool.directory?subject=Inquiry%20about%20${encodeURIComponent(s.name)}">Request info</a>
-        <a class="cta-secondary" href="/?claim=1&id=${encodeURIComponent(s.id)}&name=${encodeURIComponent(s.name)}&city=${encodeURIComponent(s.city||"")}&state=${encodeURIComponent(s.state||"")}${(s.url||CLAIM_URLS[s.id]) ? `&url=${encodeURIComponent(s.url||CLAIM_URLS[s.id])}` : ""}#register">Claim this listing</a>
+        <a class="cta-secondary" href="/claim/?id=${encodeURIComponent(s.id)}&name=${encodeURIComponent(s.name)}&city=${encodeURIComponent(s.city||"")}&state=${encodeURIComponent(s.state||"")}${(s.url||CLAIM_URLS[s.id]) ? `&url=${encodeURIComponent(s.url||CLAIM_URLS[s.id])}` : ""}">Claim this listing</a>
       </div>
     </div>`;
   $("#drawer").classList.add("open");

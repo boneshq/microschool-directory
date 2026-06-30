@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Claim or list your school — microschool.directory</title>
+<meta name="description" content="Claim and edit your microschool or homeschool co-op listing, or add a new one — free for schools through 2026." />
+<meta name="robots" content="noindex,follow" />
+<link rel="canonical" href="https://microschool.directory/claim/" />
+<meta name="theme-color" content="#13241d" />
+
+<!-- Favicons -->
+<link rel="icon" type="image/png" href="/assets/icon.png" />
+<link rel="apple-touch-icon" href="/assets/icon.png" />
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+<!-- Cloudflare Turnstile -->
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
+<!-- Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KVM4X9RRJ7"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-KVM4X9RRJ7');</script>
+
+<style>
+  :root {
+    --paper: #f7f3ec;
+    --paper-2: #efe9dd;
+    --ink: #13241d;
+    --ink-2: #1b3a2f;
+    --forest: #285c46;
+    --moss: #6b8f71;
+    --coral: #e8643c;
+    --coral-deep: #c64a26;
+    --amber: #f2a03d;
+    --line: #d9d0bf;
+    --card: #fffdf8;
+    --shadow: 0 24px 60px rgba(19, 36, 29, 0.10);
+    --radius: 18px;
+    --serif: "Fraunces", Georgia, serif;
+    --sans: "Hanken Grotesk", -apple-system, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { overflow-x: clip; }
+  body {
+    font-family: var(--sans); background: var(--paper); color: var(--ink);
+    -webkit-font-smoothing: antialiased; line-height: 1.5; overflow-x: clip; min-height: 100vh;
+  }
+  body::before {
+    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 9999; opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  a { color: inherit; text-decoration: none; }
+
+  /* ---------- top bar ---------- */
+  header {
+    background: rgba(247, 243, 236, 0.86); backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 100;
+  }
+  .bar { max-width: 720px; margin: 0 auto; padding: 14px 22px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-family: var(--serif); font-size: 1.08rem; }
+  .brand .pin {
+    width: 26px; height: 26px; flex: 0 0 26px; background: var(--coral);
+    border-radius: 50% 50% 50% 2px; transform: rotate(-45deg); box-shadow: 0 4px 12px rgba(232, 100, 60, 0.38);
+  }
+  .brand b { font-weight: 600; }
+  .brand b span { color: var(--coral); }
+  .back { font-size: 0.85rem; color: var(--ink-2); font-weight: 600; }
+  .back:hover { color: var(--coral-deep); }
+
+  /* ---------- shell ---------- */
+  .wrap { max-width: 720px; margin: 0 auto; padding: clamp(26px, 5vw, 48px) 22px 70px; }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 9px; font-size: 0.72rem; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--coral-deep);
+  }
+  .eyebrow::before { content: ""; width: 26px; height: 1.5px; background: var(--coral); }
+  h1 { font-family: var(--serif); font-weight: 500; font-size: clamp(1.9rem, 5vw, 2.7rem); line-height: 1.05; letter-spacing: -0.02em; margin: 14px 0 0; }
+  .lede { color: var(--ink-2); margin-top: 14px; font-size: 1.02rem; max-width: 54ch; }
+
+  .panel {
+    background: var(--card); border: 1.5px solid var(--line); border-radius: var(--radius);
+    box-shadow: var(--shadow); padding: clamp(22px, 4vw, 32px); margin-top: 26px;
+  }
+
+  /* mode toggle */
+  .toggle-row { display: inline-flex; background: var(--paper-2); border-radius: 100px; padding: 4px; margin-bottom: 22px; gap: 4px; }
+  .toggle-row button { border: none; background: transparent; font-family: var(--sans); font-weight: 600; font-size: 0.86rem; color: var(--ink-2); padding: 10px 18px; border-radius: 100px; cursor: pointer; transition: all .2s; }
+  .toggle-row button.on { background: var(--ink); color: var(--paper); }
+
+  /* confirm card */
+  .claim-target { background: var(--paper-2); border: 1.5px solid var(--line); border-radius: 12px; padding: 16px 18px; margin-bottom: 20px; }
+  .claim-target .ct-eyebrow { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--forest); }
+  .claim-target .ct-name { font-family: var(--serif); font-size: 1.3rem; font-weight: 600; color: var(--ink); margin-top: 5px; line-height: 1.1; }
+  .claim-target .ct-loc { color: var(--ink-2); font-size: 0.92rem; margin-top: 3px; }
+  .claim-target .ct-view { display: inline-block; margin-top: 10px; font-size: 0.84rem; color: var(--forest); font-weight: 600; }
+  .claim-target .ct-view:hover { text-decoration: underline; }
+  .claim-target .ct-change { display: block; margin-top: 12px; background: none; border: none; padding: 0; color: var(--coral-deep); font-family: var(--sans); font-weight: 600; font-size: 0.82rem; cursor: pointer; text-align: left; }
+  .claim-target .ct-change:hover { text-decoration: underline; }
+
+  /* search */
+  .claim-search { margin-bottom: 20px; }
+  .claim-results { list-style: none; margin: 8px 0 0; padding: 0; max-height: 300px; overflow-y: auto; border: 1.5px solid var(--line); border-radius: 12px; display: none; background: var(--paper); }
+  .claim-results.show { display: block; }
+  .claim-results li { padding: 11px 14px; cursor: pointer; font-size: 0.92rem; color: var(--ink); border-bottom: 1px solid var(--paper-2); }
+  .claim-results li:last-child { border-bottom: none; }
+  .claim-results li.active, .claim-results li:hover { background: var(--paper-2); }
+  .claim-results li small { display: block; color: var(--ink-2); font-size: 0.8rem; margin-top: 2px; }
+  .claim-results li.empty { color: var(--ink-2); cursor: default; }
+  .claim-addnew { margin-top: 12px; font-size: 0.86rem; }
+  .claim-addnew a { color: var(--coral-deep); font-weight: 600; }
+  .claim-addnew a:hover { text-decoration: underline; }
+
+  /* form */
+  form .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  form label { display: block; font-size: 0.8rem; font-weight: 600; color: var(--ink); margin: 0 0 6px; letter-spacing: 0.01em; }
+  form .field { margin-bottom: 14px; }
+  form input, form select, form textarea {
+    width: 100%; font-family: var(--sans); font-size: 16px; color: var(--ink);
+    border: 1.5px solid var(--line); background: var(--paper); border-radius: 12px; padding: 12px 14px; outline: none; transition: border-color .2s;
+  }
+  form input:focus, form select:focus, form textarea:focus { border-color: var(--forest); }
+  form textarea { resize: vertical; min-height: 92px; }
+  form input[aria-invalid="true"], form select[aria-invalid="true"], form textarea[aria-invalid="true"] { border-color: var(--coral-deep); }
+  .filedrop {
+    border: 1.5px dashed var(--moss); border-radius: 12px; padding: 18px; text-align: center;
+    background: var(--paper); cursor: pointer; transition: border-color .2s, background .2s; font-size: 0.9rem; color: var(--ink-2);
+  }
+  .filedrop:hover { border-color: var(--forest); background: var(--paper-2); }
+  .filedrop b { color: var(--forest); }
+  #filelist { font-size: 0.82rem; color: var(--forest); margin-top: 8px; }
+  #claim-extra { margin-bottom: 14px; border: 1.5px solid var(--line); border-radius: 12px; padding: 0 14px; }
+  #claim-extra > summary { cursor: pointer; padding: 13px 0; font-weight: 600; font-size: 0.86rem; color: var(--ink); }
+  #claim-extra[open] > summary { border-bottom: 1px solid var(--paper-2); margin-bottom: 12px; }
+  .reg-submit {
+    width: 100%; border: none; cursor: pointer; font-family: var(--sans); font-weight: 700; font-size: 1rem;
+    background: var(--coral); color: #fff; padding: 16px; border-radius: 100px; margin-top: 8px; transition: background .2s, transform .2s;
+  }
+  .reg-submit:hover { background: var(--coral-deep); transform: translateY(-1px); }
+  .reg-submit:disabled { opacity: 0.7; cursor: default; transform: none; }
+  .reg-note { font-size: 0.78rem; color: var(--ink-2); opacity: 0.72; text-align: center; margin-top: 14px; }
+  .field-error { color: var(--coral-deep); font-size: 0.8rem; margin-top: 5px; font-weight: 600; }
+  .cf-turnstile { max-width: 100%; }
+  .perks { list-style: none; margin: 18px 0 0; display: flex; flex-direction: column; gap: 10px; }
+  .perks li { display: flex; gap: 10px; font-size: 0.92rem; color: var(--ink-2); align-items: flex-start; }
+  .perks li::before { content: "✓"; color: var(--forest); font-weight: 700; flex: 0 0 auto; }
+
+  .reg-success { display: none; text-align: center; padding: 18px 6px; }
+  .reg-success.show { display: block; }
+  .reg-success b { font-family: var(--serif); font-size: 1.5rem; color: var(--forest); display: block; margin-bottom: 10px; }
+  .reg-success p { color: var(--ink-2); font-size: 0.96rem; max-width: 48ch; margin: 0 auto; }
+  .reg-success .again { display: inline-block; margin-top: 18px; font-weight: 600; color: var(--coral-deep); }
+
+  @media (max-width: 520px) {
+    form .grid2 { grid-template-columns: 1fr; }
+    .toggle-row { display: grid; grid-template-columns: 1fr 1fr; width: 100%; }
+    .toggle-row button { min-height: 46px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="bar">
+    <a class="brand" href="/"><span class="pin"></span><b>microschool<span>.</span>directory</b></a>
+    <a class="back" href="/">← Back to the directory</a>
+  </div>
+</header>
+
+<main class="wrap">
+  <span class="eyebrow" id="eyebrow">Claim your listing</span>
+  <h1 id="headline">This is your school? Take control of it.</h1>
+  <p class="lede" id="lede">Claim your microschool or homeschool co-op to add your story, photos, tuition, and schedule — or list a new program. Free for schools through 2026.</p>
+
+  <div class="panel">
+    <noscript>
+      <p style="color:var(--coral-deep);font-weight:600;">Claiming a listing needs JavaScript (for spam protection) — email <strong>hello@microschool.directory</strong> and we'll connect you to your listing by hand.</p>
+    </noscript>
+
+    <form id="regform" novalidate>
+      <div class="toggle-row" role="group" aria-label="What do you want to do?">
+        <button type="button" class="on" data-mode="claim" id="t-claim" aria-pressed="true">Claim / edit a listing</button>
+        <button type="button" data-mode="new" id="t-new" aria-pressed="false">List a new school</button>
+      </div>
+
+      <!-- Claim confirmation card: the trust signal, backed by id/url, not editable. -->
+      <div id="claim-target" class="claim-target" hidden>
+        <div class="ct-eyebrow">You're claiming</div>
+        <div class="ct-name" id="ct-name"></div>
+        <div class="ct-loc" id="ct-loc"></div>
+        <a id="ct-view" class="ct-view" href="#" target="_blank" rel="noopener" hidden>View this listing →</a>
+        <button type="button" id="ct-change" class="ct-change">Not your school? Choose a different one</button>
+      </div>
+
+      <!-- Claim-mode "find your listing" search (Yelp pattern). -->
+      <div id="claim-search" class="claim-search" hidden>
+        <label for="claim-q">Find your school to claim it</label>
+        <input id="claim-q" type="text" autocomplete="off" placeholder="Start typing your school name or city" role="combobox" aria-autocomplete="list" aria-controls="claim-results" aria-expanded="false" />
+        <ul id="claim-results" class="claim-results" role="listbox" aria-label="Matching schools"></ul>
+        <p class="claim-addnew"><a href="#" id="claim-addnew-link">Can't find it? Add it as a new listing →</a></p>
+      </div>
+
+      <div class="field">
+        <label for="f-name">School / co-op name *</label>
+        <input id="f-name" name="name" type="text" required placeholder="e.g. Acorn Grove Microschool" />
+      </div>
+      <div class="grid2" id="row-type">
+        <div class="field">
+          <label for="f-type">Type *</label>
+          <select id="f-type" name="type" required>
+            <option value="Microschool">Microschool</option>
+            <option value="Homeschool Co-op">Homeschool Co-op</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="f-model">Learning model</label>
+          <select id="f-model" name="model">
+            <option>Montessori</option><option>Forest / Nature</option><option>Classical</option>
+            <option>Learner-Driven</option><option>Project-Based</option><option>Faith-Based</option>
+            <option selected>Microschool</option><option>Learning Pod</option><option>Homeschool Co-op</option>
+          </select>
+        </div>
+      </div>
+      <div class="grid2">
+        <div class="field"><label for="f-city">City *</label><input id="f-city" name="city" type="text" required placeholder="Austin" /></div>
+        <div class="field"><label for="f-state">State *</label><input id="f-state" name="state" type="text" required maxlength="2" placeholder="TX" /></div>
+      </div>
+      <div class="grid2" id="row-gradestuition">
+        <div class="field"><label for="f-grades">Grades served</label><input id="f-grades" name="grades" type="text" placeholder="K–8" /></div>
+        <div class="field"><label for="f-tuition">Tuition / year</label><input id="f-tuition" name="tuition" type="text" placeholder="$8,400/yr" /></div>
+      </div>
+      <div class="field" id="row-desc">
+        <label for="f-desc">What should we update?</label>
+        <textarea id="f-desc" name="description" placeholder="Tell us what's changed or what to fix on your listing."></textarea>
+      </div>
+      <div class="grid2">
+        <div class="field"><label for="f-web">Website</label><input id="f-web" name="website" type="url" placeholder="https://" /></div>
+        <div class="field"><label for="f-phone">Phone</label><input id="f-phone" name="phone" type="tel" placeholder="(555) 123-4567" /></div>
+      </div>
+      <div class="field"><label for="f-email">Your email *</label><input id="f-email" name="email" type="email" required placeholder="you@school.com" /></div>
+      <div class="field" id="row-photos">
+        <label>Photos of your school</label>
+        <label class="filedrop" for="f-photos">
+          📷 <b>Click to upload</b> classroom &amp; campus photos<br/><small>JPG or PNG, up to 6 images</small>
+          <input id="f-photos" name="photos" type="file" accept="image/*" multiple hidden />
+        </label>
+        <div id="filelist"></div>
+      </div>
+      <div class="cf-turnstile" data-sitekey="0x4AAAAAADr7kfdQ2qHuYk8v" data-action="claim-school" data-size="flexible" style="margin:16px 0"></div>
+      <button class="reg-submit" type="submit" id="regsubmit">Request my listing edit — free</button>
+      <p class="reg-note">By submitting you agree to be contacted about your listing. Free for microschools &amp; homeschool co-ops through 2026.</p>
+    </form>
+
+    <div class="reg-success" id="regsuccess" tabindex="-1">
+      <b>Thank you — we've got it!</b>
+      <p id="regsuccess-copy">Your details are saved and our team will review them shortly. We'll reach out at the email you provided if we need anything. Questions? Email <strong>hello@microschool.directory</strong>.</p>
+      <p data-photo-note style="display:none;color:var(--coral-deep);font-weight:600;margin-top:10px;">One note: we couldn't attach your photo this time. Reply to our confirmation with your images and we'll add them.</p>
+      <a class="again" href="/">← Back to the directory</a>
+    </div>
+  </div>
+
+  <ul class="perks">
+    <li>Your listing stays live — claiming just lets you take control of it</li>
+    <li>Add photos, your learning model, tuition, and schedule</li>
+    <li>We verify you're connected to the school, then apply your updates</li>
+  </ul>
+</main>
+
+<script>
+const REG = {
+  supabaseUrl: "https://fhbczvfrsgkbpvammxip.supabase.co",
+  supabaseAnonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZoYmN6dmZyc2drYnB2YW1teGlwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIyMjg1NjUsImV4cCI6MjA5NzgwNDU2NX0.LNl2t1-cAYPny71aKHeZK094Zf_YawnKMvo8W15NQuE",
+  bucket: "school-photos",
+  contactEmail: "hello@microschool.directory"
+};
+
+const escHtml = v => String(v == null ? "" : v).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+function debounce(fn, ms) { let t; return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms); }; }
+
+(function initClaim(){
+  const form = document.getElementById("regform");
+  if (!form) return;
+
+  // Default mode: this is the claim page, so start in claim mode unless the URL
+  // explicitly asks for a new listing (?mode=new).
+  const params = new URLSearchParams(location.search || "");
+  let mode = params.get("mode") === "new" ? "new" : "claim";
+  let isSubmitting = false;
+
+  const US_STATES = new Set(["AL","AK","AZ","AR","CA","CO","CT","DE","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY","DC","PR","VI","GU","AS","MP"]);
+  const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  // Search dataset (loaded async; the confirm card never depends on it).
+  let SCHOOLS = [];
+  let CLAIM_URLS = {};
+
+  // The stable claim identity being claimed.
+  let claimTargetUrl = "";
+  let claimTargetId = "";
+
+  function safeClaimUrl(u){
+    const s = String(u || "").trim();
+    if (!s) return "";
+    if (s.startsWith("https://microschool.directory/microschools/")) return s;
+    if (s.startsWith("/microschools/")) return s;
+    return "";
+  }
+
+  // ----- DOM refs -----
+  const photos  = document.getElementById("f-photos");
+  const filelist= document.getElementById("filelist");
+  const ctPanel = document.getElementById("claim-target");
+  const ctName  = document.getElementById("ct-name");
+  const ctLoc   = document.getElementById("ct-loc");
+  const ctView  = document.getElementById("ct-view");
+  const ctChange= document.getElementById("ct-change");
+  const csPanel = document.getElementById("claim-search");
+  const csInput = document.getElementById("claim-q");
+  const csList  = document.getElementById("claim-results");
+  const rowType = document.getElementById("row-type");
+  const rowGrades = document.getElementById("row-gradestuition");
+  const rowPhotos = document.getElementById("row-photos");
+  const descField = document.getElementById("row-desc");
+  const descLabel = descField.querySelector("label");
+  const descBox = document.getElementById("f-desc");
+  const eyebrowEl = document.getElementById("eyebrow");
+  const headlineEl = document.getElementById("headline");
+  const ledeEl = document.getElementById("lede");
+
+  function setVal(id, v){ const el = document.getElementById(id); if (el) el.value = v || ""; }
+
+  // ----- claim-search "you must pick a listing" error -----
+  function showClaimSearchError(msg){
+    let n = document.getElementById("claim-q-error");
+    if (!n) {
+      n = document.createElement("div");
+      n.id = "claim-q-error"; n.className = "field-error"; n.setAttribute("role","alert");
+      n.style.marginTop = "8px";
+      const addNew = csPanel.querySelector(".claim-addnew");
+      if (addNew) csPanel.insertBefore(n, addNew); else csPanel.appendChild(n);
+    }
+    n.textContent = msg;
+    csInput.setAttribute("aria-invalid", "true");
+    const addLink = document.getElementById("claim-addnew-link");
+    if (addLink && addLink.parentNode) addLink.parentNode.hidden = false;
+  }
+  function clearClaimSearchError(){
+    const n = document.getElementById("claim-q-error");
+    if (n) n.remove();
+    csInput.removeAttribute("aria-invalid");
+  }
+  csInput.addEventListener("input", clearClaimSearchError);
+
+  // ----- collapsible "Optionally update your details" for claim mode -----
+  const claimExtra = document.createElement("details");
+  claimExtra.id = "claim-extra";
+  claimExtra.hidden = true;
+  const exSummary = document.createElement("summary");
+  exSummary.textContent = "Optionally update your details";
+  claimExtra.appendChild(exSummary);
+  rowGrades.parentNode.insertBefore(claimExtra, rowGrades);
+  const managed = [rowType, rowGrades, rowPhotos].map(el => ({ el, parent: el.parentNode, next: el.nextSibling }));
+  function moveExtrasInto(intoDetails){
+    if (intoDetails) {
+      managed.forEach(m => claimExtra.appendChild(m.el));
+      claimExtra.hidden = false; claimExtra.open = false;
+    } else {
+      managed.forEach(m => { m.parent.insertBefore(m.el, m.next); });
+      claimExtra.hidden = true;
+    }
+  }
+
+  function setClaimTarget(t){
+    claimTargetId = t.id || "";
+    let resolved = t.url;
+    if (!resolved && claimTargetId && CLAIM_URLS[claimTargetId]) resolved = CLAIM_URLS[claimTargetId];
+    claimTargetUrl = safeClaimUrl(resolved);
+    ctName.textContent = t.name || "";
+    const loc = [t.city, (t.state||"").toUpperCase()].filter(Boolean).join(", ");
+    ctLoc.textContent = loc;
+    if (claimTargetUrl) { ctView.href = claimTargetUrl; ctView.hidden = false; }
+    else { ctView.removeAttribute("href"); ctView.hidden = true; }
+    clearClaimSearchError();
+    setVal("f-name", t.name || "");
+    setVal("f-city", t.city || "");
+    setVal("f-state", (t.state||"").toUpperCase());
+    ctPanel.hidden = false;
+    csPanel.hidden = true;
+  }
+  function clearClaimTarget(){
+    claimTargetId = ""; claimTargetUrl = "";
+    ctPanel.hidden = true;
+  }
+
+  document.getElementById("t-new").addEventListener("click", () => setMode("new"));
+  document.getElementById("t-claim").addEventListener("click", () => setMode("claim"));
+  ctChange.addEventListener("click", () => {
+    clearClaimTarget();
+    csPanel.hidden = false;
+    csInput.value = "";
+    renderResults([]);
+    csInput.focus();
+  });
+  document.getElementById("claim-addnew-link").addEventListener("click", (e) => { e.preventDefault(); setMode("new"); });
+
+  function setMode(m){
+    mode = m;
+    form.querySelectorAll("[aria-invalid='true']").forEach(clearError);
+    clearClaimSearchError();
+    const capErr = document.getElementById("regcaptchaerr"); if (capErr) capErr.remove();
+    const fbNote = document.getElementById("regfallback"); if (fbNote) fbNote.remove();
+    const tNew = document.getElementById("t-new"), tClaim = document.getElementById("t-claim");
+    tNew.classList.toggle("on", m==="new");
+    tClaim.classList.toggle("on", m==="claim");
+    tNew.setAttribute("aria-pressed", m==="new" ? "true" : "false");
+    tClaim.setAttribute("aria-pressed", m==="claim" ? "true" : "false");
+    document.getElementById("regsubmit").textContent = m==="claim" ? "Request my listing edit — free" : "Submit my listing — free";
+
+    if (m === "claim") {
+      eyebrowEl.textContent = "Claim your listing";
+      headlineEl.textContent = "This is your school? Take control of it.";
+      ledeEl.textContent = "Claim your microschool or homeschool co-op to add your story, photos, tuition, and schedule. Free for schools through 2026.";
+      moveExtrasInto(true);
+      descLabel.textContent = "What should we update?";
+      descBox.placeholder = "Tell us what's changed or what to fix on your listing.";
+      if (claimTargetId || claimTargetUrl) {
+        ctPanel.hidden = false; csPanel.hidden = true;
+      } else {
+        ctPanel.hidden = true; csPanel.hidden = false;
+      }
+      const focusEl = !ctPanel.hidden ? document.getElementById("f-name") : csInput;
+      if (focusEl) try { focusEl.focus({ preventScroll: true }); } catch(_){}
+    } else {
+      eyebrowEl.textContent = "List your school";
+      headlineEl.textContent = "Get your program on the map.";
+      ledeEl.textContent = "List your microschool or homeschool co-op free and reach the families already searching for a smaller, more personal alternative to public school.";
+      moveExtrasInto(false);
+      descLabel.textContent = "Tell families about your school";
+      descBox.placeholder = "What makes your program special — your approach, daily rhythm, and who it's for.";
+      ctPanel.hidden = true; csPanel.hidden = true;
+    }
+  }
+
+  // ----- Claim-mode "find your listing" search -----
+  let results = [], activeIdx = -1;
+  function rankSchools(q){
+    const term = q.trim().toLowerCase();
+    if (!term) return [];
+    const scored = [];
+    for (const s of SCHOOLS) {
+      const name = String(s.name||"").toLowerCase();
+      const city = String(s.city||"").toLowerCase();
+      let score = -1;
+      if (name.startsWith(term)) score = 0;
+      else if (city.startsWith(term)) score = 1;
+      else if (name.includes(term)) score = 2;
+      else if (city.includes(term)) score = 3;
+      if (score >= 0) scored.push([score, s]);
+    }
+    scored.sort((a,b) => a[0]-b[0]);
+    return scored.slice(0, 8).map(x => x[1]);
+  }
+  function renderResults(list){
+    results = list; activeIdx = -1;
+    csInput.removeAttribute("aria-activedescendant");
+    if (!SCHOOLS.length && csInput.value.trim()) {
+      csList.innerHTML = '<li class="empty">Loading schools…</li>';
+      csList.classList.add("show"); csInput.setAttribute("aria-expanded","true");
+      return;
+    }
+    if (!list.length) {
+      csList.innerHTML = csInput.value.trim() ? '<li class="empty">No matches — try a different spelling, or add it as a new listing.</li>' : "";
+      csList.classList.toggle("show", !!csInput.value.trim());
+      csInput.setAttribute("aria-expanded", csInput.value.trim() ? "true" : "false");
+      return;
+    }
+    csList.innerHTML = list.map((s,i) =>
+      `<li role="option" aria-selected="false" id="cr-${i}" data-i="${i}"><b>${escHtml(s.name)}</b><small>${escHtml(s.city||"")}, ${escHtml(s.state||"")}</small></li>`
+    ).join("");
+    csList.classList.add("show");
+    csInput.setAttribute("aria-expanded","true");
+    csList.querySelectorAll("li[role=option]").forEach(li => {
+      li.addEventListener("mousedown", (e) => { e.preventDefault(); selectResult(parseInt(li.dataset.i,10)); });
+    });
+  }
+  function highlightOption(idx){
+    csList.querySelectorAll("li[role=option]").forEach((li,i) => {
+      const on = i===idx;
+      li.classList.toggle("active", on);
+      li.setAttribute("aria-selected", on ? "true" : "false");
+    });
+    if (idx >= 0) { const el = csList.querySelector(`#cr-${idx}`); if (el) el.scrollIntoView({block:"nearest"}); csInput.setAttribute("aria-activedescendant", `cr-${idx}`); }
+    else csInput.removeAttribute("aria-activedescendant");
+  }
+  function selectResult(i){
+    const s = results[i]; if (!s) return;
+    setClaimTarget({ id: s.id, name: s.name, city: s.city, state: s.state, url: CLAIM_URLS[s.id] || "" });
+    csList.classList.remove("show"); csList.innerHTML = "";
+    csInput.setAttribute("aria-expanded","false");
+    csInput.removeAttribute("aria-activedescendant");
+    const nameEl = document.getElementById("f-name"); if (nameEl) try { nameEl.focus({ preventScroll: true }); } catch(_){}
+  }
+  const onClaimInput = debounce(() => { renderResults(rankSchools(csInput.value)); }, 140);
+  csInput.addEventListener("input", onClaimInput);
+  csInput.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowDown") { e.preventDefault(); if (results.length){ activeIdx = Math.min(activeIdx+1, results.length-1); highlightOption(activeIdx); } }
+    else if (e.key === "ArrowUp") { e.preventDefault(); if (results.length){ activeIdx = Math.max(activeIdx-1, 0); highlightOption(activeIdx); } }
+    else if (e.key === "Enter") { if (activeIdx >= 0) { e.preventDefault(); selectResult(activeIdx); } }
+    else if (e.key === "Escape") { csList.classList.remove("show"); csInput.setAttribute("aria-expanded","false"); csInput.removeAttribute("aria-activedescendant"); }
+  });
+
+  // ----- Inline validation -----
+  function clearError(el){
+    el.removeAttribute("aria-invalid");
+    const field = el.closest(".field") || el.parentNode;
+    const e = field && field.querySelector(".field-error");
+    if (e) e.remove();
+  }
+  function showError(el, msg){
+    el.setAttribute("aria-invalid", "true");
+    const field = el.closest(".field") || el.parentNode;
+    if (!field) return;
+    let e = field.querySelector(".field-error");
+    if (!e) { e = document.createElement("div"); e.className = "field-error"; e.setAttribute("role","alert"); field.appendChild(e); }
+    e.textContent = msg;
+    if (!el.dataset.clearBound) {
+      el.dataset.clearBound = "1";
+      el.addEventListener("input", () => clearError(el));
+    }
+  }
+  function normalizeWebsite(){
+    const el = document.getElementById("f-web");
+    let v = (el.value || "").trim();
+    if (v && !/^https?:\/\//i.test(v)) { v = "https://" + v; el.value = v; }
+    return v;
+  }
+  function validateForm(){
+    let firstBad = null;
+    const fail = (id, msg) => { const el = document.getElementById(id); showError(el, msg); if (!firstBad) firstBad = el; };
+    form.querySelectorAll("[aria-invalid='true']").forEach(clearError);
+
+    if (mode === "claim" && !claimTargetId && !claimTargetUrl) {
+      ctPanel.hidden = true;
+      csPanel.hidden = false;
+      showClaimSearchError("Pick your listing from the list first — or add it as a new listing.");
+      try { csInput.focus(); } catch (_) {}
+      return false;
+    }
+
+    const reqIds = mode === "claim"
+      ? [["f-name","Please enter the school name."],["f-city","Please enter the city."],["f-state","Please enter the state."],["f-email","Please enter your email."]]
+      : [["f-name","Please enter the school name."],["f-type","Please choose a type."],["f-city","Please enter the city."],["f-state","Please enter the state."],["f-email","Please enter your email."]];
+    for (const [id,msg] of reqIds) {
+      const el = document.getElementById(id);
+      if (!el || !String(el.value||"").trim()) fail(id, msg);
+    }
+    const emailEl = document.getElementById("f-email");
+    if (emailEl.value.trim() && !EMAIL_RE.test(emailEl.value.trim())) fail("f-email","Please enter a valid email address.");
+    const stateEl = document.getElementById("f-state");
+    const st = (stateEl.value||"").trim().toUpperCase();
+    if (st) { stateEl.value = st; if (!US_STATES.has(st)) fail("f-state","Use a 2-letter US state code (e.g. TX)."); }
+    const webEl = document.getElementById("f-web");
+    if (webEl.value.trim()) {
+      const v = normalizeWebsite();
+      if (!/^https?:\/\/[^\s.]+\.[^\s]+$/i.test(v)) fail("f-web","Please enter a valid website URL.");
+    }
+    const phoneEl = document.getElementById("f-phone");
+    if (phoneEl.value.trim()) {
+      const digits = phoneEl.value.replace(/[^0-9]/g,"");
+      if (digits.length < 7) fail("f-phone","Please enter a valid phone number.");
+    }
+    if (firstBad) { try { firstBad.focus(); } catch(_){} return false; }
+    return true;
+  }
+
+  photos.addEventListener("change", () => {
+    const files = Array.from(photos.files).slice(0, 6);
+    filelist.textContent = files.length ? `${files.length} photo${files.length>1?"s":""} attached: ` + files.map(f=>f.name).join(", ") : "";
+  });
+
+  function resetTurnstile(){ if (window.turnstile && turnstile.reset) { try { turnstile.reset(); } catch (_) {} } }
+  function reenable(btn){ btn.disabled = false; btn.textContent = mode === "claim" ? "Request my listing edit — free" : "Submit my listing — free"; }
+  function captchaError(btn){
+    let n = document.getElementById("regcaptchaerr");
+    if (!n) {
+      n = document.createElement("div");
+      n.id = "regcaptchaerr"; n.className = "field-error"; n.setAttribute("role","alert");
+      n.style.marginTop = "8px";
+      const t = document.querySelector(".cf-turnstile");
+      if (t) t.insertAdjacentElement("afterend", n); else btn.insertAdjacentElement("beforebegin", n);
+    }
+    n.textContent = "Please complete the “Verify you are human” check, then submit again.";
+  }
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    if (isSubmitting) return;
+    const btn = document.getElementById("regsubmit");
+
+    normalizeWebsite();
+    if (!validateForm()) return;
+
+    const data = Object.fromEntries(new FormData(form).entries());
+    data.mode = mode;
+    data.state = (data.state||"").toUpperCase();
+
+    isSubmitting = true;
+    btn.disabled = true; btn.textContent = "Submitting…";
+
+    let stored = false, photoFailed = false, captchaMissing = false;
+
+    if (REG.supabaseUrl && REG.supabaseAnonKey) {
+      try {
+        const tToken = (window.turnstile && turnstile.getResponse) ? turnstile.getResponse() : "";
+        if (!tToken) { captchaMissing = true; throw new Error("no-captcha"); }
+
+        const photoUrls = [];
+        let rid = null;
+        if (window.crypto && crypto.randomUUID) { rid = crypto.randomUUID(); }
+        else if (window.crypto && crypto.getRandomValues) {
+          const a = new Uint8Array(16); crypto.getRandomValues(a);
+          rid = Array.from(a, b => b.toString(16).padStart(2, "0")).join("");
+        }
+        const files = rid ? Array.from(photos.files).slice(0, 6) : [];
+        const ALLOWED_EXT = ["jpg", "jpeg", "png", "webp", "gif"];
+        for (let i = 0; i < files.length; i++) {
+          const f = files[i];
+          let ext = (f.name.split(".").pop() || "").toLowerCase().replace(/[^a-z0-9]/g, "");
+          if (!ALLOWED_EXT.includes(ext)) {
+            ext = (f.type === "image/png") ? "png" : (f.type === "image/webp") ? "webp" : (f.type === "image/gif") ? "gif" : "jpg";
+          }
+          const objPath = `pending/${rid}-${i}.${ext}`;
+          let up;
+          try {
+            up = await fetch(`${REG.supabaseUrl}/storage/v1/object/${REG.bucket}/${objPath}`, {
+              method: "POST",
+              headers: { "apikey": REG.supabaseAnonKey, "Authorization": `Bearer ${REG.supabaseAnonKey}`, "Content-Type": f.type || "application/octet-stream" },
+              body: f
+            });
+          } catch (_) { up = { ok: false }; }
+          if (up.ok) photoUrls.push(`${REG.supabaseUrl}/storage/v1/object/public/${REG.bucket}/${objPath}`);
+          else photoFailed = true;
+        }
+
+        const safeUrl = data.mode === "claim" ? safeClaimUrl(claimTargetUrl) : "";
+        const claimTargetField = data.mode === "claim" ? [claimTargetId, safeUrl].filter(Boolean).join("|") : "";
+        let descOut = data.description || "";
+        if (data.mode === "claim" && (claimTargetId || safeUrl)) {
+          descOut = (descOut ? descOut + "\n\n" : "") + `CLAIM TARGET: ${data.name} [id:${claimTargetId||"—"}] ${safeUrl||"—"}`;
+        }
+        const res = await fetch(`${REG.supabaseUrl}/functions/v1/submit-listing`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "apikey": REG.supabaseAnonKey, "Authorization": `Bearer ${REG.supabaseAnonKey}` },
+          body: JSON.stringify({
+            turnstileToken: tToken,
+            name: data.name, type: data.type, model: data.model, city: data.city,
+            state: data.state, grades: data.grades, tuition: data.tuition,
+            description: descOut, website: data.website, email: data.email, phone: data.phone,
+            mode: data.mode, claim_target: claimTargetField, photo_urls: photoUrls
+          })
+        });
+        stored = res.ok;
+      } catch (err) { stored = false; }
+      finally { resetTurnstile(); }
+    }
+
+    if (stored) {
+      const sx = document.getElementById("regsuccess");
+      if (photoFailed && data.mode !== "claim") {
+        const ps = sx.querySelector("[data-photo-note]");
+        if (ps) ps.style.display = "block";
+      }
+      const copy = document.getElementById("regsuccess-copy");
+      if (copy) copy.innerHTML = data.mode === "claim"
+        ? "Your listing stays live — we'll verify you're connected to the school and apply your updates. We'll reach out at the email you provided if we need anything. Questions? Email <strong>hello@microschool.directory</strong>."
+        : "We'll review and your listing appears on the map once approved. We'll reach out at the email you provided if we need anything. Questions? Email <strong>hello@microschool.directory</strong>.";
+      form.style.display = "none";
+      sx.classList.add("show");
+      try { sx.focus(); } catch(_){}
+      sx.scrollIntoView({ behavior: "smooth", block: "center" });
+      isSubmitting = false;
+      return;
+    }
+
+    isSubmitting = false;
+    reenable(btn);
+    if (captchaMissing) { captchaError(btn); return; }
+
+    const safeUrl = mode === "claim" ? safeClaimUrl(claimTargetUrl) : "";
+    const subject = encodeURIComponent(`${mode==="claim"?"Claim/Edit":"New listing"}: ${data.name} (${data.city}, ${data.state})`);
+    const fields = {Mode:mode, Name:data.name, Type:data.type, Model:data.model, City:data.city, State:data.state,
+        Grades:data.grades, Tuition:data.tuition, Website:data.website, Email:data.email, Phone:data.phone, About:data.description};
+    if (mode === "claim") fields["Claim target"] = [claimTargetId, safeUrl].filter(Boolean).join(" ") || "—";
+    const body = encodeURIComponent(
+      Object.entries(fields).map(([k,v])=>`${k}: ${v||"—"}`).join("\n") + "\n\n(Please attach your photos to this email.)"
+    );
+    let note = document.getElementById("regfallback");
+    if (!note) {
+      note = document.createElement("div");
+      note.id = "regfallback"; note.className = "reg-note"; note.setAttribute("role","alert");
+      note.style.color = "var(--coral-deep)"; note.style.fontWeight = "600"; note.style.marginTop = "12px";
+      btn.insertAdjacentElement("afterend", note);
+    }
+    note.innerHTML = `We couldn't save your listing just now. Please try again in a moment — or `
+      + `<a href="mailto:${REG.contactEmail}?subject=${subject}&body=${body}" style="color:var(--coral-deep);text-decoration:underline;">email your details to ${REG.contactEmail}</a>`
+      + ` and we'll add it by hand.`;
+    note.scrollIntoView({ behavior: "smooth", block: "center" });
+  });
+
+  // ===== Boot: read the deep-link target SYNCHRONOUSLY, then load search data. =====
+  (function readTarget(){
+    const id = params.get("id") || "";
+    const name = params.get("name") || "";
+    const city = params.get("city") || "";
+    const st = (params.get("state") || "").toUpperCase();
+    const url = params.get("url") || "";
+    if (id || name) setClaimTarget({ id, name, city, state: st, url });
+  })();
+  // Apply the chosen mode (renders confirm card vs search appropriately).
+  setMode(mode);
+
+  // Load the search dataset in the background. The confirm card already works.
+  async function loadData(){
+    try {
+      const [sRes, cRes] = await Promise.all([
+        fetch("/data/schools.json", { cache: "no-store" }),
+        fetch("/data/claim-urls.json", { cache: "no-store" })
+      ]);
+      if (sRes.ok) { const d = await sRes.json(); SCHOOLS = d.schools || []; }
+      if (cRes.ok) { CLAIM_URLS = await cRes.json() || {}; }
+      // If a target arrived by id only (no url), resolve its url + name now.
+      if (claimTargetId && !claimTargetUrl && CLAIM_URLS[claimTargetId]) {
+        claimTargetUrl = safeClaimUrl(CLAIM_URLS[claimTargetId]);
+        if (claimTargetUrl) { ctView.href = claimTargetUrl; ctView.hidden = false; }
+      }
+      if (claimTargetId && !ctName.textContent) {
+        const hit = SCHOOLS.find(s => s.id === claimTargetId);
+        if (hit) setClaimTarget({ id: hit.id, name: hit.name, city: hit.city, state: hit.state, url: CLAIM_URLS[hit.id] || "" });
+      }
+      // Re-render the search if the user typed before data loaded.
+      if (csInput && csInput.value.trim() && SCHOOLS.length) renderResults(rankSchools(csInput.value));
+    } catch (_) { /* search degrades gracefully; confirm card + new-listing still work */ }
+  }
+  loadData();
+})();
+</script>
+</body>
+</html>
