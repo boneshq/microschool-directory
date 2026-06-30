@@ -812,7 +812,7 @@
     </div>
     <div class="actions">
       <a class="add-1" href="#register">List your school or co-op — free</a>
-      <a class="add-2" href="#register">Claim or edit a listing</a>
+      <a class="add-2" href="/?claim=1#register">Claim or edit a listing</a>
     </div>
   </div>
 </section>
@@ -832,8 +832,8 @@
       </div>
       <div class="col">
         <b>Founders</b>
-        <a href="#add">List your school</a>
-        <a href="#add">Claim a listing</a>
+        <a href="#register">List your school</a>
+        <a href="/?claim=1#register">Claim a listing</a>
         <a href="mailto:hello@microschool.directory">Contact</a>
       </div>
       <div class="col">
@@ -1105,7 +1105,7 @@ function openDrawer(id) {
       </div>
       <div class="cta-row">
         <a class="cta-primary" href="mailto:hello@microschool.directory?subject=Inquiry%20about%20${encodeURIComponent(s.name)}">Request info</a>
-        <a class="cta-secondary" href="mailto:hello@microschool.directory?subject=Claim%20${encodeURIComponent(s.name)}">Claim this listing</a>
+        <a class="cta-secondary" href="/?claim=1&name=${encodeURIComponent(s.name)}&city=${encodeURIComponent(s.city||"")}&state=${encodeURIComponent(s.state||"")}#register">Claim this listing</a>
       </div>
     </div>`;
   $("#drawer").classList.add("open");
@@ -1159,6 +1159,12 @@ const REG = {
   const photos = document.getElementById("f-photos");
   const filelist = document.getElementById("filelist");
 
+  // The absolute URL of the listing being claimed (carried in the deep-link from a
+  // static listing page / drawer card), so the human reviewer can see exactly WHICH
+  // of the 700+ schools is being claimed. Travels inside the description free-text
+  // field at submit (no DB schema change).
+  let claimTargetUrl = "";
+
   document.getElementById("t-new").addEventListener("click", () => setMode("new"));
   document.getElementById("t-claim").addEventListener("click", () => setMode("claim"));
   function setMode(m){
@@ -1167,6 +1173,28 @@ const REG = {
     document.getElementById("t-claim").classList.toggle("on", m==="claim");
     document.getElementById("regsubmit").textContent = m==="claim" ? "Request my listing edit — free" : "Submit my listing — free";
   }
+
+  // Claim deep-link handler. If the page is opened as /?claim=1&name=…&city=…&state=…&url=…#register
+  // (every value URL-encoded) — the contract emitted by build_pages.py claim_link() and the
+  // live-map drawer card — engage claim mode, prefill the school, stash the listing URL for the
+  // reviewer, and bring the form into view. With NO claim param the form stays in new-listing mode.
+  (function initClaimFromUrl(){
+    const p = new URLSearchParams(location.search || "");
+    const isClaim = p.get("claim") === "1" || p.get("mode") === "claim";
+    if (!isClaim) return;                       // default: new-listing mode, unchanged
+    setMode("claim");
+    const setVal = (id, v) => { const el = document.getElementById(id); if (el && v) el.value = v; };
+    setVal("f-name", p.get("name") || "");
+    setVal("f-city", p.get("city") || "");
+    const st = (p.get("state") || "").toUpperCase();
+    setVal("f-state", st);
+    claimTargetUrl = p.get("url") || "";
+    // bring the register form into view so the owner lands on it, not the top of the page
+    requestAnimationFrame(() => {
+      const reg = document.getElementById("register");
+      if (reg) reg.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  })();
 
   photos.addEventListener("change", () => {
     const files = Array.from(photos.files).slice(0, 6);
@@ -1236,6 +1264,13 @@ const REG = {
           btn.textContent = mode === "claim" ? "Request my listing edit — free" : "Submit my listing — free";
           return;
         }
+        // For a claim, carry WHICH listing is being claimed to the human reviewer by
+        // appending it to the (already-whitelisted) description free-text field — no DB
+        // schema change. approve_listing.py --list / the view-listing page surface it.
+        let descOut = data.description || "";
+        if (data.mode === "claim" && claimTargetUrl) {
+          descOut = (descOut ? descOut + "\n\n" : "") + "CLAIM TARGET: " + claimTargetUrl;
+        }
         const res = await fetch(`${REG.supabaseUrl}/functions/v1/submit-listing`, {
           method: "POST",
           headers: { "Content-Type": "application/json", "apikey": REG.supabaseAnonKey, "Authorization": `Bearer ${REG.supabaseAnonKey}` },
@@ -1243,7 +1278,7 @@ const REG = {
             turnstileToken: tToken,
             name: data.name, type: data.type, model: data.model, city: data.city,
             state: (data.state||"").toUpperCase(), grades: data.grades, tuition: data.tuition,
-            description: data.description, website: data.website, email: data.email, phone: data.phone,
+            description: descOut, website: data.website, email: data.email, phone: data.phone,
             mode: data.mode, photo_urls: photoUrls
           })
         });
