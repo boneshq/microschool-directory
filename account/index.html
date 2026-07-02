@@ -130,6 +130,14 @@
   .empty-state b { font-family: var(--serif); font-size: 1.3rem; color: var(--ink); display: block; margin-bottom: 10px; font-weight: 600; }
   .empty-state p { color: var(--ink-2); font-size: 0.94rem; max-width: 46ch; margin: 0 auto 16px; }
   .otp-input { letter-spacing: 8px; font-size: 22px !important; text-align: center; font-weight: 700; }
+  .stats { margin: 4px 0 18px; }
+  .stats-h { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-2); margin-bottom: 10px; }
+  .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .stat { background: var(--paper-2); border: 1.5px solid var(--line); border-radius: 12px; padding: 14px 12px; text-align: center; }
+  .stat b { display: block; font-family: var(--serif); font-weight: 600; font-size: 1.7rem; line-height: 1; color: var(--forest); }
+  .stat span { display: block; font-size: 0.76rem; color: var(--ink-2); margin-top: 6px; line-height: 1.25; }
+  .stats-note { font-size: 0.74rem; color: var(--ink-2); opacity: 0.7; margin-top: 8px; }
+  @media (max-width: 420px) { .stat b { font-size: 1.4rem; } .stat span { font-size: 0.72rem; } }
   .note { font-size: 0.78rem; color: var(--ink-2); opacity: 0.72; margin-top: 12px; }
   @media (max-width: 520px) { .grid2 { grid-template-columns: 1fr; } }
 </style>
@@ -235,6 +243,7 @@ const CFG = {
   sessionKey: "msd_owner_session",
 };
 const MODELS = ["Montessori","Forest / Nature","Classical","Learner-Driven","Project-Based","Faith-Based","Microschool","Learning Pod","Homeschool Co-op"];
+let STATS_BY_ID = {};
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const esc = v => String(v == null ? "" : v).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
 
@@ -472,23 +481,27 @@ async function showDash() {
   $("headline").textContent = "Manage your listing.";
   $("cards").innerHTML = '<div class="panel"><p style="color:var(--ink-2)">Loading your listings…</p></div>';
 
-  let grants = [], edits = [], schools = [], claimUrls = {};
+  let grants = [], edits = [], schools = [], claimUrls = {}, stats = [];
   try {
-    const [gr, er, sr, cr] = await Promise.all([
+    const [gr, er, sr, cr, st] = await Promise.all([
       api("/rest/v1/listing_owners?select=school_id,granted_via", session),
       api("/rest/v1/listing_edits?select=school_id,status,created_at&order=created_at.desc&limit=50", session),
       fetch("/data/schools.json"),
       fetch("/data/claim-urls.json"),
+      api("/rest/v1/listing_stats?select=school_id,listing_views,city_views,state_views,state_name,city_name,period_days,updated_at", session),
     ]);
     if (gr.status === 401) { saveSession(null); location.reload(); return; }
     grants = gr.ok ? await gr.json() : [];
     edits = er.ok ? await er.json() : [];
     schools = sr.ok ? (await sr.json()).schools || [] : [];
     claimUrls = cr.ok ? await cr.json() : {};
+    stats = st.ok ? await st.json() : [];
   } catch (_) {}
 
   const byId = {};
   schools.forEach(s => { byId[s.id] = s; });
+  STATS_BY_ID = {};
+  stats.forEach(s => { STATS_BY_ID[s.school_id] = s; });
 
   if (!grants.length) {
     $("cards").innerHTML = `<div class="panel empty-state">
@@ -520,6 +533,28 @@ function photoTag(u, idx, cardIdx) {
     <button type="button" title="Remove photo" data-remove="${cardIdx}">×</button></div>`;
 }
 
+function statsBlock(s) {
+  const st = STATS_BY_ID[s.id];
+  const days = (st && st.period_days) || 30;
+  const n = v => Number(v || 0).toLocaleString();
+  if (!st) {
+    return `<div class="stats"><div class="stats-h">Your listing's traffic · last ${days} days</div>
+      <p class="stats-note">Traffic numbers appear here within a day of your listing being live. Check back soon.</p></div>`;
+  }
+  const cityLabel = st.city_name ? `Searched ${esc(st.city_name)}` : "Searched your city";
+  const stateLabel = st.state_name ? `Searched ${esc(st.state_name)}` : "Searched your state";
+  const fresh = st.updated_at ? new Date(st.updated_at).toLocaleDateString() : "";
+  return `<div class="stats">
+    <div class="stats-h">Your listing's traffic · last ${days} days</div>
+    <div class="stats-grid">
+      <div class="stat"><b>${n(st.listing_views)}</b><span>Views of your listing</span></div>
+      <div class="stat"><b>${n(st.city_views)}</b><span>${cityLabel}</span></div>
+      <div class="stat"><b>${n(st.state_views)}</b><span>${stateLabel}</span></div>
+    </div>
+    <p class="stats-note">People who viewed your page, your city's directory, and your state's directory.${fresh ? " Updated " + esc(fresh) + "." : ""}</p>
+  </div>`;
+}
+
 function renderCard(s, i, hasPending, liveUrl) {
   const photos = Array.isArray(s.photo_urls) ? s.photo_urls.filter(Boolean) : (s.photo ? [s.photo] : []);
   const modelOpts = MODELS.map(m => `<option${(s.model===m)?" selected":""}>${esc(m)}</option>`).join("");
@@ -531,6 +566,7 @@ function renderCard(s, i, hasPending, liveUrl) {
       <span class="loc">${esc(s.city)}, ${esc(s.state)}</span>
     </div>
     ${view}
+    ${statsBlock(s)}
     ${hasPending ? '<div class="pendingnote">⏳ You have changes waiting to publish — they go live within about 15 minutes. Submitting again replaces them.</div>' : ""}
     <div class="grid2">
       <div class="field"><label>Learning model</label><select data-f="model">${modelOpts}</select></div>
