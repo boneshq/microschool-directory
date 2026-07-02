@@ -137,27 +137,71 @@
 <main class="wrap">
   <span class="eyebrow">Owner dashboard</span>
   <h1 id="headline">Manage your listing.</h1>
-  <p class="lede" id="lede">Sign in with your school email to update your story, photos, tuition, grades, and schedule. Changes go live on the directory within about 15 minutes.</p>
+  <p class="lede" id="lede">Sign in to update your story, photos, tuition, grades, and schedule. Changes go live on the directory within about 15 minutes.</p>
 
-  <!-- ---------- sign-in ---------- -->
+  <!-- ---------- auth ---------- -->
   <div class="panel" id="authpanel" hidden>
     <noscript><p style="color:var(--coral-deep);font-weight:600;">This page needs JavaScript. Email <strong>hello@microschool.directory</strong> and we'll help you by hand.</p></noscript>
-    <div id="step-email">
+
+    <!-- sign in -->
+    <div id="v-signin">
       <div class="field">
-        <label for="a-email">Your email (the one on your listing)</label>
-        <input id="a-email" type="email" autocomplete="email" placeholder="you@school.com" />
+        <label for="si-email">Email</label>
+        <input id="si-email" type="email" autocomplete="email" placeholder="you@school.com" />
       </div>
-      <button class="btn full" id="send-code" type="button">Email me a sign-in code</button>
-      <p class="note">No password needed — we email you a 6-digit code each time. Don't have a listing yet? <a href="/claim/" style="color:var(--coral-deep);font-weight:600;">Claim or add your school →</a></p>
-    </div>
-    <div id="step-code" hidden>
       <div class="field">
-        <label for="a-code">Enter the code we sent to <span id="sent-to"></span></label>
-        <input id="a-code" class="otp-input" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="8" placeholder="••••••••" />
+        <label for="si-pass">Password</label>
+        <input id="si-pass" type="password" autocomplete="current-password" placeholder="Your password" />
       </div>
-      <button class="btn full" id="verify-code" type="button">Sign in</button>
-      <p class="note"><button class="btn-quiet" id="restart" type="button">Use a different email</button></p>
+      <button class="btn full" id="do-signin" type="button">Sign in</button>
+      <p class="note" style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap">
+        <button class="btn-quiet" data-view="v-forgot" type="button">Forgot your password?</button>
+        <button class="btn-quiet" data-view="v-signup" type="button">New here? Create your account →</button>
+      </p>
     </div>
+
+    <!-- create account -->
+    <div id="v-signup" hidden>
+      <div class="field">
+        <label for="su-email">Email (the one on your listing)</label>
+        <input id="su-email" type="email" autocomplete="email" placeholder="you@school.com" />
+      </div>
+      <div class="field">
+        <label for="su-pass">Choose a password (8+ characters)</label>
+        <input id="su-pass" type="password" autocomplete="new-password" placeholder="New password" />
+      </div>
+      <div class="field">
+        <label for="su-pass2">Confirm password</label>
+        <input id="su-pass2" type="password" autocomplete="new-password" placeholder="Repeat it" />
+      </div>
+      <button class="btn full" id="do-signup" type="button">Create my account</button>
+      <p class="note">We'll email you a confirmation link. Don't have a listing yet? <a href="/claim/" style="color:var(--coral-deep);font-weight:600;">Claim or add your school →</a></p>
+      <p class="note"><button class="btn-quiet" data-view="v-signin" type="button">← Back to sign in</button></p>
+    </div>
+
+    <!-- forgot password -->
+    <div id="v-forgot" hidden>
+      <div class="field">
+        <label for="fp-email">Email</label>
+        <input id="fp-email" type="email" autocomplete="email" placeholder="you@school.com" />
+      </div>
+      <button class="btn full" id="do-forgot" type="button">Email me a reset link</button>
+      <p class="note"><button class="btn-quiet" data-view="v-signin" type="button">← Back to sign in</button></p>
+    </div>
+
+    <!-- set new password (arrived via reset link) -->
+    <div id="v-setpass" hidden>
+      <div class="field">
+        <label for="np-pass">New password (8+ characters)</label>
+        <input id="np-pass" type="password" autocomplete="new-password" placeholder="New password" />
+      </div>
+      <div class="field">
+        <label for="np-pass2">Confirm new password</label>
+        <input id="np-pass2" type="password" autocomplete="new-password" placeholder="Repeat it" />
+      </div>
+      <button class="btn full" id="do-setpass" type="button">Save my new password</button>
+    </div>
+
     <p class="msg" id="auth-msg" role="alert"></p>
   </div>
 
@@ -165,7 +209,10 @@
   <div id="dash" hidden>
     <div class="signedbar">
       <span>Signed in as <b id="who"></b></span>
-      <button class="btn-quiet" id="signout" type="button">Sign out</button>
+      <span style="display:flex;gap:16px">
+        <button class="btn-quiet" id="changepass" type="button">Change password</button>
+        <button class="btn-quiet" id="signout" type="button">Sign out</button>
+      </span>
     </div>
     <div id="cards"></div>
   </div>
@@ -212,7 +259,6 @@ async function freshSession() {
 
 // ---------- auth UI ----------
 const $ = id => document.getElementById(id);
-let pendingEmail = "";
 
 function authMsg(text, ok) {
   const m = $("auth-msg");
@@ -220,57 +266,141 @@ function authMsg(text, ok) {
   m.className = "msg " + (ok ? "ok" : "err");
 }
 
-$("send-code").addEventListener("click", async () => {
-  const email = ($("a-email").value || "").trim().toLowerCase();
+const VIEWS = ["v-signin", "v-signup", "v-forgot", "v-setpass"];
+function showView(id) {
+  VIEWS.forEach(v => { $(v).hidden = v !== id; });
+  authMsg("");
+}
+document.querySelectorAll("[data-view]").forEach(b =>
+  b.addEventListener("click", () => showView(b.getAttribute("data-view"))));
+
+function gotrueError(d, fallback) {
+  return (d && (d.msg || d.message || d.error_description)) || fallback;
+}
+
+function adoptSession(d, emailFallback) {
+  saveSession({ access_token: d.access_token, refresh_token: d.refresh_token,
+                expires_at: Math.floor(Date.now()/1000) + (d.expires_in || 3600),
+                email: (d.user && d.user.email) || emailFallback || "" });
+}
+
+async function busy(btn, label, fn) {
+  const orig = btn.textContent;
+  btn.disabled = true; btn.textContent = label;
+  try { await fn(); } catch (_) { authMsg("Network problem — try again."); }
+  btn.disabled = false; btn.textContent = orig;
+}
+
+$("do-signin").addEventListener("click", () => busy($("do-signin"), "Signing in…", async () => {
+  const email = ($("si-email").value || "").trim().toLowerCase();
+  const pass = $("si-pass").value || "";
   if (!EMAIL_RE.test(email)) { authMsg("That doesn't look like an email address."); return; }
-  const btn = $("send-code"); btn.disabled = true; btn.textContent = "Sending…";
-  try {
-    const r = await fetch(`${CFG.supabaseUrl}/auth/v1/otp`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json", apikey: CFG.anonKey },
-      body: JSON.stringify({ email, create_user: true }),
-    });
-    if (!r.ok) {
-      const d = await r.json().catch(() => ({}));
-      authMsg(d.msg || d.error_description || "Couldn't send the code — try again in a minute.");
-    } else {
-      pendingEmail = email;
-      $("sent-to").textContent = email;
-      $("step-email").hidden = true;
-      $("step-code").hidden = false;
-      authMsg("Code sent — check your inbox (and spam).", true);
-      $("a-code").focus();
-    }
-  } catch (_) { authMsg("Network problem — try again."); }
-  btn.disabled = false; btn.textContent = "Email me a sign-in code";
+  if (!pass) { authMsg("Enter your password."); return; }
+  const r = await fetch(`${CFG.supabaseUrl}/auth/v1/token?grant_type=password`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", apikey: CFG.anonKey },
+    body: JSON.stringify({ email, password: pass }),
+  });
+  const d = await r.json().catch(() => ({}));
+  if (!r.ok || !d.access_token) {
+    const raw = gotrueError(d, "");
+    if (/not.?confirmed/i.test(raw)) authMsg("Your email isn't confirmed yet — click the link in the email we sent you (check spam).");
+    else if (/invalid/i.test(raw)) authMsg("Wrong email or password. If you signed up before passwords existed, use “Forgot your password?” to set one.");
+    else authMsg(raw || "Couldn't sign you in — try again.");
+    return;
+  }
+  adoptSession(d, email);
+  await showDash();
+}));
+
+$("do-signup").addEventListener("click", () => busy($("do-signup"), "Creating…", async () => {
+  const email = ($("su-email").value || "").trim().toLowerCase();
+  const p1 = $("su-pass").value || "", p2 = $("su-pass2").value || "";
+  if (!EMAIL_RE.test(email)) { authMsg("That doesn't look like an email address."); return; }
+  if (p1.length < 8) { authMsg("Password needs at least 8 characters."); return; }
+  if (p1 !== p2) { authMsg("Passwords don't match."); return; }
+  const r = await fetch(`${CFG.supabaseUrl}/auth/v1/signup`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", apikey: CFG.anonKey },
+    body: JSON.stringify({ email, password: p1,
+      options: { email_redirect_to: "https://microschool.directory/account/" } }),
+  });
+  const d = await r.json().catch(() => ({}));
+  if (!r.ok) {
+    const raw = gotrueError(d, "");
+    if (/already|registered/i.test(raw)) authMsg("That email already has an account — sign in, or use “Forgot your password?”.");
+    else authMsg(raw || "Couldn't create the account — try again.");
+    return;
+  }
+  // session only arrives here if confirmations are off; normally a confirm email goes out
+  if (d.access_token) { adoptSession(d, email); await showDash(); return; }
+  showView("v-signin");
+  authMsg("Almost done — click the confirmation link we just emailed you, then sign in.", true);
+}));
+
+$("do-forgot").addEventListener("click", () => busy($("do-forgot"), "Sending…", async () => {
+  const email = ($("fp-email").value || "").trim().toLowerCase();
+  if (!EMAIL_RE.test(email)) { authMsg("That doesn't look like an email address."); return; }
+  const r = await fetch(`${CFG.supabaseUrl}/auth/v1/recover`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", apikey: CFG.anonKey },
+    body: JSON.stringify({ email, redirect_to: "https://microschool.directory/account/" }),
+  });
+  if (!r.ok) {
+    const d = await r.json().catch(() => ({}));
+    authMsg(gotrueError(d, "Couldn't send the reset email — try again in a minute."));
+    return;
+  }
+  showView("v-signin");
+  authMsg("Reset link sent — check your inbox (and spam), then follow the link.", true);
+}));
+
+$("do-setpass").addEventListener("click", () => busy($("do-setpass"), "Saving…", async () => {
+  const p1 = $("np-pass").value || "", p2 = $("np-pass2").value || "";
+  if (p1.length < 8) { authMsg("Password needs at least 8 characters."); return; }
+  if (p1 !== p2) { authMsg("Passwords don't match."); return; }
+  const session = await freshSession();
+  if (!session) { showView("v-signin"); authMsg("That reset link expired — request a new one."); return; }
+  const r = await fetch(`${CFG.supabaseUrl}/auth/v1/user`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json", apikey: CFG.anonKey,
+               Authorization: `Bearer ${session.access_token}` },
+    body: JSON.stringify({ password: p1 }),
+  });
+  const d = await r.json().catch(() => ({}));
+  if (!r.ok) { authMsg(gotrueError(d, "Couldn't save the password — try again.")); return; }
+  authMsg("");
+  await showDash();
+}));
+
+// Enter-to-submit per view
+[["si-pass","do-signin"],["su-pass2","do-signup"],["fp-email","do-forgot"],["np-pass2","do-setpass"]].forEach(([inp, btn]) =>
+  $(inp).addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); $(btn).click(); } }));
+
+// Sessions arriving in the URL hash (confirmation + reset links land here)
+function consumeHashSession() {
+  const h = new URLSearchParams((location.hash || "").replace(/^#/, ""));
+  const at = h.get("access_token"), rt = h.get("refresh_token");
+  if (!at || !rt) return null;
+  const type = h.get("type") || "";
+  saveSession({ access_token: at, refresh_token: rt,
+                expires_at: Math.floor(Date.now()/1000) + (parseInt(h.get("expires_in") || "3600", 10) || 3600),
+                email: "" });
+  history.replaceState(null, "", location.pathname + location.search);
+  return type;
+}
+$("changepass").addEventListener("click", () => {
+  // reuse the reset-link flow: sends a fresh link, safest path (re-auth via email)
+  const s = loadSession();
+  if (!s || !s.email) { showView("v-forgot"); $("dash").hidden = true; $("authpanel").hidden = false; return; }
+  fetch(`${CFG.supabaseUrl}/auth/v1/recover`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", apikey: CFG.anonKey },
+    body: JSON.stringify({ email: s.email, redirect_to: "https://microschool.directory/account/" }),
+  }).catch(() => {});
+  alert("We've emailed you a link to set a new password. Check your inbox (and spam).");
 });
 
-$("verify-code").addEventListener("click", async () => {
-  const code = ($("a-code").value || "").trim();
-  if (!/^\d{6,8}$/.test(code)) { authMsg("Enter the numeric code from the email."); return; }
-  const btn = $("verify-code"); btn.disabled = true; btn.textContent = "Signing in…";
-  try {
-    const r = await fetch(`${CFG.supabaseUrl}/auth/v1/verify`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json", apikey: CFG.anonKey },
-      body: JSON.stringify({ type: "email", email: pendingEmail, token: code }),
-    });
-    const d = await r.json().catch(() => ({}));
-    if (!r.ok || !d.access_token) {
-      authMsg(d.msg || d.error_description || "That code didn't work — check it and try again.");
-    } else {
-      saveSession({ access_token: d.access_token, refresh_token: d.refresh_token,
-                    expires_at: Math.floor(Date.now()/1000) + (d.expires_in || 3600),
-                    email: (d.user && d.user.email) || pendingEmail });
-      authMsg("");
-      await showDash();
-    }
-  } catch (_) { authMsg("Network problem — try again."); }
-  btn.disabled = false; btn.textContent = "Sign in";
-});
-$("a-code").addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); $("verify-code").click(); } });
-$("a-email").addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); $("send-code").click(); } });
-$("restart").addEventListener("click", () => { $("step-code").hidden = true; $("step-email").hidden = false; authMsg(""); });
 $("signout").addEventListener("click", async () => {
   const s = loadSession();
   if (s && s.access_token) {
@@ -473,7 +603,26 @@ function wireCard(s, i) {
 }
 
 // ---------- boot ----------
+async function fillSessionEmail() {
+  const s = loadSession();
+  if (!s || s.email) return;
+  try {
+    const r = await fetch(`${CFG.supabaseUrl}/auth/v1/user`, {
+      headers: { apikey: CFG.anonKey, Authorization: `Bearer ${s.access_token}` },
+    });
+    if (r.ok) { const u = await r.json(); if (u.email) { s.email = u.email; saveSession(s); } }
+  } catch (_) {}
+}
+
 (async function boot() {
+  const hashType = consumeHashSession();
+  if (hashType) await fillSessionEmail();
+  if (hashType === "recovery") {
+    $("authpanel").hidden = false;
+    showView("v-setpass");
+    authMsg("Choose your new password.", true);
+    return;
+  }
   const session = await freshSession();
   if (session) await showDash();
   else $("authpanel").hidden = false;
