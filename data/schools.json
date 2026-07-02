@@ -16814,8 +16814,8 @@
       "website": "https://bluebirdhollowschool.com",
       "source": "owner-submission",
       "description": "Bluebird Hollow is a learner-driven microschool in West Asheville for ages 5-12. Mornings are core skills (math, reading, writing) in mixed-age studios; afternoons are project blocks — woodworking, creek ecology, and a spring market where kids run real stalls. Two guides, 16 learners max. UPDATED BY OWNER: Fall 2026 enrollment is now open with 4 spots remaining.",
-      "verified": false,
-      "claimable": true,
+      "verified": true,
+      "claimable": false,
       "placeholder": false,
       "photo": "https://fhbczvfrsgkbpvammxip.supabase.co/storage/v1/object/public/school-photos/pending/6c8290f0-cd35-4ccb-b849-4af750f92cbd-0.png",
       "photo_urls": [
