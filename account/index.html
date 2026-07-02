@@ -271,7 +271,18 @@ $("verify-code").addEventListener("click", async () => {
 $("a-code").addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); $("verify-code").click(); } });
 $("a-email").addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); $("send-code").click(); } });
 $("restart").addEventListener("click", () => { $("step-code").hidden = true; $("step-email").hidden = false; authMsg(""); });
-$("signout").addEventListener("click", () => { saveSession(null); location.reload(); });
+$("signout").addEventListener("click", async () => {
+  const s = loadSession();
+  if (s && s.access_token) {
+    try {
+      await fetch(`${CFG.supabaseUrl}/auth/v1/logout`, {
+        method: "POST",
+        headers: { apikey: CFG.anonKey, Authorization: `Bearer ${s.access_token}` },
+      });
+    } catch (_) {}
+  }
+  saveSession(null); location.reload();
+});
 
 // ---------- dashboard ----------
 async function api(path, session, opts) {
