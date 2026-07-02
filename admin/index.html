@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<!-- Capture + scrub any auth tokens from the URL fragment BEFORE any other
+     (async) script can read location.hash. Supabase reset/confirm links return
+     tokens in the hash; this closes the window where analytics could see them. -->
+<script>
+  window.__msdAuthHash = window.location.hash || "";
+  if (window.location.hash) {
+    try { history.replaceState(null, "", window.location.pathname + window.location.search); } catch (e) {}
+  }
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Review queue — microschool.directory</title>
+<meta name="robots" content="noindex,nofollow" />
+<link rel="canonical" href="https://microschool.directory/admin/" />
+<meta name="theme-color" content="#13241d" />
+
+<link rel="icon" type="image/png" href="/assets/icon.png" />
+<link rel="apple-touch-icon" href="/assets/icon.png" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --paper: #f7f3ec; --paper-2: #efe9dd; --ink: #13241d; --ink-2: #1b3a2f;
+    --forest: #285c46; --moss: #6b8f71; --coral: #e8643c; --coral-deep: #c64a26;
+    --amber: #f2a03d; --line: #d9d0bf; --card: #fffdf8;
+    --shadow: 0 24px 60px rgba(19, 36, 29, 0.10); --radius: 18px;
+    --serif: "Fraunces", Georgia, serif; --sans: "Hanken Grotesk", -apple-system, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { overflow-x: clip; }
+  body { font-family: var(--sans); background: var(--paper); color: var(--ink); -webkit-font-smoothing: antialiased; line-height: 1.5; min-height: 100vh; }
+  a { color: inherit; text-decoration: none; }
+  header { background: rgba(247,243,236,.86); backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 100; }
+  .bar { max-width: 860px; margin: 0 auto; padding: 14px 22px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-family: var(--serif); font-size: 1.08rem; }
+  .brand .pin { width: 26px; height: 26px; flex: 0 0 26px; background: var(--coral); border-radius: 50% 50% 50% 2px; transform: rotate(-45deg); box-shadow: 0 4px 12px rgba(232,100,60,.38); }
+  .brand b { font-weight: 600; } .brand b span { color: var(--coral); }
+  .back { font-size: .85rem; color: var(--ink-2); font-weight: 600; }
+  .back:hover { color: var(--coral-deep); }
+  .wrap { max-width: 860px; margin: 0 auto; padding: clamp(26px,5vw,44px) 22px 70px; }
+  .eyebrow { display: inline-flex; align-items: center; gap: 9px; font-size: .72rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--coral-deep); }
+  .eyebrow::before { content: ""; width: 26px; height: 1.5px; background: var(--coral); }
+  h1 { font-family: var(--serif); font-weight: 500; font-size: clamp(1.9rem,5vw,2.6rem); line-height: 1.05; letter-spacing: -.02em; margin: 14px 0 0; }
+  .lede { color: var(--ink-2); margin-top: 12px; font-size: 1.02rem; max-width: 58ch; }
+  .panel { background: var(--card); border: 1.5px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: clamp(22px,4vw,30px); margin-top: 24px; }
+  label { display: block; font-size: .8rem; font-weight: 600; color: var(--ink); margin: 0 0 6px; }
+  .field { margin-bottom: 14px; }
+  input { width: 100%; font-family: var(--sans); font-size: 16px; color: var(--ink); border: 1.5px solid var(--line); background: var(--paper); border-radius: 12px; padding: 12px 14px; outline: none; transition: border-color .2s; }
+  input:focus { border-color: var(--forest); }
+  .btn { border: none; cursor: pointer; font-family: var(--sans); font-weight: 700; font-size: 1rem; background: var(--coral); color: #fff; padding: 14px 22px; border-radius: 100px; transition: background .2s, transform .2s; }
+  .btn:hover { background: var(--coral-deep); transform: translateY(-1px); }
+  .btn:disabled { opacity: .6; cursor: default; transform: none; }
+  .btn.full { width: 100%; }
+  .btn-quiet { background: none; border: none; padding: 0; color: var(--coral-deep); font-family: var(--sans); font-weight: 600; font-size: .84rem; cursor: pointer; }
+  .btn-quiet:hover { text-decoration: underline; }
+  .msg { font-size: .88rem; font-weight: 600; margin-top: 10px; }
+  .msg.err { color: var(--coral-deep); } .msg.ok { color: var(--forest); }
+  .signedbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 24px; font-size: .88rem; color: var(--ink-2); flex-wrap: wrap; }
+  .toolbar { display: flex; gap: 14px; align-items: center; }
+  .sec-title { font-family: var(--serif); font-weight: 600; font-size: 1.25rem; margin: 30px 0 4px; display: flex; align-items: center; gap: 10px; }
+  .count { display: inline-flex; align-items: center; justify-content: center; min-width: 24px; height: 24px; padding: 0 8px; border-radius: 100px; background: var(--forest); color: #fff; font-size: .82rem; font-weight: 700; font-family: var(--sans); }
+  .count.zero { background: var(--moss); opacity: .5; }
+  .sub { color: var(--ink-2); font-size: .9rem; margin: 2px 0 4px; }
+  .rev { border: 1.5px solid var(--line); border-radius: 14px; padding: 18px; margin-top: 14px; background: var(--card); }
+  .rev-head { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; flex-wrap: wrap; }
+  .rev-head h3 { font-family: var(--serif); font-weight: 600; font-size: 1.2rem; }
+  .rev-head .loc { color: var(--ink-2); font-size: .9rem; }
+  .tag { display: inline-block; font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: #fff; padding: 3px 9px; border-radius: 100px; }
+  .tag.new { background: var(--forest); } .tag.claim { background: var(--amber); color: var(--ink); }
+  .kv { display: grid; grid-template-columns: max-content 1fr; gap: 4px 14px; margin: 12px 0; font-size: .92rem; }
+  .kv dt { color: var(--ink-2); font-weight: 600; } .kv dd { word-break: break-word; }
+  .kv dd a { color: var(--coral-deep); }
+  .about { background: var(--paper); border: 1px solid var(--line); border-radius: 10px; padding: 11px 13px; margin: 8px 0; font-size: .9rem; white-space: pre-wrap; word-break: break-word; }
+  .warn { border-radius: 10px; padding: 11px 13px; margin: 10px 0; font-size: .88rem; border: 1.5px solid; }
+  .warn.ok { background: rgba(40,92,70,.07); border-color: var(--forest); color: var(--ink-2); }
+  .warn.caution { background: rgba(242,160,61,.12); border-color: var(--amber); color: var(--ink); }
+  .warn.bad { background: rgba(198,74,38,.10); border-color: var(--coral-deep); color: var(--coral-deep); }
+  .warn b { font-weight: 700; }
+  .photos { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0; }
+  .photos img { width: 100px; height: 76px; object-fit: cover; border-radius: 8px; border: 1px solid var(--line); }
+  .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+  .btn-approve { background: var(--forest); } .btn-approve:hover { background: #1e4635; }
+  .btn-reject { background: var(--coral); } .btn-reject:hover { background: var(--coral-deep); }
+  .btn-sm { padding: 11px 18px; font-size: .92rem; }
+  .rev .msg { margin-top: 12px; }
+  .empty { text-align: center; color: var(--ink-2); padding: 22px 4px; font-size: .95rem; }
+  .note { font-size: .78rem; color: var(--ink-2); opacity: .72; margin-top: 12px; }
+  @media (max-width: 520px) { .kv { grid-template-columns: 1fr; gap: 1px; } .kv dt { margin-top: 6px; } }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="bar">
+    <a class="brand" href="/"><span class="pin"></span><b>microschool<span>.</span>directory</b></a>
+    <a class="back" href="/">← Back to the directory</a>
+  </div>
+</header>
+
+<main class="wrap">
+  <span class="eyebrow">Admin · review queue</span>
+  <h1 id="headline">Review queue</h1>
+  <p class="lede" id="lede">Sign in to approve or decline new listings and claim requests. Approvals publish to the live site within about 10 minutes.</p>
+
+  <!-- ---------- auth ---------- -->
+  <div class="panel" id="authpanel" hidden>
+    <noscript><p style="color:var(--coral-deep);font-weight:600;">This page needs JavaScript.</p></noscript>
+
+    <div id="v-signin">
+      <div class="field">
+        <label for="si-email">Email</label>
+        <input id="si-email" type="email" autocomplete="email" placeholder="you@altfunding.com" />
+      </div>
+      <div class="field">
+        <label for="si-pass">Password</label>
+        <input id="si-pass" type="password" autocomplete="current-password" placeholder="Your password" />
+      </div>
+      <button class="btn full" id="do-signin" type="button">Sign in</button>
+      <p class="note"><button class="btn-quiet" data-view="v-forgot" type="button">Forgot your password?</button></p>
+    </div>
+
+    <div id="v-forgot" hidden>
+      <div class="field">
+        <label for="fp-email">Email</label>
+        <input id="fp-email" type="email" autocomplete="email" placeholder="you@altfunding.com" />
+      </div>
+      <button class="btn full" id="do-forgot" type="button">Email me a reset link</button>
+      <p class="note"><button class="btn-quiet" data-view="v-signin" type="button">← Back to sign in</button></p>
+    </div>
+
+    <div id="v-setpass" hidden>
+      <div class="field">
+        <label for="np-pass">New password (8+ characters)</label>
+        <input id="np-pass" type="password" autocomplete="new-password" placeholder="New password" />
+      </div>
+      <div class="field">
+        <label for="np-pass2">Confirm new password</label>
+        <input id="np-pass2" type="password" autocomplete="new-password" placeholder="Repeat it" />
+      </div>
+      <button class="btn full" id="do-setpass" type="button">Save my new password</button>
+    </div>
+
+    <p class="msg" id="auth-msg" role="alert"></p>
+  </div>
+
+  <!-- ---------- dashboard ---------- -->
+  <div id="dash" hidden>
+    <div class="signedbar">
+      <span>Signed in as <b id="who"></b></span>
+      <span class="toolbar">
+        <button class="btn-quiet" id="refresh" type="button">↻ Refresh</button>
+        <button class="btn-quiet" id="changepass" type="button">Change password</button>
+        <button class="btn-quiet" id="signout" type="button">Sign out</button>
+      </span>
+    </div>
+
+    <div class="sec-title">New listings <span class="count zero" id="cnt-new">0</span></div>
+    <div class="sub">Approving publishes a brand-new page to the directory.</div>
+    <div id="list-new"><p class="empty">Loading…</p></div>
+
+    <div class="sec-title">Claim requests <span class="count zero" id="cnt-claim">0</span></div>
+    <div class="sub">Approving hands control of an existing listing to the person who claimed it — they can then sign in and edit it.</div>
+    <div id="list-claim"></div>
+  </div>
+</main>
+
+<script>
+const CFG = {
+  supabaseUrl: "https://fhbczvfrsgkbpvammxip.supabase.co",
+  anonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZoYmN6dmZyc2drYnB2YW1teGlwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIyMjg1NjUsImV4cCI6MjA5NzgwNDU2NX0.LNl2t1-cAYPny71aKHeZK094Zf_YawnKMvo8W15NQuE",
+  sessionKey: "msd_admin_session",
+  redirect: "https://microschool.directory/admin/",
+};
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const esc = v => String(v == null ? "" : v).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+const $ = id => document.getElementById(id);
+
+// ---------- session ----------
+function loadSession() { try { return JSON.parse(localStorage.getItem(CFG.sessionKey) || "null"); } catch (_) { return null; } }
+function saveSession(s) { if (s) localStorage.setItem(CFG.sessionKey, JSON.stringify(s)); else localStorage.removeItem(CFG.sessionKey); }
+async function freshSession() {
+  const s = loadSession();
+  if (!s || !s.refresh_token) return null;
+  if (s.expires_at && s.expires_at - 90 > Date.now() / 1000) return s;
+  try {
+    const r = await fetch(`${CFG.supabaseUrl}/auth/v1/token?grant_type=refresh_token`, {
+      method: "POST", headers: { "Content-Type": "application/json", apikey: CFG.anonKey },
+      body: JSON.stringify({ refresh_token: s.refresh_token }),
+    });
+    if (!r.ok) { saveSession(null); return null; }
+    const d = await r.json();
+    const ns = { access_token: d.access_token, refresh_token: d.refresh_token,
+                 expires_at: Math.floor(Date.now()/1000) + (d.expires_in || 3600),
+                 email: (d.user && d.user.email) || s.email };
+    saveSession(ns); return ns;
+  } catch (_) { return null; }
+}
+
+// ---------- auth UI ----------
+function authMsg(text, ok) { const m = $("auth-msg"); m.textContent = text || ""; m.className = "msg " + (ok ? "ok" : "err"); }
+const VIEWS = ["v-signin", "v-forgot", "v-setpass"];
+function showView(id) { VIEWS.forEach(v => { $(v).hidden = v !== id; }); authMsg(""); }
+document.querySelectorAll("[data-view]").forEach(b => b.addEventListener("click", () => showView(b.getAttribute("data-view"))));
+function gotrueError(d, fallback) { return (d && (d.msg || d.message || d.error_description)) || fallback; }
+function adoptSession(d, emailFallback) {
+  saveSession({ access_token: d.access_token, refresh_token: d.refresh_token,
+                expires_at: Math.floor(Date.now()/1000) + (d.expires_in || 3600),
+                email: (d.user && d.user.email) || emailFallback || "" });
+}
+async function busy(btn, label, fn) {
+  const orig = btn.textContent; btn.disabled = true; btn.textContent = label;
+  try { await fn(); } catch (_) { authMsg("Network problem — try again."); }
+  btn.disabled = false; btn.textContent = orig;
+}
+let recoverySession = null;
+
+$("do-signin").addEventListener("click", () => busy($("do-signin"), "Signing in…", async () => {
+  const email = ($("si-email").value || "").trim().toLowerCase();
+  const pass = $("si-pass").value || "";
+  if (!EMAIL_RE.test(email)) { authMsg("That doesn't look like an email address."); return; }
+  if (!pass) { authMsg("Enter your password."); return; }
+  const r = await fetch(`${CFG.supabaseUrl}/auth/v1/token?grant_type=password`, {
+    method: "POST", headers: { "Content-Type": "application/json", apikey: CFG.anonKey },
+    body: JSON.stringify({ email, password: pass }),
+  });
+  const d = await r.json().catch(() => ({}));
+  if (!r.ok || !d.access_token) {
+    const raw = gotrueError(d, "");
+    if (/not.?confirmed/i.test(raw)) authMsg("Your email isn't confirmed yet — check your inbox.");
+    else if (/invalid/i.test(raw)) authMsg("Wrong email or password. Use “Forgot your password?” to set one.");
+    else authMsg(raw || "Couldn't sign you in — try again.");
+    return;
+  }
+  adoptSession(d, email); await showDash();
+}));
+
+$("do-forgot").addEventListener("click", () => busy($("do-forgot"), "Sending…", async () => {
+  const email = ($("fp-email").value || "").trim().toLowerCase();
+  if (!EMAIL_RE.test(email)) { authMsg("That doesn't look like an email address."); return; }
+  const r = await fetch(`${CFG.supabaseUrl}/auth/v1/recover`, {
+    method: "POST", headers: { "Content-Type": "application/json", apikey: CFG.anonKey },
+    body: JSON.stringify({ email, redirect_to: CFG.redirect }),
+  });
+  if (!r.ok) { const d = await r.json().catch(() => ({})); authMsg(gotrueError(d, "Couldn't send the reset email — try again.")); return; }
+  showView("v-signin"); authMsg("Reset link sent — check your inbox (and spam), then follow the link.", true);
+}));
+
+$("do-setpass").addEventListener("click", () => busy($("do-setpass"), "Saving…", async () => {
+  const p1 = $("np-pass").value || "", p2 = $("np-pass2").value || "";
+  if (p1.length < 8) { authMsg("Password needs at least 8 characters."); return; }
+  if (p1 !== p2) { authMsg("Passwords don't match."); return; }
+  const session = recoverySession || await freshSession();
+  if (!session) { showView("v-signin"); authMsg("That reset link expired — request a new one."); return; }
+  const r = await fetch(`${CFG.supabaseUrl}/auth/v1/user`, {
+    method: "PUT", headers: { "Content-Type": "application/json", apikey: CFG.anonKey, Authorization: `Bearer ${session.access_token}` },
+    body: JSON.stringify({ password: p1 }),
+  });
+  const d = await r.json().catch(() => ({}));
+  if (!r.ok) { authMsg(gotrueError(d, "Couldn't save the password — try again.")); return; }
+  saveSession(session); recoverySession = null; authMsg(""); await showDash();
+}));
+
+[["si-pass","do-signin"],["fp-email","do-forgot"],["np-pass2","do-setpass"]].forEach(([inp, btn]) =>
+  $(inp).addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); $(btn).click(); } }));
+
+function consumeHashSession() {
+  const h = new URLSearchParams((window.__msdAuthHash || "").replace(/^#/, ""));
+  window.__msdAuthHash = ""; // consumed — don't leave auth tokens on the global
+  if (h.get("error")) { const desc = h.get("error_description") || h.get("error") || ""; return { error: desc.replace(/\+/g, " ") }; }
+  const at = h.get("access_token"), rt = h.get("refresh_token");
+  if (!at || !rt) return null;
+  const type = h.get("type") || "";
+  const sess = { access_token: at, refresh_token: rt,
+                 expires_at: Math.floor(Date.now()/1000) + (parseInt(h.get("expires_in") || "3600", 10) || 3600), email: "" };
+  if (type === "recovery") recoverySession = sess; else saveSession(sess);
+  return { type };
+}
+
+$("changepass").addEventListener("click", () => {
+  const s = loadSession();
+  if (!s || !s.email) { showView("v-forgot"); $("dash").hidden = true; $("authpanel").hidden = false; return; }
+  fetch(`${CFG.supabaseUrl}/auth/v1/recover`, {
+    method: "POST", headers: { "Content-Type": "application/json", apikey: CFG.anonKey },
+    body: JSON.stringify({ email: s.email, redirect_to: CFG.redirect }),
+  }).catch(() => {});
+  alert("We've emailed you a link to set a new password. Check your inbox (and spam).");
+});
+
+$("signout").addEventListener("click", async () => {
+  const s = loadSession();
+  if (s && s.access_token) {
+    try { await fetch(`${CFG.supabaseUrl}/auth/v1/logout`, { method: "POST", headers: { apikey: CFG.anonKey, Authorization: `Bearer ${s.access_token}` } }); } catch (_) {}
+  }
+  saveSession(null); location.reload();
+});
+$("refresh").addEventListener("click", () => showDash());
+
+// ---------- queue ----------
+async function adminApi(pathAndQuery, session, opts) {
+  const o = opts || {};
+  return fetch(`${CFG.supabaseUrl}/functions/v1/admin-queue${pathAndQuery}`, {
+    method: o.method || "GET",
+    headers: Object.assign({ apikey: CFG.anonKey, Authorization: `Bearer ${session.access_token}` },
+      o.body ? { "Content-Type": "application/json" } : {}),
+    body: o.body ? JSON.stringify(o.body) : undefined,
+  });
+}
+
+// url (normalized) -> school_id, so the hint resolves the same URL-fallback the
+// server does for older / hand-entered claims. Filled in showDash.
+let CLAIM_URL_TO_ID = {};
+function normUrl(u) {
+  try { const x = new URL(String(u).trim()); return (x.origin + x.pathname.replace(/\/+$/, "")).toLowerCase(); }
+  catch (_) { return String(u).trim().replace(/\/+$/, "").toLowerCase(); }
+}
+// The claim page writes "CLAIM TARGET: <name> [id:<id>] <url>". The structured
+// id is authoritative; fall back to reverse-mapping the url (matches the server).
+function claimTargetId(desc) {
+  const m = /\[id:\s*([a-z0-9-]+)\s*\]/i.exec(String(desc || ""));
+  if (m && SCHOOLS[m[1]]) return m[1];
+  const um = /CLAIM TARGET:[^\n]*?(https?:\/\/\S+)/i.exec(String(desc || ""));
+  if (um) { const id = CLAIM_URL_TO_ID[normUrl(um[1])]; if (id) return id; }
+  return m ? m[1] : "";
+}
+function claimTargetUrl(desc) {
+  const m = /CLAIM TARGET:[^\n]*?(https?:\/\/\S+)/i.exec(String(desc || ""));
+  return m ? m[1] : "";
+}
+// Only ever emit a clickable link for a real http(s) URL — never javascript:/data:.
+function safeLink(url, label) {
+  const u = String(url || "");
+  if (/^https?:\/\//i.test(u)) return `<a href="${esc(u)}" target="_blank" rel="noopener">${esc(label || u)}</a>`;
+  return esc(label || u);
+}
+function domainOf(s) {
+  try { return new URL(/^https?:\/\//i.test(s) ? s : ("https://" + s)).hostname.replace(/^www\./, "").toLowerCase(); }
+  catch (_) { return ""; }
+}
+function emailDomain(e) { const m = /@([^@\s]+)$/.exec(String(e || "")); return m ? m[1].toLowerCase() : ""; }
+const FREEMAIL = new Set(["gmail.com","yahoo.com","hotmail.com","outlook.com","live.com","icloud.com","me.com","aol.com","proton.me","protonmail.com","gmx.com","mail.com"]);
+
+// SCHOOLS: id -> {name, website} for the claim-verification hint. Filled in showDash.
+let SCHOOLS = {};
+
+// Signal to the admin whether the claimant's email plausibly belongs to the school
+// they're claiming — the grant still needs human verification, this just flags the
+// obvious mismatches (matches the domain check auto-approval already uses).
+function claimVerifyBox(r) {
+  const sid = claimTargetId(r.description);
+  const school = sid ? SCHOOLS[sid] : null;
+  const ed = emailDomain(r.email);
+  const wd = school ? domainOf(school.website || "") : "";
+  let cls = "caution", body;
+  if (!sid || !school) {
+    cls = "bad";
+    body = "This claim doesn't point at a school on the live site — <b>can't be granted here</b>. Grant it by hand with grant_owner.py after verifying.";
+  } else if (wd && ed && wd === ed) {
+    cls = "ok";
+    body = `Email domain <b>${esc(ed)}</b> matches the school's website (<b>${esc(wd)}</b>) — a good sign, but still confirm they run it.`;
+  } else if (ed && FREEMAIL.has(ed)) {
+    body = `Submitter used a free email (<b>${esc(ed)}</b>), so the address proves nothing. <b>Call or email the school to confirm</b> before granting access.`;
+  } else if (wd && ed) {
+    cls = "bad";
+    body = `Email domain <b>${esc(ed)}</b> does <b>not</b> match the school's website (<b>${esc(wd)}</b>). Verify carefully before granting.`;
+  } else {
+    body = "Verify the claimant actually runs this school (call or email them) before granting access.";
+  }
+  return `<div class="warn ${cls}">⚠ ${body}</div>`;
+}
+
+function rowHtml(r) {
+  const isClaim = r.mode === "claim";
+  const photos = Array.isArray(r.photo_urls) ? r.photo_urls.filter(Boolean) : [];
+  const targetUrl = isClaim ? claimTargetUrl(r.description) : "";
+  const HTML = v => (v && typeof v === "object" && v.html) ? v.html : esc(v);
+  const kv = [];
+  kv.push(["Type / Model", [r.type, r.model].filter(Boolean).join(" / ")]);
+  if (r.grades) kv.push(["Grades", r.grades]);
+  if (r.tuition) kv.push(["Tuition", r.tuition]);
+  if (r.website) kv.push(["Website", { html: safeLink(r.website) }]);
+  kv.push(["Submitter", r.email + (r.phone ? " · " + r.phone : "")]);
+  if (isClaim && targetUrl) kv.push(["Claiming", { html: safeLink(targetUrl) }]);
+  kv.push(["Submitted", (r.created_at || "").replace("T", " ").slice(0, 16)]);
+  const kvHtml = kv.map(([k, v]) => `<dt>${esc(k)}</dt><dd>${HTML(v)}</dd>`).join("");
+  const photosHtml = photos.length ? `<div class="photos">${photos.filter(p => /^https?:\/\//i.test(p)).map(p => `<a href="${esc(p)}" target="_blank" rel="noopener"><img src="${esc(p)}" alt="submitted photo" loading="lazy"></a>`).join("")}</div>` : "";
+  const desc = r.description ? `<div class="about">${esc(r.description)}</div>` : "";
+  const verify = isClaim ? claimVerifyBox(r) : "";
+  const approveBtn = isClaim
+    ? `<button class="btn btn-approve btn-sm" data-act="grant-claim">✓ Approve claim &amp; grant access</button>`
+    : `<button class="btn btn-approve btn-sm" data-act="approve">✓ Approve &amp; publish</button>`;
+  return `<div class="rev" id="rev-${esc(r.id)}" data-id="${esc(r.id)}">
+    <div class="rev-head">
+      <h3>${esc(r.name)} <span class="tag ${isClaim ? "claim" : "new"}">${isClaim ? "claim" : "new"}</span></h3>
+      <span class="loc">${esc(r.city)}, ${esc(r.state)}</span>
+    </div>
+    ${photosHtml}${desc}${verify}
+    <dl class="kv">${kvHtml}</dl>
+    <div class="actions">
+      ${approveBtn}
+      <button class="btn btn-reject btn-sm" data-act="reject">✕ Reject</button>
+    </div>
+    <p class="msg" data-msg role="alert"></p>
+  </div>`;
+}
+
+function wireRow(el, session) {
+  const id = el.getAttribute("data-id");
+  const msg = el.querySelector("[data-msg]");
+  el.querySelectorAll("[data-act]").forEach(btn => {
+    btn.addEventListener("click", async () => {
+      const act = btn.getAttribute("data-act");
+      const confirmMsg = act === "reject" ? "Reject this submission? It won't be published."
+        : act === "grant-claim" ? "Approve this claim and give the submitter edit access to that listing?"
+        : "Approve and publish this new listing?";
+      if (!window.confirm(confirmMsg)) return;
+      el.querySelectorAll("[data-act]").forEach(b => b.disabled = true);
+      msg.textContent = "Working…"; msg.className = "msg";
+      try {
+        const s = await freshSession();
+        if (!s) { location.reload(); return; }
+        const r = await adminApi("", s, { method: "POST", body: { action: act, id } });
+        const d = await r.json().catch(() => ({}));
+        if (r.ok && d.ok) {
+          const label = d.status === "granted" ? "✓ Access granted — the owner can now edit it at /account/."
+            : d.status === "approved" ? "✓ Approved — publishing to the live site now (live within ~10 min)."
+            : "✓ Rejected — it won't be published.";
+          el.style.opacity = ".55";
+          msg.textContent = label; msg.className = "msg ok";
+          setTimeout(() => { el.remove(); recount(); }, 1400);
+        } else {
+          msg.textContent = d.error ? `Couldn't do that: ${d.error}` : "Something went wrong — try again.";
+          msg.className = "msg err";
+          el.querySelectorAll("[data-act]").forEach(b => b.disabled = false);
+        }
+      } catch (_) {
+        msg.textContent = "Network problem — try again.";
+        msg.className = "msg err";
+        el.querySelectorAll("[data-act]").forEach(b => b.disabled = false);
+      }
+    });
+  });
+}
+
+function recount() {
+  const n = $("list-new").querySelectorAll(".rev").length;
+  const c = $("list-claim").querySelectorAll(".rev").length;
+  $("cnt-new").textContent = n; $("cnt-new").className = "count" + (n ? "" : " zero");
+  $("cnt-claim").textContent = c; $("cnt-claim").className = "count" + (c ? "" : " zero");
+  if (!n) $("list-new").innerHTML = `<p class="empty">Nothing waiting — you're all caught up. 🎉</p>`;
+  if (!c) $("list-claim").innerHTML = `<p class="empty">No claim requests waiting.</p>`;
+}
+
+async function showDash() {
+  const session = await freshSession();
+  if (!session) { $("authpanel").hidden = false; $("dash").hidden = true; return; }
+  if (!session.email) {
+    try {
+      const ur = await fetch(`${CFG.supabaseUrl}/auth/v1/user`, { headers: { apikey: CFG.anonKey, Authorization: `Bearer ${session.access_token}` } });
+      if (ur.ok) { const u = await ur.json(); if (u.email) { session.email = u.email; saveSession(session); } }
+    } catch (_) {}
+  }
+  $("authpanel").hidden = true; $("dash").hidden = false;
+  $("who").textContent = session.email;
+  $("list-new").innerHTML = `<p class="empty">Loading…</p>`;
+  $("list-claim").innerHTML = "";
+
+  // school id -> {name, website} + url -> id for the claim-verification hint
+  try {
+    const [sr, cr] = await Promise.all([fetch("/data/schools.json"), fetch("/data/claim-urls.json")]);
+    if (sr.ok) {
+      const sj = await sr.json();
+      SCHOOLS = {};
+      (sj.schools || []).forEach(s => { SCHOOLS[s.id] = { name: s.name, website: s.website || "" }; });
+    }
+    if (cr.ok) {
+      const cm = await cr.json();
+      CLAIM_URL_TO_ID = {};
+      Object.entries(cm).forEach(([id, url]) => { CLAIM_URL_TO_ID[normUrl(url)] = id; });
+    }
+  } catch (_) {}
+
+  let rows = [];
+  try {
+    const r = await adminApi("?action=list", session);
+    if (r.status === 401) { saveSession(null); location.reload(); return; }
+    if (r.status === 403) {
+      $("dash").hidden = true; $("authpanel").hidden = false; showView("v-signin");
+      authMsg("That account isn't an admin. Sign in with an admin email.");
+      saveSession(null);
+      return;
+    }
+    const d = await r.json().catch(() => ({}));
+    rows = Array.isArray(d.rows) ? d.rows : [];
+  } catch (_) {
+    $("list-new").innerHTML = `<p class="empty">Couldn't load the queue — hit ↻ Refresh.</p>`;
+    return;
+  }
+
+  const news = rows.filter(r => r.mode !== "claim");
+  const claims = rows.filter(r => r.mode === "claim");
+  $("list-new").innerHTML = news.map(rowHtml).join("") || "";
+  $("list-claim").innerHTML = claims.map(rowHtml).join("") || "";
+  news.forEach(r => wireRow($(`rev-${r.id}`), session));
+  claims.forEach(r => wireRow($(`rev-${r.id}`), session));
+  recount();
+}
+
+// ---------- boot ----------
+(async function boot() {
+  const hash = consumeHashSession();
+  if (hash && hash.error) {
+    $("authpanel").hidden = false; showView("v-signin");
+    authMsg(/expired|invalid/i.test(hash.error) ? "That link has expired or was already used — request a new one below." : hash.error);
+    return;
+  }
+  if (hash && hash.type === "recovery") {
+    $("authpanel").hidden = false; showView("v-setpass");
+    authMsg("Choose your new password.", true);
+    return;
+  }
+  const session = await freshSession();
+  if (session) await showDash();
+  else { $("authpanel").hidden = false; showView("v-signin"); }
+})();
+</script>
+</body>
+</html>
