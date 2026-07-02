@@ -2,6 +2,15 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
+<!-- Capture + scrub any auth tokens from the URL fragment BEFORE any other
+     (async) script can read location.hash. Supabase reset/confirm links return
+     tokens in the hash; this closes the window where analytics could see them. -->
+<script>
+  window.__msdAuthHash = window.location.hash || "";
+  if (window.location.hash) {
+    try { history.replaceState(null, "", window.location.pathname + window.location.search); } catch (e) {}
+  }
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Your listings — microschool.directory</title>
 <meta name="description" content="Sign in to manage your microschool or homeschool co-op listing — update your story, photos, tuition, and schedule." />
@@ -359,7 +368,10 @@ $("do-setpass").addEventListener("click", () => busy($("do-setpass"), "Saving…
   const p1 = $("np-pass").value || "", p2 = $("np-pass2").value || "";
   if (p1.length < 8) { authMsg("Password needs at least 8 characters."); return; }
   if (p1 !== p2) { authMsg("Passwords don't match."); return; }
-  const session = await freshSession();
+  // Use the recovery session captured from the reset link (in memory), NOT
+  // whatever is currently in localStorage — avoids saving against another
+  // account signed in in a different tab.
+  const session = recoverySession || await freshSession();
   if (!session) { showView("v-signin"); authMsg("That reset link expired — request a new one."); return; }
   const r = await fetch(`${CFG.supabaseUrl}/auth/v1/user`, {
     method: "PUT",
@@ -369,6 +381,9 @@ $("do-setpass").addEventListener("click", () => busy($("do-setpass"), "Saving…
   });
   const d = await r.json().catch(() => ({}));
   if (!r.ok) { authMsg(gotrueError(d, "Couldn't save the password — try again.")); return; }
+  // password set — promote the recovery session to the real session and continue
+  saveSession(session);
+  recoverySession = null;
   authMsg("");
   await showDash();
 }));
@@ -377,17 +392,31 @@ $("do-setpass").addEventListener("click", () => busy($("do-setpass"), "Saving…
 [["si-pass","do-signin"],["su-pass2","do-signup"],["fp-email","do-forgot"],["np-pass2","do-setpass"]].forEach(([inp, btn]) =>
   $(inp).addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); $(btn).click(); } }));
 
-// Sessions arriving in the URL hash (confirmation + reset links land here)
+// A recovery-link session is held in memory (NOT reread from localStorage) so
+// the set-password submit can't race a different account signed in elsewhere.
+let recoverySession = null;
+
+// Sessions/errors arriving in the URL hash (confirmation + reset links land here).
+// Reads the hash captured synchronously in <head> before analytics could see it.
 function consumeHashSession() {
-  const h = new URLSearchParams((location.hash || "").replace(/^#/, ""));
+  const h = new URLSearchParams((window.__msdAuthHash || "").replace(/^#/, ""));
+  if (h.get("error")) {
+    const desc = h.get("error_description") || h.get("error") || "";
+    return { error: desc.replace(/\+/g, " ") };
+  }
   const at = h.get("access_token"), rt = h.get("refresh_token");
   if (!at || !rt) return null;
   const type = h.get("type") || "";
-  saveSession({ access_token: at, refresh_token: rt,
-                expires_at: Math.floor(Date.now()/1000) + (parseInt(h.get("expires_in") || "3600", 10) || 3600),
-                email: "" });
-  history.replaceState(null, "", location.pathname + location.search);
-  return type;
+  const sess = { access_token: at, refresh_token: rt,
+                 expires_at: Math.floor(Date.now()/1000) + (parseInt(h.get("expires_in") || "3600", 10) || 3600),
+                 email: "" };
+  if (type === "recovery") {
+    // don't persist a recovery session to shared storage until the user acts
+    recoverySession = sess;
+  } else {
+    saveSession(sess);
+  }
+  return { type };
 }
 $("changepass").addEventListener("click", () => {
   // reuse the reset-link flow: sends a fresh link, safest path (re-auth via email)
@@ -428,6 +457,15 @@ async function api(path, session, opts) {
 async function showDash() {
   const session = await freshSession();
   if (!session) { $("authpanel").hidden = false; $("dash").hidden = true; return; }
+  // backfill the email if we arrived without one (e.g. via a recovery link)
+  if (!session.email) {
+    try {
+      const ur = await fetch(`${CFG.supabaseUrl}/auth/v1/user`, {
+        headers: { apikey: CFG.anonKey, Authorization: `Bearer ${session.access_token}` },
+      });
+      if (ur.ok) { const u = await ur.json(); if (u.email) { session.email = u.email; saveSession(session); } }
+    } catch (_) {}
+  }
   $("authpanel").hidden = true;
   $("dash").hidden = false;
   $("who").textContent = session.email;
@@ -603,21 +641,17 @@ function wireCard(s, i) {
 }
 
 // ---------- boot ----------
-async function fillSessionEmail() {
-  const s = loadSession();
-  if (!s || s.email) return;
-  try {
-    const r = await fetch(`${CFG.supabaseUrl}/auth/v1/user`, {
-      headers: { apikey: CFG.anonKey, Authorization: `Bearer ${s.access_token}` },
-    });
-    if (r.ok) { const u = await r.json(); if (u.email) { s.email = u.email; saveSession(s); } }
-  } catch (_) {}
-}
-
 (async function boot() {
-  const hashType = consumeHashSession();
-  if (hashType) await fillSessionEmail();
-  if (hashType === "recovery") {
+  const hash = consumeHashSession();
+  if (hash && hash.error) {
+    $("authpanel").hidden = false;
+    showView("v-signin");
+    authMsg(/expired|invalid/i.test(hash.error)
+      ? "That link has expired or was already used — request a new one below."
+      : hash.error);
+    return;
+  }
+  if (hash && hash.type === "recovery") {
     $("authpanel").hidden = false;
     showView("v-setpass");
     authMsg("Choose your new password.", true);
