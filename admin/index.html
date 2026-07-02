@@ -90,6 +90,14 @@
   .btn-sm { padding: 11px 18px; font-size: .92rem; }
   .rev .msg { margin-top: 12px; }
   .empty { text-align: center; color: var(--ink-2); padding: 22px 4px; font-size: .95rem; }
+  .owner { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; border: 1.5px solid var(--line); border-radius: 12px; padding: 12px 15px; margin-top: 10px; background: var(--card); }
+  .owner .o-main { min-width: 0; }
+  .owner .o-school { font-family: var(--serif); font-weight: 600; font-size: 1.05rem; }
+  .owner .o-school a { color: var(--ink); } .owner .o-school a:hover { color: var(--coral-deep); }
+  .owner .o-email { color: var(--ink-2); font-size: .88rem; word-break: break-all; }
+  .owner .o-meta { display: flex; align-items: center; gap: 10px; font-size: .78rem; color: var(--ink-2); flex-wrap: wrap; }
+  .via { display: inline-block; font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; padding: 2px 8px; border-radius: 100px; background: var(--paper-2); color: var(--ink-2); }
+  .via.claim { background: rgba(242,160,61,.18); } .via.new-listing { background: rgba(40,92,70,.12); color: var(--forest); }
   .note { font-size: .78rem; color: var(--ink-2); opacity: .72; margin-top: 12px; }
   @media (max-width: 520px) { .kv { grid-template-columns: 1fr; gap: 1px; } .kv dt { margin-top: 6px; } }
 </style>
@@ -167,6 +175,10 @@
     <div class="sec-title">Claim requests <span class="count zero" id="cnt-claim">0</span></div>
     <div class="sub">Approving hands control of an existing listing to the person who claimed it — they can then sign in and edit it.</div>
     <div id="list-claim"></div>
+
+    <div class="sec-title">Existing users <span class="count zero" id="cnt-owners">0</span></div>
+    <div class="sub">People with edit access to a listing — they sign in at <a href="/account/" style="color:var(--coral-deep);font-weight:600">/account/</a> to manage it.</div>
+    <div id="list-owners"><p class="empty">Loading…</p></div>
   </div>
 </main>
 
@@ -315,6 +327,7 @@ async function adminApi(pathAndQuery, session, opts) {
 // url (normalized) -> school_id, so the hint resolves the same URL-fallback the
 // server does for older / hand-entered claims. Filled in showDash.
 let CLAIM_URL_TO_ID = {};
+let CLAIM_ID_TO_URL = {};
 function normUrl(u) {
   try { const x = new URL(String(u).trim()); return (x.origin + x.pathname.replace(/\/+$/, "")).toLowerCase(); }
   catch (_) { return String(u).trim().replace(/\/+$/, "").toLowerCase(); }
@@ -456,6 +469,34 @@ function recount() {
   if (!c) $("list-claim").innerHTML = `<p class="empty">No claim requests waiting.</p>`;
 }
 
+async function loadOwners(session) {
+  const box = $("list-owners");
+  try {
+    const r = await adminApi("?action=owners", session);
+    if (!r.ok) { box.innerHTML = `<p class="empty">Couldn't load users — hit ↻ Refresh.</p>`; return; }
+    const d = await r.json().catch(() => ({}));
+    const owners = Array.isArray(d.owners) ? d.owners : [];
+    $("cnt-owners").textContent = owners.length;
+    $("cnt-owners").className = "count" + (owners.length ? "" : " zero");
+    if (!owners.length) { box.innerHTML = `<p class="empty">No users have edit access yet.</p>`; return; }
+    box.innerHTML = owners.map(o => {
+      const sc = SCHOOLS[o.school_id];
+      const name = sc ? sc.name : o.school_id;
+      const url = CLAIM_ID_TO_URL[o.school_id] || "";
+      const school = url ? `<a href="${esc(url)}" target="_blank" rel="noopener">${esc(name)}</a>` : esc(name);
+      const via = String(o.granted_via || "");
+      const when = (o.created_at || "").replace("T", " ").slice(0, 10);
+      return `<div class="owner">
+        <div class="o-main">
+          <div class="o-school">${school}</div>
+          <div class="o-email">${esc(o.owner_email)}</div>
+        </div>
+        <div class="o-meta"><span class="via ${esc(via)}">${esc(via || "manual")}</span><span>since ${esc(when)}</span></div>
+      </div>`;
+    }).join("");
+  } catch (_) { box.innerHTML = `<p class="empty">Couldn't load users — hit ↻ Refresh.</p>`; }
+}
+
 async function showDash() {
   const session = await freshSession();
   if (!session) { $("authpanel").hidden = false; $("dash").hidden = true; return; }
@@ -480,8 +521,8 @@ async function showDash() {
     }
     if (cr.ok) {
       const cm = await cr.json();
-      CLAIM_URL_TO_ID = {};
-      Object.entries(cm).forEach(([id, url]) => { CLAIM_URL_TO_ID[normUrl(url)] = id; });
+      CLAIM_URL_TO_ID = {}; CLAIM_ID_TO_URL = {};
+      Object.entries(cm).forEach(([id, url]) => { CLAIM_URL_TO_ID[normUrl(url)] = id; CLAIM_ID_TO_URL[id] = url; });
     }
   } catch (_) {}
 
@@ -509,6 +550,7 @@ async function showDash() {
   news.forEach(r => wireRow($(`rev-${r.id}`), session));
   claims.forEach(r => wireRow($(`rev-${r.id}`), session));
   recount();
+  loadOwners(session);
 }
 
 // ---------- boot ----------
