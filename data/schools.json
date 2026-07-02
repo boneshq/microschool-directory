@@ -16809,18 +16809,21 @@
       "lat": 35.608211,
       "lng": -82.548949,
       "grades": "K–6",
-      "ages": "",
-      "tuition": "$7,200/yr",
+      "ages": "5–12",
+      "tuition": "$7,500/yr",
       "website": "https://bluebirdhollowschool.com",
       "source": "owner-submission",
-      "description": "Bluebird Hollow is a learner-driven microschool in West Asheville for ages 5-12. Mornings are core skills (math, reading, writing) in mixed-age studios; afternoons are project blocks — woodworking, creek ecology, and a spring market where kids run real stalls. Two guides, 16 learners max, four-day week with optional Friday forest day.",
+      "description": "Bluebird Hollow is a learner-driven microschool in West Asheville for ages 5-12. Mornings are core skills (math, reading, writing) in mixed-age studios; afternoons are project blocks — woodworking, creek ecology, and a spring market where kids run real stalls. Two guides, 16 learners max. UPDATED BY OWNER: Fall 2026 enrollment is now open with 4 spots remaining.",
       "verified": false,
       "claimable": true,
       "placeholder": false,
       "photo": "https://fhbczvfrsgkbpvammxip.supabase.co/storage/v1/object/public/school-photos/pending/6c8290f0-cd35-4ccb-b849-4af750f92cbd-0.png",
       "photo_urls": [
-        "https://fhbczvfrsgkbpvammxip.supabase.co/storage/v1/object/public/school-photos/pending/6c8290f0-cd35-4ccb-b849-4af750f92cbd-0.png"
-      ]
+        "https://fhbczvfrsgkbpvammxip.supabase.co/storage/v1/object/public/school-photos/pending/6c8290f0-cd35-4ccb-b849-4af750f92cbd-0.png",
+        "https://fhbczvfrsgkbpvammxip.supabase.co/storage/v1/object/public/school-photos/pending/decd9dae-fbf2-4dd8-b305-121d78ee69c2-0.png"
+      ],
+      "schedule": "M–Th 8:30–3:00, optional Friday forest day",
+      "phone": "(828) 555-0142"
     }
   ]
 }
