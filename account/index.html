@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Your listings — microschool.directory</title>
+<meta name="description" content="Sign in to manage your microschool or homeschool co-op listing — update your story, photos, tuition, and schedule." />
+<meta name="robots" content="noindex,follow" />
+<link rel="canonical" href="https://microschool.directory/account/" />
+<meta name="theme-color" content="#13241d" />
+
+<link rel="icon" type="image/png" href="/assets/icon.png" />
+<link rel="apple-touch-icon" href="/assets/icon.png" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KVM4X9RRJ7"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-KVM4X9RRJ7');</script>
+
+<style>
+  :root {
+    --paper: #f7f3ec;
+    --paper-2: #efe9dd;
+    --ink: #13241d;
+    --ink-2: #1b3a2f;
+    --forest: #285c46;
+    --moss: #6b8f71;
+    --coral: #e8643c;
+    --coral-deep: #c64a26;
+    --amber: #f2a03d;
+    --line: #d9d0bf;
+    --card: #fffdf8;
+    --shadow: 0 24px 60px rgba(19, 36, 29, 0.10);
+    --radius: 18px;
+    --serif: "Fraunces", Georgia, serif;
+    --sans: "Hanken Grotesk", -apple-system, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { overflow-x: clip; }
+  body {
+    font-family: var(--sans); background: var(--paper); color: var(--ink);
+    -webkit-font-smoothing: antialiased; line-height: 1.5; overflow-x: clip; min-height: 100vh;
+  }
+  body::before {
+    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 9999; opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  a { color: inherit; text-decoration: none; }
+  header {
+    background: rgba(247, 243, 236, 0.86); backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 100;
+  }
+  .bar { max-width: 720px; margin: 0 auto; padding: 14px 22px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-family: var(--serif); font-size: 1.08rem; }
+  .brand .pin {
+    width: 26px; height: 26px; flex: 0 0 26px; background: var(--coral);
+    border-radius: 50% 50% 50% 2px; transform: rotate(-45deg); box-shadow: 0 4px 12px rgba(232, 100, 60, 0.38);
+  }
+  .brand b { font-weight: 600; }
+  .brand b span { color: var(--coral); }
+  .back { font-size: 0.85rem; color: var(--ink-2); font-weight: 600; }
+  .back:hover { color: var(--coral-deep); }
+  .wrap { max-width: 720px; margin: 0 auto; padding: clamp(26px, 5vw, 48px) 22px 70px; }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 9px; font-size: 0.72rem; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--coral-deep);
+  }
+  .eyebrow::before { content: ""; width: 26px; height: 1.5px; background: var(--coral); }
+  h1 { font-family: var(--serif); font-weight: 500; font-size: clamp(1.9rem, 5vw, 2.7rem); line-height: 1.05; letter-spacing: -0.02em; margin: 14px 0 0; }
+  .lede { color: var(--ink-2); margin-top: 14px; font-size: 1.02rem; max-width: 54ch; }
+  .panel {
+    background: var(--card); border: 1.5px solid var(--line); border-radius: var(--radius);
+    box-shadow: var(--shadow); padding: clamp(22px, 4vw, 32px); margin-top: 26px;
+  }
+  form label, .panel label { display: block; font-size: 0.8rem; font-weight: 600; color: var(--ink); margin: 0 0 6px; letter-spacing: 0.01em; }
+  .field { margin-bottom: 14px; }
+  input, select, textarea {
+    width: 100%; font-family: var(--sans); font-size: 16px; color: var(--ink);
+    border: 1.5px solid var(--line); background: var(--paper); border-radius: 12px; padding: 12px 14px; outline: none; transition: border-color .2s;
+  }
+  input:focus, select:focus, textarea:focus { border-color: var(--forest); }
+  textarea { resize: vertical; min-height: 110px; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .btn {
+    border: none; cursor: pointer; font-family: var(--sans); font-weight: 700; font-size: 1rem;
+    background: var(--coral); color: #fff; padding: 14px 22px; border-radius: 100px; transition: background .2s, transform .2s;
+  }
+  .btn:hover { background: var(--coral-deep); transform: translateY(-1px); }
+  .btn:disabled { opacity: 0.65; cursor: default; transform: none; }
+  .btn.full { width: 100%; }
+  .btn-quiet { background: none; border: none; padding: 0; color: var(--coral-deep); font-family: var(--sans); font-weight: 600; font-size: 0.84rem; cursor: pointer; }
+  .btn-quiet:hover { text-decoration: underline; }
+  .msg { font-size: 0.88rem; font-weight: 600; margin-top: 10px; }
+  .msg.err { color: var(--coral-deep); }
+  .msg.ok { color: var(--forest); }
+  .signedbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 26px; font-size: 0.88rem; color: var(--ink-2); flex-wrap: wrap; }
+  .listing-card { margin-top: 22px; }
+  .listing-head { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; flex-wrap: wrap; margin-bottom: 4px; }
+  .listing-head h2 { font-family: var(--serif); font-weight: 600; font-size: 1.35rem; line-height: 1.15; }
+  .listing-head .loc { color: var(--ink-2); font-size: 0.9rem; }
+  .viewlive { display: inline-block; font-size: 0.84rem; color: var(--forest); font-weight: 600; margin-bottom: 16px; }
+  .viewlive:hover { text-decoration: underline; }
+  .pendingnote { background: var(--paper-2); border: 1.5px solid var(--line); border-radius: 12px; padding: 12px 14px; font-size: 0.86rem; color: var(--ink-2); margin-bottom: 16px; }
+  .photorow { display: flex; gap: 10px; flex-wrap: wrap; margin: 6px 0 10px; }
+  .photorow .ph { position: relative; width: 96px; height: 72px; border-radius: 10px; overflow: hidden; border: 1.5px solid var(--line); }
+  .photorow .ph img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .photorow .ph button {
+    position: absolute; top: 3px; right: 3px; width: 22px; height: 22px; border-radius: 50%;
+    border: none; background: rgba(19,36,29,0.75); color: #fff; font-size: 13px; line-height: 1; cursor: pointer;
+  }
+  .filedrop {
+    border: 1.5px dashed var(--moss); border-radius: 12px; padding: 16px; text-align: center;
+    background: var(--paper); cursor: pointer; transition: border-color .2s, background .2s; font-size: 0.9rem; color: var(--ink-2);
+  }
+  .filedrop:hover { border-color: var(--forest); background: var(--paper-2); }
+  .filedrop b { color: var(--forest); }
+  .filenote { font-size: 0.82rem; color: var(--forest); margin-top: 8px; }
+  .empty-state { text-align: center; padding: 12px 4px; }
+  .empty-state b { font-family: var(--serif); font-size: 1.3rem; color: var(--ink); display: block; margin-bottom: 10px; font-weight: 600; }
+  .empty-state p { color: var(--ink-2); font-size: 0.94rem; max-width: 46ch; margin: 0 auto 16px; }
+  .otp-input { letter-spacing: 8px; font-size: 22px !important; text-align: center; font-weight: 700; }
+  .note { font-size: 0.78rem; color: var(--ink-2); opacity: 0.72; margin-top: 12px; }
+  @media (max-width: 520px) { .grid2 { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="bar">
+    <a class="brand" href="/"><span class="pin"></span><b>microschool<span>.</span>directory</b></a>
+    <a class="back" href="/">← Back to the directory</a>
+  </div>
+</header>
+
+<main class="wrap">
+  <span class="eyebrow">Owner dashboard</span>
+  <h1 id="headline">Manage your listing.</h1>
+  <p class="lede" id="lede">Sign in with your school email to update your story, photos, tuition, grades, and schedule. Changes go live on the directory within about 15 minutes.</p>
+
+  <!-- ---------- sign-in ---------- -->
+  <div class="panel" id="authpanel" hidden>
+    <noscript><p style="color:var(--coral-deep);font-weight:600;">This page needs JavaScript. Email <strong>hello@microschool.directory</strong> and we'll help you by hand.</p></noscript>
+    <div id="step-email">
+      <div class="field">
+        <label for="a-email">Your email (the one on your listing)</label>
+        <input id="a-email" type="email" autocomplete="email" placeholder="you@school.com" />
+      </div>
+      <button class="btn full" id="send-code" type="button">Email me a sign-in code</button>
+      <p class="note">No password needed — we email you a 6-digit code each time. Don't have a listing yet? <a href="/claim/" style="color:var(--coral-deep);font-weight:600;">Claim or add your school →</a></p>
+    </div>
+    <div id="step-code" hidden>
+      <div class="field">
+        <label for="a-code">Enter the 6-digit code we sent to <span id="sent-to"></span></label>
+        <input id="a-code" class="otp-input" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="••••••" />
+      </div>
+      <button class="btn full" id="verify-code" type="button">Sign in</button>
+      <p class="note"><button class="btn-quiet" id="restart" type="button">Use a different email</button></p>
+    </div>
+    <p class="msg" id="auth-msg" role="alert"></p>
+  </div>
+
+  <!-- ---------- dashboard ---------- -->
+  <div id="dash" hidden>
+    <div class="signedbar">
+      <span>Signed in as <b id="who"></b></span>
+      <button class="btn-quiet" id="signout" type="button">Sign out</button>
+    </div>
+    <div id="cards"></div>
+  </div>
+</main>
+
+<script>
+const CFG = {
+  supabaseUrl: "https://fhbczvfrsgkbpvammxip.supabase.co",
+  anonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZoYmN6dmZyc2drYnB2YW1teGlwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIyMjg1NjUsImV4cCI6MjA5NzgwNDU2NX0.LNl2t1-cAYPny71aKHeZK094Zf_YawnKMvo8W15NQuE",
+  bucket: "school-photos",
+  sessionKey: "msd_owner_session",
+};
+const MODELS = ["Montessori","Forest / Nature","Classical","Learner-Driven","Project-Based","Faith-Based","Microschool","Learning Pod","Homeschool Co-op"];
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const esc = v => String(v == null ? "" : v).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+
+// ---------- session ----------
+function loadSession() {
+  try { return JSON.parse(localStorage.getItem(CFG.sessionKey) || "null"); } catch (_) { return null; }
+}
+function saveSession(s) {
+  if (s) localStorage.setItem(CFG.sessionKey, JSON.stringify(s));
+  else localStorage.removeItem(CFG.sessionKey);
+}
+async function freshSession() {
+  const s = loadSession();
+  if (!s || !s.refresh_token) return null;
+  if (s.expires_at && s.expires_at - 90 > Date.now() / 1000) return s;
+  try {
+    const r = await fetch(`${CFG.supabaseUrl}/auth/v1/token?grant_type=refresh_token`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", apikey: CFG.anonKey },
+      body: JSON.stringify({ refresh_token: s.refresh_token }),
+    });
+    if (!r.ok) { saveSession(null); return null; }
+    const d = await r.json();
+    const ns = { access_token: d.access_token, refresh_token: d.refresh_token,
+                 expires_at: Math.floor(Date.now()/1000) + (d.expires_in || 3600),
+                 email: (d.user && d.user.email) || s.email };
+    saveSession(ns);
+    return ns;
+  } catch (_) { return null; }
+}
+
+// ---------- auth UI ----------
+const $ = id => document.getElementById(id);
+let pendingEmail = "";
+
+function authMsg(text, ok) {
+  const m = $("auth-msg");
+  m.textContent = text || "";
+  m.className = "msg " + (ok ? "ok" : "err");
+}
+
+$("send-code").addEventListener("click", async () => {
+  const email = ($("a-email").value || "").trim().toLowerCase();
+  if (!EMAIL_RE.test(email)) { authMsg("That doesn't look like an email address."); return; }
+  const btn = $("send-code"); btn.disabled = true; btn.textContent = "Sending…";
+  try {
+    const r = await fetch(`${CFG.supabaseUrl}/auth/v1/otp`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", apikey: CFG.anonKey },
+      body: JSON.stringify({ email, create_user: true }),
+    });
+    if (!r.ok) {
+      const d = await r.json().catch(() => ({}));
+      authMsg(d.msg || d.error_description || "Couldn't send the code — try again in a minute.");
+    } else {
+      pendingEmail = email;
+      $("sent-to").textContent = email;
+      $("step-email").hidden = true;
+      $("step-code").hidden = false;
+      authMsg("Code sent — check your inbox (and spam).", true);
+      $("a-code").focus();
+    }
+  } catch (_) { authMsg("Network problem — try again."); }
+  btn.disabled = false; btn.textContent = "Email me a sign-in code";
+});
+
+$("verify-code").addEventListener("click", async () => {
+  const code = ($("a-code").value || "").trim();
+  if (!/^\d{6}$/.test(code)) { authMsg("Enter the 6-digit code from the email."); return; }
+  const btn = $("verify-code"); btn.disabled = true; btn.textContent = "Signing in…";
+  try {
+    const r = await fetch(`${CFG.supabaseUrl}/auth/v1/verify`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", apikey: CFG.anonKey },
+      body: JSON.stringify({ type: "email", email: pendingEmail, token: code }),
+    });
+    const d = await r.json().catch(() => ({}));
+    if (!r.ok || !d.access_token) {
+      authMsg(d.msg || d.error_description || "That code didn't work — check it and try again.");
+    } else {
+      saveSession({ access_token: d.access_token, refresh_token: d.refresh_token,
+                    expires_at: Math.floor(Date.now()/1000) + (d.expires_in || 3600),
+                    email: (d.user && d.user.email) || pendingEmail });
+      authMsg("");
+      await showDash();
+    }
+  } catch (_) { authMsg("Network problem — try again."); }
+  btn.disabled = false; btn.textContent = "Sign in";
+});
+$("a-code").addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); $("verify-code").click(); } });
+$("a-email").addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); $("send-code").click(); } });
+$("restart").addEventListener("click", () => { $("step-code").hidden = true; $("step-email").hidden = false; authMsg(""); });
+$("signout").addEventListener("click", () => { saveSession(null); location.reload(); });
+
+// ---------- dashboard ----------
+async function api(path, session, opts) {
+  const o = opts || {};
+  return fetch(`${CFG.supabaseUrl}${path}`, {
+    method: o.method || "GET",
+    headers: Object.assign({ apikey: CFG.anonKey, Authorization: `Bearer ${session.access_token}` },
+      o.body ? { "Content-Type": "application/json" } : {}),
+    body: o.body ? JSON.stringify(o.body) : undefined,
+  });
+}
+
+async function showDash() {
+  const session = await freshSession();
+  if (!session) { $("authpanel").hidden = false; $("dash").hidden = true; return; }
+  $("authpanel").hidden = true;
+  $("dash").hidden = false;
+  $("who").textContent = session.email;
+  $("headline").textContent = "Manage your listing.";
+  $("cards").innerHTML = '<div class="panel"><p style="color:var(--ink-2)">Loading your listings…</p></div>';
+
+  let grants = [], edits = [], schools = [], claimUrls = {};
+  try {
+    const [gr, er, sr, cr] = await Promise.all([
+      api("/rest/v1/listing_owners?select=school_id,granted_via", session),
+      api("/rest/v1/listing_edits?select=school_id,status,created_at&order=created_at.desc&limit=50", session),
+      fetch("/data/schools.json"),
+      fetch("/data/claim-urls.json"),
+    ]);
+    if (gr.status === 401) { saveSession(null); location.reload(); return; }
+    grants = gr.ok ? await gr.json() : [];
+    edits = er.ok ? await er.json() : [];
+    schools = sr.ok ? (await sr.json()).schools || [] : [];
+    claimUrls = cr.ok ? await cr.json() : {};
+  } catch (_) {}
+
+  const byId = {};
+  schools.forEach(s => { byId[s.id] = s; });
+
+  if (!grants.length) {
+    $("cards").innerHTML = `<div class="panel empty-state">
+      <b>No listings are linked to ${esc(session.email)} yet</b>
+      <p>If you submitted or claimed a school with a different email, sign in with that one. Otherwise claim your listing and we'll link it to you when it's verified.</p>
+      <a class="btn" href="/claim/" style="display:inline-block">Claim your listing — free</a>
+    </div>`;
+    return;
+  }
+
+  $("cards").innerHTML = "";
+  grants.forEach((g, i) => {
+    const s = byId[g.school_id];
+    if (!s) {
+      $("cards").insertAdjacentHTML("beforeend", `<div class="panel listing-card"><p style="color:var(--ink-2)">
+        Your listing <b>${esc(g.school_id)}</b> isn't on the live site yet — it appears here once it's published.</p></div>`);
+      return;
+    }
+    const pending = edits.some(e => e.school_id === g.school_id && e.status === "pending");
+    renderCard(s, i, pending, claimUrls[s.id] || "");
+  });
+
+  // wire each card after render
+  grants.forEach((g, i) => { if (byId[g.school_id]) wireCard(byId[g.school_id], i); });
+}
+
+function photoTag(u, idx, cardIdx) {
+  return `<div class="ph" data-url="${esc(u)}"><img src="${esc(u)}" alt="Listing photo ${idx+1}" loading="lazy" />
+    <button type="button" title="Remove photo" data-remove="${cardIdx}">×</button></div>`;
+}
+
+function renderCard(s, i, hasPending, liveUrl) {
+  const photos = Array.isArray(s.photo_urls) ? s.photo_urls.filter(Boolean) : (s.photo ? [s.photo] : []);
+  const modelOpts = MODELS.map(m => `<option${(s.model===m)?" selected":""}>${esc(m)}</option>`).join("");
+  const view = liveUrl ? `<a class="viewlive" href="${esc(liveUrl)}" target="_blank" rel="noopener">View your live listing →</a>` : "";
+  $("cards").insertAdjacentHTML("beforeend", `
+  <div class="panel listing-card" id="card-${i}">
+    <div class="listing-head">
+      <h2>${esc(s.name)}</h2>
+      <span class="loc">${esc(s.city)}, ${esc(s.state)}</span>
+    </div>
+    ${view}
+    ${hasPending ? '<div class="pendingnote">⏳ You have changes waiting to publish — they go live within about 15 minutes. Submitting again replaces them.</div>' : ""}
+    <div class="grid2">
+      <div class="field"><label>Learning model</label><select data-f="model">${modelOpts}</select></div>
+      <div class="field"><label>Grades</label><input data-f="grades" type="text" value="${esc(s.grades)}" placeholder="K–8" /></div>
+      <div class="field"><label>Ages</label><input data-f="ages" type="text" value="${esc(s.ages)}" placeholder="5–12" /></div>
+      <div class="field"><label>Tuition</label><input data-f="tuition" type="text" value="${esc(s.tuition)}" placeholder="$8,400/yr" /></div>
+      <div class="field"><label>Schedule</label><input data-f="schedule" type="text" value="${esc(s.schedule||"")}" placeholder="M–Th, 8:30–3:00" /></div>
+      <div class="field"><label>Phone</label><input data-f="phone" type="tel" value="${esc(s.phone||"")}" placeholder="(555) 123-4567" /></div>
+    </div>
+    <div class="field"><label>Website</label><input data-f="website" type="url" value="${esc(s.website)}" placeholder="https://" /></div>
+    <div class="field"><label>Tell families about your school</label><textarea data-f="description">${esc(s.description)}</textarea></div>
+    <div class="field">
+      <label>Photos (up to 6)</label>
+      <div class="photorow" data-photos>${photos.map((u, j) => photoTag(u, j, i)).join("")}</div>
+      <div class="filedrop" data-drop>📷 <b>Click to add photos</b> — JPG or PNG</div>
+      <input type="file" accept="image/jpeg,image/png,image/webp,image/gif" multiple hidden data-file />
+      <div class="filenote" data-filenote></div>
+    </div>
+    <button class="btn full" type="button" data-save>Publish my changes</button>
+    <p class="msg" data-msg role="alert"></p>
+    <p class="note">Your school's name and location can't be changed here — email <b>hello@microschool.directory</b> for identity changes.</p>
+  </div>`);
+}
+
+function wireCard(s, i) {
+  const card = $(`card-${i}`);
+  const fileInput = card.querySelector("[data-file]");
+  const drop = card.querySelector("[data-drop]");
+  const note = card.querySelector("[data-filenote]");
+  const row = card.querySelector("[data-photos]");
+  const msg = card.querySelector("[data-msg]");
+  let newFiles = [];
+
+  drop.addEventListener("click", () => fileInput.click());
+  fileInput.addEventListener("change", () => {
+    const existing = row.querySelectorAll(".ph").length;
+    newFiles = Array.from(fileInput.files).slice(0, Math.max(0, 6 - existing));
+    note.textContent = newFiles.length ? `${newFiles.length} new photo${newFiles.length>1?"s":""} ready — hit "Publish my changes"` : "";
+  });
+  row.addEventListener("click", e => {
+    const b = e.target.closest("button[data-remove]");
+    if (b) b.closest(".ph").remove();
+  });
+
+  card.querySelector("[data-save]").addEventListener("click", async () => {
+    const btn = card.querySelector("[data-save]");
+    btn.disabled = true; btn.textContent = "Publishing…";
+    msg.textContent = ""; msg.className = "msg";
+    try {
+      const session = await freshSession();
+      if (!session) { location.reload(); return; }
+
+      // photos: kept existing + newly uploaded
+      const kept = Array.from(row.querySelectorAll(".ph")).map(el => el.getAttribute("data-url")).filter(Boolean);
+      const uploaded = [];
+      let failed = 0;
+      const ALLOWED_EXT = ["jpg","jpeg","png","webp","gif"];
+      for (let j = 0; j < newFiles.length; j++) {
+        const f = newFiles[j];
+        let ext = (f.name.split(".").pop() || "").toLowerCase().replace(/[^a-z0-9]/g, "");
+        if (!ALLOWED_EXT.includes(ext)) {
+          ext = (f.type === "image/png") ? "png" : (f.type === "image/webp") ? "webp" : (f.type === "image/gif") ? "gif" : "jpg";
+        }
+        const rid = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : String(Math.floor(Math.random()*1e15));
+        const objPath = `pending/${rid}-${j}.${ext}`;
+        try {
+          const up = await fetch(`${CFG.supabaseUrl}/storage/v1/object/${CFG.bucket}/${objPath}`, {
+            method: "POST",
+            headers: { apikey: CFG.anonKey, Authorization: `Bearer ${CFG.anonKey}`, "Content-Type": f.type || "application/octet-stream" },
+            body: f,
+          });
+          if (up.ok) uploaded.push(`${CFG.supabaseUrl}/storage/v1/object/public/${CFG.bucket}/${objPath}`);
+          else failed++;
+        } catch (_) { failed++; }
+      }
+
+      const val = k => (card.querySelector(`[data-f="${k}"]`).value || "").trim();
+      let website = val("website");
+      if (website && !/^https?:\/\//i.test(website)) website = "https://" + website;
+      const patch = {
+        model: val("model"), grades: val("grades"), ages: val("ages"), tuition: val("tuition"),
+        schedule: val("schedule"), phone: val("phone"), website,
+        description: val("description"),
+        photo_urls: kept.concat(uploaded).slice(0, 6),
+      };
+      const r = await api("/functions/v1/owner-edit", session, {
+        method: "POST", body: { school_id: s.id, patch },
+      });
+      const d = await r.json().catch(() => ({}));
+      if (r.ok && d.ok) {
+        newFiles = []; note.textContent = "";
+        msg.textContent = "✓ Saved — your changes go live within about 15 minutes." + (failed ? " (Some photos couldn't upload — try them again.)" : "");
+        msg.className = "msg ok";
+        uploaded.forEach(u => {
+          const j = row.querySelectorAll(".ph").length;
+          row.insertAdjacentHTML("beforeend", photoTag(u, j, i));
+        });
+      } else {
+        msg.textContent = d.error ? `Couldn't save: ${d.error}` : "Couldn't save your changes — try again.";
+        msg.className = "msg err";
+      }
+    } catch (_) {
+      msg.textContent = "Network problem — your changes were not saved. Try again.";
+      msg.className = "msg err";
+    }
+    btn.disabled = false; btn.textContent = "Publish my changes";
+  });
+}
+
+// ---------- boot ----------
+(async function boot() {
+  const session = await freshSession();
+  if (session) await showDash();
+  else $("authpanel").hidden = false;
+})();
+</script>
+</body>
+</html>
