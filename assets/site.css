@@ -109,7 +109,7 @@ footer{border-top:1px solid var(--line);margin-top:46px}
 .foot nav .col a{display:block;font-size:.9rem;color:var(--ink-2);opacity:.75;margin-bottom:8px}
 .foot nav .col a:hover{opacity:1;color:var(--coral-deep)}
 .legal{border-top:1px solid var(--line)}.legal div{max-width:var(--maxw);margin:0 auto;padding:16px 26px;font-size:.78rem;color:var(--ink-2);opacity:.6;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
-@media(max-width:680px){nav.top a.muted{display:none}.bar{padding:12px 18px;gap:10px}nav.top{gap:10px}.brand b{font-size:1.04rem}.brand .pin{width:26px;height:26px;flex-basis:26px}.btn-add{padding:9px 14px;font-size:.82rem}.btn-add .full{display:none}.btn-add .short{display:inline}.dhero{padding:18px 18px 6px}.wrap-map{padding:0 18px}.sec,.faq,.nearby{padding-left:18px;padding-right:18px}}
+@media(max-width:680px){.bar{flex-wrap:wrap;padding:12px 18px;gap:10px}nav.top{order:3;width:100%;justify-content:center;flex-wrap:wrap;gap:12px 16px;margin-top:2px}nav.top a.muted{font-size:.85rem}.brand b{font-size:1.04rem}.brand .pin{width:26px;height:26px;flex-basis:26px}.btn-add{padding:9px 14px;font-size:.82rem}.btn-add .full{display:none}.btn-add .short{display:inline}.dhero{padding:18px 18px 6px}.wrap-map{padding:0 18px}.sec,.faq,.nearby{padding-left:18px;padding-right:18px}}
 /* ---- blog ---- */
 .bloghero{max-width:var(--maxw);margin:0 auto;padding:30px 26px 6px}
 .bloghero h1{font-family:var(--serif);font-weight:500;font-size:clamp(2rem,4.4vw,3.1rem);line-height:1.04;letter-spacing:-.025em;max-width:24ch}

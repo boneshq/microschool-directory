@@ -130,9 +130,9 @@
     aside.toc { max-height: 280px; overflow-y: auto; }
   }
   @media (max-width: 680px) {
-    .bar { padding: 12px 18px; gap: 10px; }
-    nav.top { gap: 12px; }
-    nav.top a.muted { display: none; }
+    .bar { flex-wrap: wrap; padding: 12px 18px; gap: 10px; }
+    nav.top { order: 3; width: 100%; justify-content: center; flex-wrap: wrap; gap: 12px 16px; margin-top: 2px; }
+    nav.top a.muted { font-size: .85rem; }
     .brand b { font-size: 1.04rem; }
     .btn-add .full { display: none; } .btn-add .short { display: inline; }
     .ghero { padding: 38px 20px 14px; }
@@ -224,11 +224,10 @@
       <b>microschool<span>.</span>directory</b>
     </a>
     <nav class="top">
-      <a class="muted" href="/#explore">Browse</a>
+      <a class="muted" href="/microschools/">Browse by state</a>
       <a class="muted" href="/blog/">Blog</a>
       <a class="muted" href="/glossary/">Glossary</a>
-      <a class="muted" href="/#faq">Guide</a>
-      <a class="muted" href="/#community">Community</a>
+      <a class="muted" href="/community/">Community</a>
       <a class="btn-add" href="/#register"><span class="full">List your school — free</span><span class="short">+ List free</span></a>
     </nav>
   </div>
@@ -596,8 +595,8 @@
       </div>
       <div class="col">
         <b>Founders</b>
-        <a href="/#add">List your school</a>
-        <a href="/#add">Claim a listing</a>
+        <a href="/#register">List your school</a>
+        <a href="/claim/">Claim a listing</a>
         <a href="mailto:hello@microschool.directory">Contact</a>
       </div>
       <div class="col">

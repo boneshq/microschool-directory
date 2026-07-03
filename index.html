@@ -352,9 +352,9 @@
     .add { grid-template-columns: 1fr; }
   }
   @media (max-width: 680px) {
-    .bar { padding: 12px 18px; gap: 10px; }
-    nav.top { gap: 10px; }
-    nav.top a.muted { display: none; }
+    .bar { flex-wrap: wrap; padding: 12px 18px; gap: 10px; }
+    nav.top { order: 3; width: 100%; justify-content: center; flex-wrap: wrap; gap: 12px 16px; margin-top: 2px; }
+    nav.top a.muted { font-size: .85rem; }
     .brand b { font-size: 1.04rem; }
     .brand .pin { width: 26px; height: 26px; flex-basis: 26px; }
     .btn-add { padding: 9px 14px; font-size: 0.82rem; }
@@ -901,7 +901,7 @@
   </div>
   <div class="legal"><div>
     <span>© 2026 microschool.directory</span>
-    <span>Listings shown are sample data pending verification.</span>
+    <span>Listings are added from public sources and owner submissions; claim yours free to keep it accurate.</span>
   </div></div>
 </footer>
 
