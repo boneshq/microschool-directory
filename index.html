@@ -124,10 +124,33 @@
   .btn-add .short { display: none; }
 
   /* ---------- HERO ---------- */
+  .herowrap { position: relative; overflow: hidden; }
+  .hero-media {
+    position: absolute; inset: 0; z-index: 0; pointer-events: none;
+    background: url("/assets/msd-hero-poster.jpg") center 32% / cover no-repeat;
+  }
+  .hero-media video {
+    width: 100%; height: 100%; object-fit: cover; object-position: center 32%;
+  }
+  /* paper wash: strong over the text column, lighter to the right, and a
+     bottom fade into the page background so the section blends in */
+  .hero-media::after {
+    content: ""; position: absolute; inset: 0;
+    background:
+      linear-gradient(90deg, rgba(247,243,236,.95) 0%, rgba(247,243,236,.88) 46%, rgba(247,243,236,.62) 100%),
+      linear-gradient(180deg, rgba(247,243,236,.30) 0%, rgba(247,243,236,0) 45%, var(--paper) 98%);
+  }
+  @media (prefers-reduced-motion: reduce) { .hero-media video { display: none; } }
+  @media (max-width: 680px) {
+    .hero-media::after {
+      background:
+        linear-gradient(180deg, rgba(247,243,236,.93) 0%, rgba(247,243,236,.84) 55%, var(--paper) 98%);
+    }
+  }
   .hero {
     max-width: var(--maxw); margin: 0 auto;
     padding: 54px 26px 30px;
-    position: relative;
+    position: relative; z-index: 1;
   }
   .eyebrow {
     display: inline-flex; align-items: center; gap: 8px;
@@ -617,7 +640,13 @@
   </div>
 </header>
 
-<section class="hero">
+<section class="herowrap">
+<div class="hero-media" aria-hidden="true">
+  <video autoplay muted loop playsinline preload="metadata" poster="/assets/msd-hero-poster.jpg">
+    <source src="/assets/msd-hero.mp4" type="video/mp4" />
+  </video>
+</div>
+<div class="hero">
   <span class="eyebrow reveal">Microschools &amp; homeschool co-ops · United States</span>
   <h1 class="reveal" style="animation-delay:.05s">Public school isn't the only way. Find the <em>small school</em> that fits your kid.</h1>
   <p class="lede reveal" style="animation-delay:.12s">
@@ -640,6 +669,7 @@
     <div class="stat"><div class="n" id="stat-models">8</div><div class="l">Learning models</div></div>
     <div class="stat"><div class="n">Free</div><div class="l">To browse &amp; list</div></div>
   </div>
+</div>
 </section>
 
 <section class="models-sec" id="models-explore">
