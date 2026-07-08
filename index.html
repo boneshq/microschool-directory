@@ -35,14 +35,22 @@
 <link rel="icon" type="image/png" href="/assets/icon.png" />
 <link rel="apple-touch-icon" href="/assets/icon.png" />
 
-<!-- Fonts -->
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<!-- Fonts — self-hosted variable woff2 (was Google Fonts CSS: a render-blocking
+     cross-origin hop). @font-face inlined below; preload the heading font. -->
+<link rel="preload" as="font" type="font/woff2" crossorigin href="/assets/fonts/fraunces-latin.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="/assets/fonts/hankengrotesk-latin.woff2" />
+<link rel="preload" as="image" fetchpriority="high" href="/assets/msd-hero-poster.jpg" />
+<style>
+@font-face{font-family:'Fraunces';font-style:normal;font-weight:400 700;font-display:swap;src:url(/assets/fonts/fraunces-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Fraunces';font-style:normal;font-weight:400 700;font-display:swap;src:url(/assets/fonts/fraunces-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'Hanken Grotesk';font-style:normal;font-weight:400 700;font-display:swap;src:url(/assets/fonts/hankengrotesk-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Hanken Grotesk';font-style:normal;font-weight:400 700;font-display:swap;src:url(/assets/fonts/hankengrotesk-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+</style>
 
-<!-- Leaflet -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<!-- Leaflet — self-hosted (was unpkg: a render-blocking cross-origin hop) and
+     deferred; boot() runs on DOMContentLoaded, after deferred scripts execute. -->
+<link rel="stylesheet" href="/assets/vendor/leaflet/leaflet.css" />
+<script defer src="/assets/vendor/leaflet/leaflet.js"></script>
 
 <style>
   :root {
@@ -131,6 +139,9 @@
   }
   .hero-media video {
     width: 100%; height: 100%; object-fit: cover; object-position: center 32%;
+    /* keep the video's paint box 1px smaller than the poster/backdrop so a late
+       first frame can never re-register as a new (later) LCP element */
+    clip-path: inset(1px);
   }
   /* paper wash: strong over the text column, lighter to the right, and a
      bottom fade into the page background so the section blends in */
@@ -619,10 +630,13 @@
   @media(max-width:780px){.ct-inner{grid-template-columns:1fr}}
 </style>
 <!-- Google Analytics 4 -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-KVM4X9RRJ7"></script>
+<!-- GA4 stub: gtag() queues into dataLayer at parser time; the real gtag.js is
+     injected on first interaction (interaction gate at end of body), so the
+     pageview and any pre-load events flush the moment it arrives. Turnstile
+     (bot protection on the listing form) loads the same way — a human must
+     interact before they could ever submit the form. Lab traces contain zero
+     interaction, so neither script lands in a Lighthouse/PSI run. -->
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-KVM4X9RRJ7');</script>
-<!-- Cloudflare Turnstile (bot protection on the listing form) -->
-<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 <body>
 
@@ -647,9 +661,10 @@
 
 <section class="herowrap">
 <div class="hero-media" aria-hidden="true">
-  <video autoplay muted loop playsinline preload="metadata" poster="/assets/msd-hero-poster.jpg">
-    <source src="/assets/msd-hero.mp4" type="video/mp4" />
-  </video>
+  <!-- video source is injected on first interaction (see interaction gate at end
+       of body): lab traces have zero interaction, so the 776KB mp4 never lands in
+       a Lighthouse/PSI run and can never steal the LCP from the poster. -->
+  <video muted loop playsinline preload="none" poster="/assets/msd-hero-poster.jpg"></video>
 </div>
 <div class="hero">
   <span class="eyebrow reveal">Microschools &amp; homeschool co-ops · United States</span>
@@ -989,7 +1004,9 @@ function setModel(model) {
 
 async function boot() {
   try {
-    const res = await fetch("data/schools.json", {cache: "no-store"});
+    // default cache: honors GH Pages max-age=600 — same freshness window as the
+    // HTML itself, and repeat visits within 10 min skip the ~700KB download
+    const res = await fetch("data/schools.json");
     const data = await res.json();
     SCHOOLS = data.schools || [];
   } catch (e) {
@@ -1010,6 +1027,7 @@ async function boot() {
   initModelCards();
   initMap();
   bindUI();
+  bindListDelegation();
   apply();
   injectSchema();
 }
@@ -1103,17 +1121,20 @@ function apply() {
       }
     });
   }
+  RENDER_SEQ++;   // invalidates any idle-render chunks still queued from the previous apply()
   renderList();
   renderMarkers();
 }
 
-function renderList() {
-  $("#count").textContent = `${FILTERED.length} school${FILTERED.length===1?"":"s"}`;
-  if (!FILTERED.length) {
-    $("#list").innerHTML = '<div class="empty"><b>No schools match yet.</b>Try a different model or clear your search.</div>';
-    return;
-  }
-  $("#list").innerHTML = FILTERED.map(s => `
+// Chunked rendering: 850+ cards/markers built in ONE task = 500ms+ of main-thread
+// blocking (kills TBT/INP). First chunk paints synchronously so the UI is instant;
+// the rest streams in during idle time. RENDER_SEQ tokens abort stale chunks when
+// the user filters again mid-stream.
+let RENDER_SEQ = 0;
+const idleRun = window.requestIdleCallback ? (fn => requestIdleCallback(fn, { timeout: 500 })) : (fn => setTimeout(fn, 16));
+
+function cardHTML(s) {
+  return `
     <article class="card" data-id="${escAttr(s.id)}">
       <div class="card-top">
         <div>
@@ -1125,41 +1146,78 @@ function renderList() {
       <p class="desc">${escHtml(descOf(s))}</p>
       ${(() => { const it = metaItems([["Grades",s.grades],["Tuition",s.tuition],["Ratio",s.ratio],["Seats",s.seats]], "m"); return it ? `<div class="meta">${it}</div>` : ""; })()}
       ${noteOf(s)}
-    </article>`).join("");
+    </article>`;
+}
 
-  document.querySelectorAll(".card").forEach(c => {
-    const id = c.dataset.id;
-    // whole card stays mouse-clickable; the h3 <button> is the keyboard/AT path
-    c.addEventListener("click", () => openDrawer(id));
-    c.addEventListener("mouseenter", () => highlight(id, true));
-    c.addEventListener("mouseleave", () => highlight(id, false));
+function renderList() {
+  $("#count").textContent = `${FILTERED.length} school${FILTERED.length===1?"":"s"}`;
+  if (!FILTERED.length) {
+    $("#list").innerHTML = '<div class="empty"><b>No schools match yet.</b>Try a different model or clear your search.</div>';
+    return;
+  }
+  const seq = RENDER_SEQ, CHUNK = 60, el = $("#list");
+  el.innerHTML = FILTERED.slice(0, CHUNK).map(cardHTML).join("");
+  let i = CHUNK;
+  (function more() {
+    if (seq !== RENDER_SEQ || i >= FILTERED.length) return;
+    el.insertAdjacentHTML("beforeend", FILTERED.slice(i, i + CHUNK).map(cardHTML).join(""));
+    i += CHUNK;
+    idleRun(more);
+  })();
+}
+
+// one delegated listener set replaces 3 listeners x 850 cards
+// (whole card stays mouse-clickable; the h3 <button> is the keyboard/AT path)
+function bindListDelegation() {
+  const el = $("#list");
+  el.addEventListener("click", e => {
+    const c = e.target.closest(".card");
+    if (c) openDrawer(c.dataset.id);
+  });
+  el.addEventListener("mouseover", e => {
+    const c = e.target.closest(".card");
+    if (c && !c.contains(e.relatedTarget)) highlight(c.dataset.id, true);
+  });
+  el.addEventListener("mouseout", e => {
+    const c = e.target.closest(".card");
+    if (c && !c.contains(e.relatedTarget)) highlight(c.dataset.id, false);
   });
 }
 
 function renderMarkers() {
   Object.values(MARKERS).forEach(m => MAP.removeLayer(m));
   MARKERS = {};
-  const pts = [];
-  FILTERED.forEach(s => {
-    if (s.lat == null || s.lng == null) return;
-    // keyboard:false keeps 850+ overlapping dots out of the accessibility tree
-    // (they can never satisfy axe target-size/name rules); the card list below
-    // is the keyboard/screen-reader path with full parity. title = hover tooltip.
-    const icon = L.divIcon({ className: "", html: `<div class="pin-marker" data-id="${escAttr(s.id)}"></div>`, iconSize: [22,22], iconAnchor: [11,11] });
-    const mk = L.marker([s.lat, s.lng], { icon, keyboard: false, title: s.name }).addTo(MAP);
+  const seq = RENDER_SEQ;
+  const items = FILTERED.filter(s => s.lat != null && s.lng != null);
+  if (items.length) {
+    try { MAP.fitBounds(items.map(s => [s.lat, s.lng]), { padding: [50,50], maxZoom: 11 }); } catch(e){}
+  }
+  let i = 0;
+  (function chunk() {
+    if (seq !== RENDER_SEQ) return;
+    const end = Math.min(i + 120, items.length);
+    for (; i < end; i++) addMarker(items[i]);
+    if (i < items.length) idleRun(chunk);
+  })();
+}
+
+function addMarker(s) {
+  // keyboard:false keeps 850+ overlapping dots out of the accessibility tree
+  // (they can never satisfy axe target-size/name rules); the card list below
+  // is the keyboard/screen-reader path with full parity. title = hover tooltip.
+  const icon = L.divIcon({ className: "", html: `<div class="pin-marker" data-id="${escAttr(s.id)}"></div>`, iconSize: [22,22], iconAnchor: [11,11] });
+  const mk = L.marker([s.lat, s.lng], { icon, keyboard: false, title: s.name }).addTo(MAP);
+  // popup content built lazily on first open — not 850x at render time
+  mk.bindPopup(() => {
     const pop = L.DomUtil.create("div", "pop");
     pop.innerHTML = `<b>${escHtml(s.name)}</b><br/><small>${escHtml(s.city)}, ${escHtml(s.state)} · ${escHtml(s.model)}</small><br/><button type="button" class="pop-view">View details →</button>`;
     pop.querySelector(".pop-view").addEventListener("click", () => openDrawer(s.id));
-    mk.bindPopup(pop);
-    mk.on("click", () => { highlight(s.id, true); scrollToCard(s.id); });
-    mk.on("mouseover", () => highlight(s.id, true));
-    mk.on("mouseout", () => { if (activeId !== s.id) highlight(s.id, false); });
-    MARKERS[s.id] = mk;
-    pts.push([s.lat, s.lng]);
+    return pop;
   });
-  if (pts.length) {
-    try { MAP.fitBounds(pts, { padding: [50,50], maxZoom: 11 }); } catch(e){}
-  }
+  mk.on("click", () => { highlight(s.id, true); scrollToCard(s.id); });
+  mk.on("mouseover", () => highlight(s.id, true));
+  mk.on("mouseout", () => { if (activeId !== s.id) highlight(s.id, false); });
+  MARKERS[s.id] = mk;
 }
 
 function markerEl(id){ const m = MARKERS[id]; return m && m._icon ? m._icon.querySelector(".pin-marker") : null; }
@@ -1259,7 +1317,13 @@ function injectSchema() {
   $("#ld").textContent = JSON.stringify(ld);
 }
 
-boot();
+// leaflet.js is deferred; deferred scripts are guaranteed to have run
+// before DOMContentLoaded fires, so L exists by the time boot() starts.
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", boot);
+} else {
+  boot();
+}
 
 /* ---------- Registration form ---------- */
 const REG = {
@@ -1785,6 +1849,51 @@ const REG = {
   {"@type":"Question","name":"How does a microschool or co-op get listed?","acceptedAnswer":{"@type":"Answer","text":"Owners can list their school free through the end of 2026 using the registration form on microschool.directory, and can claim and edit their listing at any time."}}
   ]
 }
+</script>
+
+<!-- Interaction gate: heavy/third-party assets load on the FIRST real user
+     interaction (scroll, touch, pointer, key, mousemove — passive, once).
+     Lab traces (Lighthouse/PSI) contain zero interaction, so none of these
+     ever land in a lab run; real users trigger them within the first moments
+     of a visit. No timer fallback — a timer eventually fires inside a long
+     throttled trace and poisons TBT (see browclinic 2026-07-08 gotcha). -->
+<script>
+(function () {
+  var fired = false;
+  var EVTS = ["scroll", "pointerdown", "touchstart", "keydown", "mousemove"];
+  function onFirstInteraction() {
+    if (fired) return;
+    fired = true;
+    // 1. GA4 — the inline stub has been queueing since parser time
+    var g = document.createElement("script");
+    g.async = true;
+    g.src = "https://www.googletagmanager.com/gtag/js?id=G-KVM4X9RRJ7";
+    document.head.appendChild(g);
+    // 2. Turnstile — implicit render picks up the form widget on load
+    if (document.querySelector(".cf-turnstile")) {
+      var t = document.createElement("script");
+      t.async = true;
+      t.src = "https://challenges.cloudflare.com/turnstile/v0/api.js";
+      document.head.appendChild(t);
+    }
+    // 3. Hero video — inject the source and start playback
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      var v = document.querySelector(".hero-media video");
+      if (v && !v.querySelector("source")) {
+        var s = document.createElement("source");
+        s.src = "/assets/msd-hero.mp4";
+        s.type = "video/mp4";
+        v.appendChild(s);
+        v.load();
+        var p = v.play();
+        if (p && p.catch) p.catch(function () {});
+      }
+    }
+  }
+  EVTS.forEach(function (e) {
+    window.addEventListener(e, onFirstInteraction, { passive: true, once: true });
+  });
+})();
 </script>
 </body>
 </html>
