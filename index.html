@@ -247,6 +247,9 @@
   .card:hover::before, .card.hot::before { transform: scaleY(1); }
   .card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 14px; }
   .card h3 { font-family: var(--serif); font-weight: 600; font-size: 1.28rem; letter-spacing: -0.01em; line-height: 1.1; }
+  /* the real <button> inside the h3 — renders as plain heading text */
+  .card h3 .card-open { all: unset; font: inherit; color: inherit; cursor: pointer; display: inline; }
+  .card h3 .card-open:focus-visible { outline: 2px solid var(--forest); outline-offset: 3px; border-radius: 4px; }
   .loc { font-size: 0.88rem; color: var(--ink-2); opacity: 0.78; margin-top: 4px; display: flex; align-items: center; gap: 6px; }
   .badge {
     flex: 0 0 auto; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.03em; text-transform: uppercase;
@@ -640,6 +643,8 @@
   </div>
 </header>
 
+<main>
+
 <section class="herowrap">
 <div class="hero-media" aria-hidden="true">
   <video autoplay muted loop playsinline preload="metadata" poster="/assets/msd-hero-poster.jpg">
@@ -902,6 +907,8 @@
   </div>
 </section>
 
+</main>
+
 <footer>
   <div class="foot">
     <div>
@@ -1107,10 +1114,10 @@ function renderList() {
     return;
   }
   $("#list").innerHTML = FILTERED.map(s => `
-    <article class="card" data-id="${escAttr(s.id)}" tabindex="0" role="button" aria-label="View ${escAttr(s.name)}">
+    <article class="card" data-id="${escAttr(s.id)}">
       <div class="card-top">
         <div>
-          <h3>${escHtml(s.name)}</h3>
+          <h3><button type="button" class="card-open">${escHtml(s.name)}</button></h3>
           <div class="loc">📍 ${escHtml(s.city)}, ${escHtml(s.state)}</div>
         </div>
         <span class="badge">${escHtml(s.model)}</span>
@@ -1122,10 +1129,8 @@ function renderList() {
 
   document.querySelectorAll(".card").forEach(c => {
     const id = c.dataset.id;
+    // whole card stays mouse-clickable; the h3 <button> is the keyboard/AT path
     c.addEventListener("click", () => openDrawer(id));
-    c.addEventListener("keydown", e => {
-      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openDrawer(id); }
-    });
     c.addEventListener("mouseenter", () => highlight(id, true));
     c.addEventListener("mouseleave", () => highlight(id, false));
   });
@@ -1137,8 +1142,11 @@ function renderMarkers() {
   const pts = [];
   FILTERED.forEach(s => {
     if (s.lat == null || s.lng == null) return;
+    // keyboard:false keeps 850+ overlapping dots out of the accessibility tree
+    // (they can never satisfy axe target-size/name rules); the card list below
+    // is the keyboard/screen-reader path with full parity. title = hover tooltip.
     const icon = L.divIcon({ className: "", html: `<div class="pin-marker" data-id="${escAttr(s.id)}"></div>`, iconSize: [22,22], iconAnchor: [11,11] });
-    const mk = L.marker([s.lat, s.lng], { icon }).addTo(MAP);
+    const mk = L.marker([s.lat, s.lng], { icon, keyboard: false, title: s.name }).addTo(MAP);
     const pop = L.DomUtil.create("div", "pop");
     pop.innerHTML = `<b>${escHtml(s.name)}</b><br/><small>${escHtml(s.city)}, ${escHtml(s.state)} · ${escHtml(s.model)}</small><br/><button type="button" class="pop-view">View details →</button>`;
     pop.querySelector(".pop-view").addEventListener("click", () => openDrawer(s.id));
