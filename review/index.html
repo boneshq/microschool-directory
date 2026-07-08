@@ -6,33 +6,145 @@
 <meta name="robots" content="noindex, nofollow">
 <title>Review submission — microschool.directory</title>
 <style>
-  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-         display: flex; align-items: center; justify-content: center;
-         min-height: 100vh; margin: 0; background: #f7f7f5; color: #222; }
-  .card { text-align: center; padding: 2rem; }
-  a { color: #1a6b4a; }
+:root{--ink:#13241d;--paper:#f7f3ec;--card:#fff;--line:#d9d0bf;--coral:#e8643c;--forest:#285c46}
+*{box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--paper);color:var(--ink);margin:0;padding:18px;line-height:1.5}
+.card{max-width:640px;margin:0 auto;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;box-shadow:0 12px 40px rgba(19,36,29,.08)}
+h1{font-size:1.4rem;margin:.2rem 0 .1rem}
+.badge{display:inline-block;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:#fff;padding:3px 10px;border-radius:100px}
+.sub{color:#1b3a2f;opacity:.75;margin:.2rem 0 1rem}
+table{width:100%;border-collapse:collapse;margin:10px 0}
+th,td{text-align:left;padding:9px 6px;border-bottom:1px solid var(--line);vertical-align:top;font-size:.95rem;word-break:break-word}
+th{width:34%;color:#1b3a2f;font-weight:600}
+td a{color:var(--coral)}
+.photos{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}
+.photos img{width:100%;max-width:280px;border-radius:12px;border:1px solid var(--line)}
+.muted{color:#1b3a2f;opacity:.6;font-size:.9rem}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0 6px}
+.btn{appearance:none;border:0;border-radius:12px;padding:15px 20px;font-size:1.05rem;font-weight:700;cursor:pointer;text-decoration:none;display:inline-block;text-align:center;flex:1 1 40%}
+.btn-approve{background:var(--forest);color:#fff}
+.btn-reject{background:var(--coral);color:#fff}
+.btn[disabled]{opacity:.55;cursor:default}
+.note{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:10px 0;font-size:.9rem}
+.about{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:12px 0;font-size:.95rem;white-space:pre-line}
+#msg{margin-top:10px;font-weight:600}
+.spinner{opacity:.6}
 </style>
-<script>
-  // Admin deep-link: /review/?id=<listing-id>&t=<token> forwards to the
-  // token-gated review page (Supabase edge function). No params → /admin/.
-  (function () {
-    var p = new URLSearchParams(location.search);
-    var id = p.get("id"), t = p.get("t");
-    if (id && t) {
-      location.replace(
-        "https://fhbczvfrsgkbpvammxip.supabase.co/functions/v1/view-listing" +
-        "?id=" + encodeURIComponent(id) + "&t=" + encodeURIComponent(t)
-      );
-    } else {
-      location.replace("/admin/");
-    }
-  })();
-</script>
 </head>
 <body>
-<div class="card">
-  <p>Opening the review page&hellip;</p>
-  <p><a href="/admin/">Go to the admin dashboard</a></p>
-</div>
+<div class="card" id="card"><p class="spinner">Loading submission&hellip;</p></div>
+<script>
+(function () {
+  "use strict";
+  var FN = "https://fhbczvfrsgkbpvammxip.supabase.co/functions/v1/view-listing";
+  var params = new URLSearchParams(location.search);
+  var id = params.get("id") || "", t = params.get("t") || "";
+  var card = document.getElementById("card");
+
+  function esc(v) {
+    return String(v == null ? "" : v).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+  function fail(title, body) {
+    card.innerHTML = "<h1>" + esc(title) + "</h1><p class='muted'>" + body + "</p>" +
+      "<p><a href='/admin/'>Open the admin dashboard</a> to see the full queue.</p>";
+  }
+  if (!id || !t) { fail("Missing link details", "This page needs the id and token from the text alert. Use the full link from the message."); return; }
+
+  var api = FN + "?id=" + encodeURIComponent(id) + "&t=" + encodeURIComponent(t) + "&format=json";
+
+  function statusColor(s) {
+    return s === "pending" ? "#f2a03d" : s === "approved" ? "#285c46" : s === "rejected" ? "#c64a26" : "#7a7264";
+  }
+
+  function render(r) {
+    var isPending = r.status === "pending";
+    var isClaim = r.mode === "claim";
+    var photos = (r.photo_urls || []).map(function (p) {
+      return "<a href='" + esc(p) + "' target='_blank' rel='noopener'><img src='" + esc(p) + "' alt='submitted photo' loading='lazy'></a>";
+    }).join("");
+    var rowsHtml = [
+      ["Type / Model", [r.type, r.model].filter(Boolean).join(" / ")],
+      ["City / State", [r.city, r.state].filter(Boolean).join(", ")],
+      ["Grades", r.grades], ["Tuition", r.tuition],
+      ["Submitter email", r.email], ["Submitter phone", r.phone],
+      ["Submitted", r.created_at], ["Listing id", r.id],
+    ].map(function (kv) {
+      return kv[1] ? "<tr><th>" + esc(kv[0]) + "</th><td>" + esc(kv[1]) + "</td></tr>" : "";
+    }).join("");
+    var site = r.website
+      ? "<tr><th>Website</th><td><a href='" + esc(r.website) + "' target='_blank' rel='noopener'>" + esc(r.website) + "</a></td></tr>"
+      : "";
+
+    var actions;
+    if (!isPending) {
+      actions = "<div class='note muted'>This submission is already <b>" + esc(r.status) + "</b> — nothing to do here.</div>";
+    } else if (isClaim) {
+      actions = "<div class='note'>This is a <b>claim request</b> on an existing listing — granting it hands the page to the submitter, so it's done in the <a href='/admin/'>admin dashboard</a> (Claim requests &rarr; Approve claim), not one-tapped here.</div>" +
+        "<div class='actions'><button class='btn btn-reject' id='rejectBtn'>&#10005; Reject claim</button></div>";
+    } else {
+      actions = "<div class='actions'>" +
+        "<button class='btn btn-approve' id='approveBtn'>&#10003; Approve &amp; publish</button>" +
+        "<button class='btn btn-reject' id='rejectBtn'>&#10005; Reject</button>" +
+        "</div>" +
+        "<div class='note muted'>Approve publishes automatically — live on the site within ~10 minutes, and the submitter gets a welcome email with self-edit instructions. No terminal needed.</div>";
+    }
+
+    card.innerHTML =
+      "<span class='badge' style='background:" + statusColor(r.status) + "'>" + esc(r.status) + "</span>" +
+      "<h1>" + esc(r.name) + "</h1>" +
+      "<div class='sub'>" + (isClaim ? "Claim / edit request" : "New listing") + " &middot; " + esc(r.city) + ", " + esc(r.state) + "</div>" +
+      actions +
+      "<p id='msg'></p>" +
+      (photos ? "<div class='photos'>" + photos + "</div>" : "<p class='muted'>No photo uploaded.</p>") +
+      (r.description ? "<div class='about'>" + esc(r.description) + "</div>" : "") +
+      "<table>" + rowsHtml + site + "</table>";
+
+    function act(action, confirmText) {
+      if (!confirm(confirmText)) return;
+      var msg = document.getElementById("msg");
+      var btns = card.querySelectorAll(".btn");
+      btns.forEach(function (b) { b.disabled = true; });
+      msg.textContent = "Working…";
+      var body = new URLSearchParams(); body.set("action", action);
+      fetch(api, { method: "POST", body: body })
+        .then(function (resp) { return resp.json().then(function (j) { return { s: resp.status, j: j }; }); })
+        .then(function (out) {
+          if (out.j && out.j.ok) {
+            msg.textContent = action === "approve"
+              ? "✓ Approved. It publishes automatically and will be live at microschool.directory within ~10 minutes."
+              : "✕ Rejected. It will not be published and you won't be alerted about it again.";
+            card.querySelector(".badge").textContent = action === "approve" ? "approved" : "rejected";
+            card.querySelector(".badge").style.background = statusColor(action === "approve" ? "approved" : "rejected");
+          } else if (out.j && out.j.noop) {
+            msg.textContent = "Nothing changed — this was already decided (approved, rejected, or removed).";
+          } else {
+            msg.textContent = "Failed: " + ((out.j && out.j.error) || ("HTTP " + out.s)) + " — try again or use /admin/.";
+            btns.forEach(function (b) { b.disabled = false; });
+          }
+        })
+        .catch(function () {
+          msg.textContent = "Network error — check connection and try again.";
+          btns.forEach(function (b) { b.disabled = false; });
+        });
+    }
+    var a = document.getElementById("approveBtn");
+    var x = document.getElementById("rejectBtn");
+    if (a) a.addEventListener("click", function () { act("approve", "Approve and publish this listing to the live site?"); });
+    if (x) x.addEventListener("click", function () { act("reject", isClaim ? "Reject this claim request?" : "Reject this listing? It will not be published."); });
+  }
+
+  fetch(api)
+    .then(function (resp) {
+      if (resp.status === 403) { fail("Link not valid", "The token in this link was not accepted. Use the most recent alert text, or the admin dashboard."); return null; }
+      if (resp.status === 404) { fail("Submission not found", "This submission no longer exists (it may have been cleaned up)."); return null; }
+      if (!resp.ok) { fail("Could not load", "The review service returned HTTP " + resp.status + "."); return null; }
+      return resp.json();
+    })
+    .then(function (r) { if (r) render(r); })
+    .catch(function () { fail("Could not load", "Network error reaching the review service."); });
+})();
+</script>
 </body>
 </html>
