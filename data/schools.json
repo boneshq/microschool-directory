@@ -16824,6 +16824,24 @@
       ],
       "schedule": "M–Th 8:30–3:00, optional Friday forest day",
       "phone": "(828) 555-0142"
+    },
+    {
+      "id": "the-noir-swan-collective-atlanta-ga",
+      "name": "The Noir Swan Collective",
+      "model": "Learning Pod",
+      "city": "Atlanta",
+      "state": "GA",
+      "lat": 33.758032,
+      "lng": -84.397968,
+      "grades": "K4- 3rd",
+      "ages": "",
+      "tuition": "$9500",
+      "website": "http://www.swanflock.com",
+      "source": "owner-submission",
+      "description": "We believe that every child carries within them a rare and radiant brilliance. Like the Noir Swan, they are capable of navigating the world with quiet confidence and profound depth. We hold that education is not merely the acquisition of knowledge, but the awakening of lifelong curiosity. We honor each student's individual path, recognizing that their questions, voice, and discoveries are the building blocks of their future wisdom.\n\nWe wish to cultivate a foundational love for learning in young scholars (grades K4- 3rd), empowering them to embrace their inner strength and unique brilliance. We foster an elegant, supportive single gendered classroom environment where every child learns to soar with confidence and poise, preparing them for a lifetime of intellectual curiosity.",
+      "verified": true,
+      "claimable": false,
+      "placeholder": false
     }
   ]
 }
