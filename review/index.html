@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Review submission — microschool.directory</title>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+         display: flex; align-items: center; justify-content: center;
+         min-height: 100vh; margin: 0; background: #f7f7f5; color: #222; }
+  .card { text-align: center; padding: 2rem; }
+  a { color: #1a6b4a; }
+</style>
+<script>
+  // Admin deep-link: /review/?id=<listing-id>&t=<token> forwards to the
+  // token-gated review page (Supabase edge function). No params → /admin/.
+  (function () {
+    var p = new URLSearchParams(location.search);
+    var id = p.get("id"), t = p.get("t");
+    if (id && t) {
+      location.replace(
+        "https://fhbczvfrsgkbpvammxip.supabase.co/functions/v1/view-listing" +
+        "?id=" + encodeURIComponent(id) + "&t=" + encodeURIComponent(t)
+      );
+    } else {
+      location.replace("/admin/");
+    }
+  })();
+</script>
+</head>
+<body>
+<div class="card">
+  <p>Opening the review page&hellip;</p>
+  <p><a href="/admin/">Go to the admin dashboard</a></p>
+</div>
+</body>
+</html>
