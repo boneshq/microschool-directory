@@ -15697,8 +15697,8 @@
       "website": "",
       "source": "https://microschools.com/school-finder/",
       "description": "Member of the National Microschooling Center microschool finder",
-      "verified": false,
-      "claimable": true,
+      "verified": true,
+      "claimable": false,
       "placeholder": false,
       "ages": ""
     },
