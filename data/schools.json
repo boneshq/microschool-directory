@@ -16842,6 +16842,28 @@
       "verified": true,
       "claimable": false,
       "placeholder": false
+    },
+    {
+      "id": "carillon-academy-richmond-va",
+      "name": "Carillon Academy",
+      "model": "Microschool",
+      "city": "Richmond",
+      "state": "VA",
+      "lat": 37.559136,
+      "lng": -77.446216,
+      "grades": "",
+      "ages": "",
+      "tuition": "19,000",
+      "website": "https://carillonacademy.org",
+      "source": "owner-submission",
+      "description": "We provide full-day, Monday-Friday, individualized instruction to neurodiverse students. Our teachers are certified in special education, and we provide a 1:3 ratio to ensure that each student receives 1:1 instruction at the appropriate level to both support and challenge them academically.",
+      "verified": true,
+      "claimable": false,
+      "placeholder": false,
+      "photo": "https://fhbczvfrsgkbpvammxip.supabase.co/storage/v1/object/public/school-photos/pending/93ef2f1e-4d0c-47f5-9d63-b94145805031-0.png",
+      "photo_urls": [
+        "https://fhbczvfrsgkbpvammxip.supabase.co/storage/v1/object/public/school-photos/pending/93ef2f1e-4d0c-47f5-9d63-b94145805031-0.png"
+      ]
     }
   ]
 }
