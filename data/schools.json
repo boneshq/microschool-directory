@@ -16864,6 +16864,28 @@
       "photo_urls": [
         "https://fhbczvfrsgkbpvammxip.supabase.co/storage/v1/object/public/school-photos/pending/93ef2f1e-4d0c-47f5-9d63-b94145805031-0.png"
       ]
+    },
+    {
+      "id": "apogee-noco-hybrid-academy-loveland-co",
+      "name": "Apogee NOCO Hybrid Academy",
+      "model": "Microschool",
+      "city": "Loveland",
+      "state": "CO",
+      "lat": 40.381605,
+      "lng": -105.094952,
+      "grades": "K-12",
+      "ages": "",
+      "tuition": "varies on program",
+      "website": "https://apogeenoco.com",
+      "source": "owner-submission",
+      "description": "We help families find a better way to educate their children to raise kids who know who they are, live what they believe, and are equipped to thrive in the real world.\nBy combining the best of homeschooling and private education in a Christ-centered hybrid program that partners with parents to build strong character, practical life skills, academic excellence, and a thriving community.\nPowered by the Apogee Model — a proven approach behind 150+ schools nationwide.",
+      "verified": true,
+      "claimable": false,
+      "placeholder": false,
+      "photo": "https://fhbczvfrsgkbpvammxip.supabase.co/storage/v1/object/public/school-photos/pending/f4ac3191-3880-4c89-ae47-e294b78410b0-0.png",
+      "photo_urls": [
+        "https://fhbczvfrsgkbpvammxip.supabase.co/storage/v1/object/public/school-photos/pending/f4ac3191-3880-4c89-ae47-e294b78410b0-0.png"
+      ]
     }
   ]
 }
