@@ -18884,6 +18884,24 @@
       "claimable": true,
       "placeholder": false,
       "ages": ""
+    },
+    {
+      "id": "meadowlark-microschool-st-paul-mn",
+      "name": "Meadowlark Microschool",
+      "model": "Microschool",
+      "city": "St. Paul",
+      "state": "MN",
+      "lat": 45.050908,
+      "lng": -92.953551,
+      "grades": "K-8",
+      "ages": "",
+      "tuition": "12,000",
+      "website": "https://www.meadowlarkmicroschool.org",
+      "source": "owner-submission",
+      "description": "Meadowlark is a nonprofit, nature-based, Waldorf-inspired microschool in Saint Paul, Minnesota. The curriculum is designed to nourish the developing child in each stage of their growth. Learning is threefold and experienced with the head, heart, and hands. We seek to foster a child’s natural sense of wonder and build a deep foundation for learning and social-emotional development. This approach ultimately supports the student’s capacities for creativity, independent thinking, and moral judgment.",
+      "verified": true,
+      "claimable": false,
+      "placeholder": false
     }
   ]
 }
