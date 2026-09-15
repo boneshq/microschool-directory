@@ -14,6 +14,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Review queue — microschool.directory</title>
 <meta name="robots" content="noindex,nofollow" />
+<meta name="referrer" content="no-referrer" />
 <link rel="canonical" href="https://microschool.directory/admin/" />
 <meta name="theme-color" content="#13241d" />
 
@@ -555,6 +556,31 @@ async function showDash() {
 
 // ---------- boot ----------
 (async function boot() {
+  const incoming = new URLSearchParams((window.__msdAuthHash || "").replace(/^#/, ""));
+  if (incoming.has("token_hash")) {
+    window.__msdAuthHash = "";
+    $("authpanel").hidden = false; showView("v-signin");
+    authMsg("Opening your review queue…", true);
+    if (incoming.get("type") !== "magiclink") {
+      authMsg("This review link is not valid. Ask Hermes for a fresh MicroSchool approval link.");
+      return;
+    }
+    try {
+      const r = await fetch(`${CFG.supabaseUrl}/auth/v1/verify`, {
+        method: "POST", headers: { "Content-Type": "application/json", apikey: CFG.anonKey },
+        body: JSON.stringify({ token_hash: incoming.get("token_hash"), type: "magiclink" }),
+      });
+      const d = await r.json().catch(() => ({}));
+      if (!r.ok || !d.access_token || !d.refresh_token) {
+        authMsg("This link expired or was already used. Ask Hermes for a fresh MicroSchool approval link.");
+        return;
+      }
+      adoptSession(d); await showDash();
+    } catch (_) {
+      authMsg("Could not open the queue. Check your connection and ask Hermes for a fresh MicroSchool approval link.");
+    }
+    return;
+  }
   const hash = consumeHashSession();
   if (hash && hash.error) {
     $("authpanel").hidden = false; showView("v-signin");

@@ -2249,15 +2249,16 @@
       "lat": 40.0992,
       "lng": -83.1141,
       "grades": "",
-      "tuition": "",
+      "tuition": "$12,300/year",
       "website": "https://actonacademycolumbus.com/",
       "source": "https://www.actonacademy.org/find/",
-      "description": "",
-      "verified": false,
-      "claimable": true,
+      "description": "Acton Academy Columbus is a learner-driven, project-based microschool in Dublin, Ohio, serving ages 4.5-14. Its Spark, Growth, Discovery, and Adventure studios combine hands-on learning with increasing independence and real-world projects.",
+      "verified": true,
+      "claimable": false,
       "placeholder": false,
       "ages": "4.5-14",
-      "schedule": "Mon-Fri 8am - 5pm"
+      "schedule": "Mon-Fri 8am - 5pm",
+      "phone": "(614) 603-7227"
     },
     {
       "id": "acton-academy-concord-concord-ca",
@@ -8615,13 +8616,13 @@
       "state": "IN",
       "lat": 41.11892,
       "lng": -85.12491,
-      "grades": "4th through 12th Grade",
-      "tuition": "",
+      "grades": "1-12",
+      "tuition": "$8,000/year",
       "website": "https://www.kainosmicroschool.com/",
       "source": "https://www.kaipodlearning.com/find-a-microschool/",
-      "description": "Kainos Microschool serves grades four through twelve in Fort Wayne, Indiana. The institution offers a personalized, faith-based curriculum designed for students who struggle in conventional academic environments. While primarily focused on grades five through twelve, the school accommodates learners seeking adaptability to meet unique educational needs. Kainos welcomes students from diverse backgrounds and faiths but does not support those with severe physical or learning challenges.",
-      "verified": false,
-      "claimable": true,
+      "description": "Kainos Microschool in Fort Wayne, Indiana, offers faith-integrated, personalized learning for ages 7-18. Students learn at their instructional level in mixed-age classrooms, progressing through mastery rather than conventional grade placement. The program emphasizes individual strengths, relationships, and whole-student development.",
+      "verified": true,
+      "claimable": false,
       "placeholder": false,
       "zip": "46825",
       "street": "4516 Parnell Avenue",
@@ -8629,7 +8630,13 @@
       "_rating": {
         "value": "5",
         "count": "2"
-      }
+      },
+      "ages": "7-18",
+      "phone": "2602785179",
+      "photo_urls": [
+        "https://fhbczvfrsgkbpvammxip.supabase.co/storage/v1/object/public/school-photos/pending/4595f557-1c8f-4a55-be86-09f1589fcb91-0.jpeg"
+      ],
+      "photo": "https://fhbczvfrsgkbpvammxip.supabase.co/storage/v1/object/public/school-photos/pending/4595f557-1c8f-4a55-be86-09f1589fcb91-0.jpeg"
     },
     {
       "id": "velos-collective-taylors-sc",
@@ -11413,8 +11420,8 @@
       "website": "https://www.prestigewisdomacademy.org",
       "source": "https://www.kaipodlearning.com/find-a-microschool/",
       "description": "Prestige Wisdom Academy is a microschool in Houston, Texas, serving students from PreK through 12th grade. The institution specializes in personalized instruction for diverse learners, including those requiring special education support. By utilizing small class sizes and individualized teaching methods, the school integrates traditional academics with innovative enrichment programs and life skills development to foster academic excellence and character growth within a flexible educational framework.",
-      "verified": false,
-      "claimable": true,
+      "verified": true,
+      "claimable": false,
       "placeholder": false,
       "zip": "77069",
       "curriculum": "School-Directed Curriculum",
@@ -11422,7 +11429,9 @@
       "founder": {
         "name": "Temitayo Moses",
         "bio": "Temitayo Moses founded Prestige Wisdom Academy in Houston, Texas. She holds an NCE from Saint Andrews College of Education (1994), a B.Ed. from the University of Ado Ekiti (2004), and an M.Ed. from Bowie State University (2014). She is a certified teacher in Maryland, West Virginia, and Texas."
-      }
+      },
+      "phone": "3468619304",
+      "street": "5125 FM 1960 Rd W."
     },
     {
       "id": "inheritance-hall-san-antonio-tx",
@@ -20324,6 +20333,145 @@
       "claimable": true,
       "placeholder": false,
       "ages": ""
+    },
+    {
+      "name": "Aligned Schools",
+      "model": "Microschool",
+      "city": "Phoenix",
+      "state": "AZ",
+      "grades": "6-12",
+      "ages": "",
+      "tuition": "$500/month; $400 enrollment fee",
+      "website": "https://www.alignedschools.org/",
+      "description": "Aligned Schools is a live online microschool serving grades 6-12 in small classes with a maximum 10:1 student-to-teacher ratio. Licensed teachers provide personalized support, including for neurodivergent learners. Academic classes run Monday through Thursday, with opportunities for enrichment and community activities.",
+      "phone": "2026742238",
+      "id": "aligned-schools-phoenix-az",
+      "lat": 33.45076,
+      "lng": -112.062836,
+      "source": "owner-submission",
+      "placeholder": false,
+      "photo_urls": [
+        "https://fhbczvfrsgkbpvammxip.supabase.co/storage/v1/object/public/school-photos/pending/619ebc07-9f50-4339-a8ea-c7c78ec4394e-0.png",
+        "https://fhbczvfrsgkbpvammxip.supabase.co/storage/v1/object/public/school-photos/pending/619ebc07-9f50-4339-a8ea-c7c78ec4394e-1.png"
+      ],
+      "photo": "https://fhbczvfrsgkbpvammxip.supabase.co/storage/v1/object/public/school-photos/pending/619ebc07-9f50-4339-a8ea-c7c78ec4394e-0.png",
+      "verified": true,
+      "claimable": false
+    },
+    {
+      "name": "Rising Phoenix Microschool",
+      "model": "Montessori",
+      "city": "Centerville",
+      "state": "UT",
+      "grades": "K-2",
+      "ages": "",
+      "tuition": "$2,520/year",
+      "website": "https://www.risingphoenixmicroschool.com",
+      "description": "Rising Phoenix Microschool in Centerville, Utah, provides personalized Montessori-inspired learning for kindergarten through second grade. Students combine teacher-led instruction with student-directed exploration in groups of 10-12. Two-day programs run 9:30 a.m. to 2:30 p.m.",
+      "phone": "8014401617",
+      "id": "rising-phoenix-microschool-centerville-ut",
+      "lat": 40.919092,
+      "lng": -111.87833,
+      "source": "owner-submission",
+      "placeholder": false,
+      "verified": true,
+      "claimable": false
+    },
+    {
+      "name": "Fussell Academy",
+      "model": "Project-Based",
+      "city": "Polk City",
+      "state": "FL",
+      "grades": "6-12",
+      "ages": "",
+      "tuition": "11,000",
+      "website": "https://fussellacademy.com",
+      "description": "This is a program for students who want to pursue a career in art and design. The school is rural and seeks to provide an environment that is slower and calmer than what you can find in the cities.",
+      "phone": "8635215203",
+      "id": "fussell-academy-polk-city-fl",
+      "lat": 28.196342,
+      "lng": -81.798418,
+      "source": "owner-submission",
+      "placeholder": false,
+      "photo_urls": [
+        "https://fhbczvfrsgkbpvammxip.supabase.co/storage/v1/object/public/school-photos/pending/eae31d6b-4dea-4150-b997-5ccef2f3e4bb-0.png"
+      ],
+      "photo": "https://fhbczvfrsgkbpvammxip.supabase.co/storage/v1/object/public/school-photos/pending/eae31d6b-4dea-4150-b997-5ccef2f3e4bb-0.png",
+      "verified": true,
+      "claimable": false
+    },
+    {
+      "name": "iTutorExpress Virtual Academy",
+      "model": "Learning Pod",
+      "city": "Hollywood",
+      "state": "FL",
+      "grades": "K-5",
+      "ages": "",
+      "tuition": "",
+      "website": "https://www.itutorexpress.org/",
+      "description": "iTutorExpress offers live online supplemental learning pods for K-5 students, including homeschool families. Bilingual English and Spanish instruction focuses on reading and math, with structured groups of 4-6 students, literacy intervention, and progress monitoring. This is a supplemental program rather than a full-time school.",
+      "phone": "9542601252",
+      "id": "itutorexpress-virtual-academy-hollywood-fl",
+      "lat": 26.015699,
+      "lng": -80.110507,
+      "source": "owner-submission",
+      "placeholder": false,
+      "photo_urls": [
+        "https://fhbczvfrsgkbpvammxip.supabase.co/storage/v1/object/public/school-photos/pending/18ada054-d783-44ed-9ce5-70f1515a41de-0.png",
+        "https://fhbczvfrsgkbpvammxip.supabase.co/storage/v1/object/public/school-photos/pending/18ada054-d783-44ed-9ce5-70f1515a41de-1.png",
+        "https://fhbczvfrsgkbpvammxip.supabase.co/storage/v1/object/public/school-photos/pending/18ada054-d783-44ed-9ce5-70f1515a41de-2.png",
+        "https://fhbczvfrsgkbpvammxip.supabase.co/storage/v1/object/public/school-photos/pending/18ada054-d783-44ed-9ce5-70f1515a41de-3.png"
+      ],
+      "photo": "https://fhbczvfrsgkbpvammxip.supabase.co/storage/v1/object/public/school-photos/pending/18ada054-d783-44ed-9ce5-70f1515a41de-0.png",
+      "verified": true,
+      "claimable": false
+    },
+    {
+      "name": "Wilder Nevada (Wildlings)",
+      "model": "Microschool",
+      "city": "Las Vegas",
+      "state": "NV",
+      "grades": "",
+      "ages": "6+",
+      "tuition": "$12,000/year full-time; $8,400 three-day; $6,000 two-day",
+      "website": "https://wildernv.com",
+      "description": "Wilder Nevada is a mixed-age microschool and learning community in Las Vegas for children ages 6 and older. The program combines outdoor, hands-on, low-screen learning with project-based activities and a maximum of 12 learners per day. Full-time and part-time schedules are available.",
+      "phone": "",
+      "id": "wilder-nevada-wildlings-las-vegas-nv",
+      "lat": 36.16265,
+      "lng": -115.130646,
+      "source": "owner-submission",
+      "placeholder": false,
+      "verified": true,
+      "claimable": false
+    },
+    {
+      "name": "Wonderstorm Academy",
+      "model": "Montessori",
+      "city": "Laguna Hills",
+      "state": "CA",
+      "grades": "K-12",
+      "ages": "5-18",
+      "tuition": "$17,000",
+      "website": "https://wonderstormacademy.com",
+      "description": "Wonderstorm Academy is an on-site private microschool in Laguna Hills serving students ages 5-18. Its Montessori-inspired, project-based approach combines academics with leadership, entrepreneurship, communication, and real-world learning.",
+      "phone": "(949) 990-6188",
+      "id": "wonderstorm-academy-laguna-hills-ca",
+      "lat": 33.593608,
+      "lng": -117.7107,
+      "source": "owner-submission",
+      "placeholder": false,
+      "photo_urls": [
+        "https://fhbczvfrsgkbpvammxip.supabase.co/storage/v1/object/public/school-photos/pending/4b5362d0-4937-4321-b5fb-1875502890e7-0.jpeg",
+        "https://fhbczvfrsgkbpvammxip.supabase.co/storage/v1/object/public/school-photos/pending/4b5362d0-4937-4321-b5fb-1875502890e7-1.jpeg",
+        "https://fhbczvfrsgkbpvammxip.supabase.co/storage/v1/object/public/school-photos/pending/4b5362d0-4937-4321-b5fb-1875502890e7-2.jpeg",
+        "https://fhbczvfrsgkbpvammxip.supabase.co/storage/v1/object/public/school-photos/pending/4b5362d0-4937-4321-b5fb-1875502890e7-3.jpeg",
+        "https://fhbczvfrsgkbpvammxip.supabase.co/storage/v1/object/public/school-photos/pending/4b5362d0-4937-4321-b5fb-1875502890e7-4.jpeg",
+        "https://fhbczvfrsgkbpvammxip.supabase.co/storage/v1/object/public/school-photos/pending/4b5362d0-4937-4321-b5fb-1875502890e7-5.jpeg"
+      ],
+      "photo": "https://fhbczvfrsgkbpvammxip.supabase.co/storage/v1/object/public/school-photos/pending/4b5362d0-4937-4321-b5fb-1875502890e7-0.jpeg",
+      "verified": true,
+      "claimable": false
     }
   ]
 }
