@@ -3806,8 +3806,8 @@
       "website": "https://www.citizensacton.org/",
       "source": "https://www.actonacademy.org/find/",
       "description": "",
-      "verified": false,
-      "claimable": true,
+      "verified": true,
+      "claimable": false,
       "placeholder": false
     },
     {
