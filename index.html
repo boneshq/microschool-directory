@@ -51,6 +51,7 @@
 <!-- Leaflet — self-hosted (was unpkg: a render-blocking cross-origin hop) and
      deferred; boot() runs on DOMContentLoaded, after deferred scripts execute. -->
 <link rel="stylesheet" href="/assets/vendor/leaflet/leaflet.css" />
+<script src="/assets/directory-sections.js"></script>
 <script defer src="/assets/vendor/leaflet/leaflet.js"></script>
 
 <style>
@@ -643,7 +644,7 @@
      interact before they could ever submit the form. Lab traces contain zero
      interaction, so neither script lands in a Lighthouse/PSI run. -->
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-KVM4X9RRJ7');</script>
-</head>
+<style>nav.top{flex-wrap:wrap;gap:14px}nav.top a{white-space:normal}@media(max-width:700px){nav.top{gap:8px;font-size:12px}}</style><script defer src="/assets/submission-reference.js"></script></head>
 <body>
 
 <header>
@@ -653,7 +654,8 @@
       <b>microschool<span>.</span>directory</b>
     </a>
     <nav class="top">
-      <a class="muted" href="#explore">Browse</a>
+      <a class="muted" href="#explore">Places</a>
+      <a class="muted" href="/resources/">Resources &amp; Online Learning</a>
       <a class="muted" href="/microschools/">By state</a>
       <a class="muted" href="/blog/">Blog</a>
       <a class="muted" href="/glossary/">Glossary</a>
@@ -692,7 +694,7 @@
   </div>
 
   <div class="stats reveal" style="animation-delay:.24s">
-    <div class="stat"><div class="n" id="stat-schools">—</div><div class="l">Schools listed</div></div>
+    <div class="stat"><div class="n" id="stat-schools">—</div><div class="l">Places shown</div></div>
     <div class="stat"><div class="n" id="stat-states">—</div><div class="l">States covered</div></div>
     <div class="stat"><div class="n" id="stat-models">8</div><div class="l">Learning models</div></div>
     <div class="stat"><div class="n">Free</div><div class="l">To browse &amp; list</div></div>
@@ -719,6 +721,7 @@
   <p class="glossary-link">New to these terms? Our <a href="/glossary/">plain-English glossary</a> explains every learning model and homeschooling word in one place.</p>
 </section>
 <section class="explorer" id="explore">
+<h2>Places to learn in person</h2><p>Browse <a href="/resources/">Resources &amp; Online Learning</a> for remote programs. <a href="/listings/">All existing listings</a> remain available while we confirm attendance details.</p>
   <div class="toolbar" id="models">
     <div class="chips" id="chips"></div>
     <select id="sort" aria-label="Sort schools">
@@ -858,7 +861,7 @@
           <label for="f-name">School / co-op name *</label>
           <input id="f-name" name="name" type="text" required placeholder="e.g. Acorn Grove Microschool" />
         </div>
-        <div class="grid2" id="row-type">
+        <div class="grid2"><div class="field"><label for="f-section">Where should families find this offering?</label><select id="f-section" name="discovery_section"><option value="places">Places — attend in person</option><option value="resources">Resources &amp; Online Learning</option></select></div><div class="field"><label for="f-delivery">Delivery</label><select id="f-delivery" name="delivery_mode"></select></div></div><p id="attendance-help"></p><div class="grid2" id="row-type">
           <div class="field">
             <label for="f-type">Type *</label>
             <select id="f-type" name="type" required>
@@ -974,7 +977,7 @@
 
 <script>
 const MAP_CENTER = [39.5, -98.35]; // geographic center of contiguous US
-let SCHOOLS = [], FILTERED = [], MARKERS = {}, MAP, activeModel = "All", activeId = null;
+let ALL_SCHOOLS = [], SCHOOLS = [], FILTERED = [], MARKERS = {}, MAP, activeModel = "All", activeId = null;
 // id -> canonical listing URL, loaded from data/claim-urls.json. Lets the claim
 // flow resolve "View this listing" for targets that arrive without a url (map
 // drawer deep-links, in-page search picks). Tolerates a missing/failed fetch.
@@ -1016,7 +1019,8 @@ async function boot() {
     // HTML itself, and repeat visits within 10 min skip the ~700KB download
     const res = await fetch("data/schools.json");
     const data = await res.json();
-    SCHOOLS = data.schools || [];
+    ALL_SCHOOLS = data.schools || [];
+    SCHOOLS = DirectorySections.places(ALL_SCHOOLS);
   } catch (e) {
     $("#list").innerHTML = '<div class="empty"><b>Could not load listings.</b>Please refresh.</div>';
     return;
@@ -1526,7 +1530,7 @@ const REG = {
     const term = q.trim().toLowerCase();
     if (!term) return [];
     const scored = [];
-    for (const s of SCHOOLS) {
+    for (const s of ALL_SCHOOLS) {
       const name = String(s.name||"").toLowerCase();
       const city = String(s.city||"").toLowerCase();
       let score = -1;
@@ -1542,7 +1546,7 @@ const REG = {
   function renderResults(list){
     results = list; activeIdx = -1;
     csInput.removeAttribute("aria-activedescendant");
-    if (!SCHOOLS.length && csInput.value.trim()) {
+    if (!ALL_SCHOOLS.length && csInput.value.trim()) {
       csList.innerHTML = '<li class="empty">Loading schools…</li>';
       csList.classList.add("show"); csInput.setAttribute("aria-expanded","true");
       return;
@@ -1585,7 +1589,7 @@ const REG = {
   // claim box before boot() resolved, the list showed "Loading schools…".
   // boot() calls this after SCHOOLS is populated so matches appear without a retype.
   window.__refreshClaimSearch = () => {
-    if (csInput && csInput.value.trim() && SCHOOLS.length) renderResults(rankSchools(csInput.value));
+    if (csInput && csInput.value.trim() && ALL_SCHOOLS.length) renderResults(rankSchools(csInput.value));
   };
   csInput.addEventListener("keydown", (e) => {
     if (e.key === "ArrowDown") { e.preventDefault(); if (results.length){ activeIdx = Math.min(activeIdx+1, results.length-1); highlightOption(activeIdx); } }
@@ -1661,6 +1665,8 @@ const REG = {
       ? [["f-name","Please enter the school name."],["f-city","Please enter the city."],["f-state","Please enter the state."],["f-email","Please enter your email."]]
       : [["f-name","Please enter the school name."],["f-type","Please choose a type."],["f-city","Please enter the city."],["f-state","Please enter the state."],["f-email","Please enter your email."]];
     for (const [id,msg] of reqIds) {
+      if(mode==="claim" && ["f-city","f-state"].includes(id))continue;
+      if(mode!=="claim" && document.getElementById("f-section").value==="resources" && ["f-city","f-state"].includes(id))continue;
       const el = document.getElementById(id);
       if (!el || !String(el.value||"").trim()) fail(id, msg);
     }
@@ -1739,7 +1745,8 @@ const REG = {
         if (!tToken) { captchaMissing = true; throw new Error("no-captcha"); }
 
         // 1) Upload photos to Supabase Storage (public bucket) → collect URLs.
-        const photoUrls = [];
+        const cachedPhotos=MSDSubmission.photos();
+        const photoUrls = cachedPhotos || [];
         let rid = null;
         if (window.crypto && crypto.randomUUID) {
           rid = crypto.randomUUID();
@@ -1747,7 +1754,7 @@ const REG = {
           const a = new Uint8Array(16); crypto.getRandomValues(a);
           rid = Array.from(a, b => b.toString(16).padStart(2, "0")).join("");
         }
-        const files = rid ? Array.from(photos.files).slice(0, 6) : [];
+        const files = !cachedPhotos && rid ? Array.from(photos.files).slice(0, 6) : [];
         const ALLOWED_EXT = ["jpg", "jpeg", "png", "webp", "gif"];
         for (let i = 0; i < files.length; i++) {
           const f = files[i];
@@ -1768,6 +1775,7 @@ const REG = {
           else photoFailed = true;
         }
 
+        MSDSubmission.photos(photoUrls);
         // 2) Insert via the Turnstile-verified edge function.
         // Carry the claim identity both as a dedicated field AND human-readable line.
         const safeUrl = data.mode === "claim" ? safeClaimUrl(claimTargetUrl) : "";
@@ -1780,14 +1788,14 @@ const REG = {
           method: "POST",
           headers: { "Content-Type": "application/json", "apikey": REG.supabaseAnonKey, "Authorization": `Bearer ${REG.supabaseAnonKey}` },
           body: JSON.stringify({
-            turnstileToken: tToken,
+            turnstileToken: tToken, ...MSDSubmission.get(), discovery_section:data.discovery_section, delivery_mode:data.delivery_mode,
             name: data.name, type: data.type, model: data.model, city: data.city,
             state: data.state, grades: data.grades, tuition: data.tuition,
             description: descOut, website: data.website, email: data.email, phone: data.phone,
             mode: data.mode, claim_target: claimTargetField, photo_urls: photoUrls
           })
         });
-        stored = res.ok;
+        stored = res.ok; if(stored){const receipt=await res.json();MSDSubmission.saved(receipt.reference);}
       } catch (err) { stored = false; }
       finally {
         // Reset Turnstile on EVERY terminal outcome (success and failure) so a retry
@@ -1804,8 +1812,8 @@ const REG = {
       }
       const copy = document.getElementById("regsuccess-copy");
       if (copy) copy.innerHTML = data.mode === "claim"
-        ? "Your listing stays live — we'll verify you're connected to the school and apply your updates. We'll reach out at the email you provided if we need anything. Questions? Email <strong>hello@microschool.directory</strong>."
-        : "We'll review and your listing appears on the map once approved. We'll reach out at the email you provided if we need anything. Questions? Email <strong>hello@microschool.directory</strong>.";
+        ? "Your listing stays live — we'll review your connection to the provider before granting access. We'll reach out at the email you provided if we need anything. Questions? Email <strong>hello@microschool.directory</strong>."
+        : "We'll review your offering for Places or Resources &amp; Online Learning. Public listing approval does not grant account access. We'll reach out at the email you provided if we need anything. Questions? Email <strong>hello@microschool.directory</strong>.";
       form.style.display = "none";
       sx.classList.add("show");
       try { sx.focus(); } catch(_){}

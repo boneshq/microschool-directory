@@ -102,7 +102,7 @@
   .note { font-size: .78rem; color: var(--ink-2); opacity: .72; margin-top: 12px; }
   @media (max-width: 520px) { .kv { grid-template-columns: 1fr; gap: 1px; } .kv dt { margin-top: 6px; } }
 </style>
-</head>
+<script src="/assets/admin-appeals.js"></script></head>
 <body>
 
 <header>
@@ -115,7 +115,7 @@
 <main class="wrap">
   <span class="eyebrow">Admin · review queue</span>
   <h1 id="headline">Review queue</h1>
-  <p class="lede" id="lede">Sign in to approve or decline new listings and claim requests. Approvals publish to the live site within about 10 minutes.</p>
+  <p class="lede" id="lede">Sign in to approve or decline new listings and claim requests. Public approval, release, access and notification delivery are recorded separately.</p>
 
   <!-- ---------- auth ---------- -->
   <div class="panel" id="authpanel" hidden>
@@ -170,12 +170,15 @@
     </div>
 
     <div class="sec-title">New listings <span class="count zero" id="cnt-new">0</span></div>
-    <div class="sub">Approving publishes a brand-new page to the directory.</div>
+    <div class="sub">Approve supported public facts first. A separate verified release publishes the listing; ownership is a separate decision.</div>
     <div id="list-new"><p class="empty">Loading…</p></div>
 
     <div class="sec-title">Claim requests <span class="count zero" id="cnt-claim">0</span></div>
     <div class="sub">Approving hands control of an existing listing to the person who claimed it — they can then sign in and edit it.</div>
     <div id="list-claim"></div>
+    <div class="sec-title">Appeals</div>
+    <div class="sub">Review the original reason and new evidence. Overturning returns a submission to review; it never publishes or grants access.</div>
+    <div id="list-appeals"></div>
 
     <div class="sec-title">Existing users <span class="count zero" id="cnt-owners">0</span></div>
     <div class="sub">People with edit access to a listing — they sign in at <a href="/account/" style="color:var(--coral-deep);font-weight:600">/account/</a> to manage it.</div>
@@ -388,7 +391,9 @@ function claimVerifyBox(r) {
   return `<div class="warn ${cls}">⚠ ${body}</div>`;
 }
 
+const REVIEW_SNAPSHOTS={};
 function rowHtml(r) {
+  REVIEW_SNAPSHOTS[r.id]=r;
   const isClaim = r.mode === "claim";
   const photos = Array.isArray(r.photo_urls) ? r.photo_urls.filter(Boolean) : [];
   const targetUrl = isClaim ? claimTargetUrl(r.description) : "";
@@ -407,7 +412,7 @@ function rowHtml(r) {
   const verify = isClaim ? claimVerifyBox(r) : "";
   const approveBtn = isClaim
     ? `<button class="btn btn-approve btn-sm" data-act="grant-claim">✓ Approve claim &amp; grant access</button>`
-    : `<button class="btn btn-approve btn-sm" data-act="approve">✓ Approve &amp; publish</button>`;
+    : `<button class="btn btn-approve btn-sm" data-act="approve">✓ Approve public listing</button>`;
   return `<div class="rev" id="rev-${esc(r.id)}" data-id="${esc(r.id)}">
     <div class="rev-head">
       <h3>${esc(r.name)} <span class="tag ${isClaim ? "claim" : "new"}">${isClaim ? "claim" : "new"}</span></h3>
@@ -415,7 +420,16 @@ function rowHtml(r) {
     </div>
     ${photosHtml}${desc}${verify}
     <dl class="kv">${kvHtml}</dl>
-    <div class="actions">
+    <fieldset style="padding:16px;margin:12px 0"><legend>Review evidence</legend>
+      <label>Specific reason / findings<textarea data-reason rows="3" style="width:100%" required></textarea></label>
+      <label>Official evidence URLs (one per line)<textarea data-sources rows="3" style="width:100%" required></textarea></label>
+      <label><input type="checkbox" data-facts> I verified identity, offering, audience, delivery, contact, availability and U.S. access; checked duplicates; and resolved factual conflicts.</label>
+      <label>Discovery section<select data-section><option value="places">Places</option><option value="resources">Resources &amp; Online Learning</option></select></label>
+      <label>Delivery<select data-delivery><option value="in_person">In person</option><option value="hybrid">Hybrid</option><option value="online">Online</option><option value="self_paced">Self paced</option><option value="print">Print</option><option value="download">Download</option><option value="mixed_resources">Mixed resources</option></select></label>
+      <label><input type="checkbox" data-attendance> Attendance location verified independently of a mailing address</label>
+      <label>For rejection: what evidence could change the decision?<textarea data-reconsideration rows="2" style="width:100%"></textarea></label>
+      <label><input type="checkbox" data-human> I am recording the authorized human decision (required for rejection or ownership)</label>
+    </fieldset><div class="actions">
       ${approveBtn}
       <button class="btn btn-reject btn-sm" data-act="reject">✕ Reject</button>
     </div>
@@ -429,20 +443,33 @@ function wireRow(el, session) {
   el.querySelectorAll("[data-act]").forEach(btn => {
     btn.addEventListener("click", async () => {
       const act = btn.getAttribute("data-act");
+      const reason=el.querySelector('[data-reason]').value.trim();
+      const sources=el.querySelector('[data-sources]').value.trim().split(/\n/).filter(Boolean).map(url=>({url:url.trim(),note:reason}));
+      const facts=Object.fromEntries(['identity','offering','audience','delivery','contact','availability','us_access'].map(k=>[k,el.querySelector('[data-facts]').checked]));
+      const evidence={policy_version:'MSD-2026-09-15',sources,facts,checked_at:new Date().toISOString(),classification:{discovery_section:el.querySelector('[data-section]').value,delivery_mode:el.querySelector('[data-delivery]').value,attendance_location_verified:el.querySelector('[data-attendance]').checked},human_decision:el.querySelector('[data-human]').checked?reason:'',reconsideration:el.querySelector('[data-reconsideration]').value.trim()};
+      if(reason.length<12||!sources.length){msg.textContent='Add a specific reason and checked evidence URLs.';return;}
+      if(act==='approve'&&!facts.identity){msg.textContent='Verify the required facts before approving.';return;}
+      if(act!=='approve'&&!evidence.human_decision){msg.textContent='Record the authorized human decision.';return;}
+      if(act==='grant-claim')evidence.resolved_school_id=REVIEW_SNAPSHOTS[id].claim_target?.split('|')[0]||claimTargetId(REVIEW_SNAPSHOTS[id].description);
+      const inputKey=JSON.stringify({act,reason,sources,facts,classification:evidence.classification,human_decision:evidence.human_decision,reconsideration:evidence.reconsideration,resolved_school_id:evidence.resolved_school_id});
+      let savedAttempt;try{savedAttempt=JSON.parse(sessionStorage.getItem('msd-review-'+id)||'null');}catch{}
+      const attempt=savedAttempt?.inputKey===inputKey?savedAttempt:{inputKey,body:{action:act,id,reason,evidence,request_key:crypto.randomUUID(),snapshot:REVIEW_SNAPSHOTS[id]}};
+      sessionStorage.setItem('msd-review-'+id,JSON.stringify(attempt));
       const confirmMsg = act === "reject" ? "Reject this submission? It won't be published."
         : act === "grant-claim" ? "Approve this claim and give the submitter edit access to that listing?"
-        : "Approve and publish this new listing?";
+        : "Approve the public facts of this new listing? This does not grant ownership.";
       if (!window.confirm(confirmMsg)) return;
       el.querySelectorAll("[data-act]").forEach(b => b.disabled = true);
       msg.textContent = "Working…"; msg.className = "msg";
       try {
         const s = await freshSession();
         if (!s) { location.reload(); return; }
-        const r = await adminApi("", s, { method: "POST", body: { action: act, id } });
+        const r = await adminApi("", s, { method: "POST", body: attempt.body });
         const d = await r.json().catch(() => ({}));
         if (r.ok && d.ok) {
+          sessionStorage.removeItem("msd-review-"+id);
           const label = d.status === "granted" ? "✓ Access granted — the owner can now edit it at /account/."
-            : d.status === "approved" ? "✓ Approved — publishing to the live site now (live within ~10 min)."
+            : d.status === "approved" ? "✓ Public listing approved. Publication and email delivery are separate pending steps."
             : "✓ Rejected — it won't be published.";
           el.style.opacity = ".55";
           msg.textContent = label; msg.className = "msg ok";
@@ -509,6 +536,7 @@ async function showDash() {
   }
   $("authpanel").hidden = true; $("dash").hidden = false;
   $("who").textContent = session.email;
+  await loadAppeals(session);
   $("list-new").innerHTML = `<p class="empty">Loading…</p>`;
   $("list-claim").innerHTML = "";
 
@@ -599,3 +627,4 @@ async function showDash() {
 </script>
 </body>
 </html>
+

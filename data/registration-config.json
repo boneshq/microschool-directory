@@ -1,0 +1,5 @@
+{
+  "supabaseUrl": "https://fhbczvfrsgkbpvammxip.supabase.co",
+  "supabaseAnonKey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZoYmN6dmZyc2drYnB2YW1teGlwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIyMjg1NjUsImV4cCI6MjA5NzgwNDU2NX0.LNl2t1-cAYPny71aKHeZK094Zf_YawnKMvo8W15NQuE",
+  "turnstileSiteKey": "0x4AAAAAADr7kfdQ2qHuYk8v"
+}

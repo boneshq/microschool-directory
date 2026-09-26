@@ -160,7 +160,7 @@
     .toggle-row button { min-height: 46px; }
   }
 </style>
-</head>
+<script defer src="/assets/submission-reference.js"></script></head>
 <body>
 
 <header>
@@ -207,6 +207,7 @@
         <label for="f-name">School / co-op name *</label>
         <input id="f-name" name="name" type="text" required placeholder="e.g. Acorn Grove Microschool" />
       </div>
+      <div class="grid2"><div class="field"><label for="f-section">Where should families find this offering?</label><select id="f-section" name="discovery_section"><option value="places">Places — attend in person</option><option value="resources">Resources &amp; Online Learning</option></select></div><div class="field"><label for="f-delivery">Delivery</label><select id="f-delivery" name="delivery_mode"></select></div></div><p id="attendance-help"></p>
       <div class="grid2" id="row-type">
         <div class="field">
           <label for="f-type">Type *</label>
@@ -225,8 +226,8 @@
         </div>
       </div>
       <div class="grid2">
-        <div class="field"><label for="f-city">City *</label><input id="f-city" name="city" type="text" required placeholder="Austin" /></div>
-        <div class="field"><label for="f-state">State *</label><input id="f-state" name="state" type="text" required maxlength="2" placeholder="TX" /></div>
+        <div class="field"><label for="f-city">City *</label><input id="f-city" name="city" type="text" placeholder="Austin" /></div>
+        <div class="field"><label for="f-state">State *</label><input id="f-state" name="state" type="text" maxlength="2" placeholder="TX" /></div>
       </div>
       <div class="grid2" id="row-gradestuition">
         <div class="field"><label for="f-grades">Grades served</label><input id="f-grades" name="grades" type="text" placeholder="K–8" /></div>
@@ -435,7 +436,7 @@ function debounce(fn, ms) { let t; return (...a) => { clearTimeout(t); t = setTi
       if (focusEl) try { focusEl.focus({ preventScroll: true }); } catch(_){}
     } else {
       eyebrowEl.textContent = "List your school";
-      headlineEl.textContent = "Get your program on the map.";
+      headlineEl.textContent = "Help families discover your program.";
       ledeEl.textContent = "List your microschool or homeschool co-op free and reach the families already searching for a smaller, more personal alternative to public school.";
       moveExtrasInto(false);
       descLabel.textContent = "Tell families about your school";
@@ -554,6 +555,8 @@ function debounce(fn, ms) { let t; return (...a) => { clearTimeout(t); t = setTi
       ? [["f-name","Please enter the school name."],["f-city","Please enter the city."],["f-state","Please enter the state."],["f-email","Please enter your email."]]
       : [["f-name","Please enter the school name."],["f-type","Please choose a type."],["f-city","Please enter the city."],["f-state","Please enter the state."],["f-email","Please enter your email."]];
     for (const [id,msg] of reqIds) {
+      if(mode==="claim" && ["f-city","f-state"].includes(id))continue;
+      if(mode!=="claim" && document.getElementById("f-section").value==="resources" && ["f-city","f-state"].includes(id))continue;
       const el = document.getElementById(id);
       if (!el || !String(el.value||"").trim()) fail(id, msg);
     }
@@ -617,14 +620,15 @@ function debounce(fn, ms) { let t; return (...a) => { clearTimeout(t); t = setTi
         const tToken = (window.turnstile && turnstile.getResponse) ? turnstile.getResponse() : "";
         if (!tToken) { captchaMissing = true; throw new Error("no-captcha"); }
 
-        const photoUrls = [];
+        const cachedPhotos=MSDSubmission.photos();
+        const photoUrls = cachedPhotos || [];
         let rid = null;
         if (window.crypto && crypto.randomUUID) { rid = crypto.randomUUID(); }
         else if (window.crypto && crypto.getRandomValues) {
           const a = new Uint8Array(16); crypto.getRandomValues(a);
           rid = Array.from(a, b => b.toString(16).padStart(2, "0")).join("");
         }
-        const files = rid ? Array.from(photos.files).slice(0, 6) : [];
+        const files = !cachedPhotos && rid ? Array.from(photos.files).slice(0, 6) : [];
         const ALLOWED_EXT = ["jpg", "jpeg", "png", "webp", "gif"];
         for (let i = 0; i < files.length; i++) {
           const f = files[i];
@@ -651,18 +655,19 @@ function debounce(fn, ms) { let t; return (...a) => { clearTimeout(t); t = setTi
         if (data.mode === "claim" && (claimTargetId || safeUrl)) {
           descOut = (descOut ? descOut + "\n\n" : "") + `CLAIM TARGET: ${data.name} [id:${claimTargetId||"—"}] ${safeUrl||"—"}`;
         }
+        MSDSubmission.photos(photoUrls);
         const res = await fetch(`${REG.supabaseUrl}/functions/v1/submit-listing`, {
           method: "POST",
           headers: { "Content-Type": "application/json", "apikey": REG.supabaseAnonKey, "Authorization": `Bearer ${REG.supabaseAnonKey}` },
           body: JSON.stringify({
-            turnstileToken: tToken,
+            turnstileToken: tToken, ...MSDSubmission.get(), discovery_section:data.discovery_section, delivery_mode:data.delivery_mode,
             name: data.name, type: data.type, model: data.model, city: data.city,
             state: data.state, grades: data.grades, tuition: data.tuition,
             description: descOut, website: data.website, email: data.email, phone: data.phone,
             mode: data.mode, claim_target: claimTargetField, photo_urls: photoUrls
           })
         });
-        stored = res.ok;
+        stored = res.ok; if(stored){const receipt=await res.json();MSDSubmission.saved(receipt.reference);}
       } catch (err) { stored = false; }
       finally { resetTurnstile(); }
     }
@@ -675,8 +680,8 @@ function debounce(fn, ms) { let t; return (...a) => { clearTimeout(t); t = setTi
       }
       const copy = document.getElementById("regsuccess-copy");
       if (copy) copy.innerHTML = data.mode === "claim"
-        ? "Your listing stays live — we'll verify you're connected to the school and apply your updates. We'll reach out at the email you provided if we need anything. Questions? Email <strong>hello@microschool.directory</strong>."
-        : "We'll review and your listing appears on the map once approved. We'll reach out at the email you provided if we need anything. Questions? Email <strong>hello@microschool.directory</strong>.";
+        ? "Your listing stays live — we'll review your connection to the provider before granting access. We'll reach out at the email you provided if we need anything. Questions? Email <strong>hello@microschool.directory</strong>."
+        : "We'll review your offering for Places or Resources &amp; Online Learning. Public listing approval does not grant account access. We'll reach out at the email you provided if we need anything. Questions? Email <strong>hello@microschool.directory</strong>.";
       form.style.display = "none";
       sx.classList.add("show");
       try { sx.focus(); } catch(_){}
