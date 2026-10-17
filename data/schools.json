@@ -20472,6 +20472,56 @@
       "photo": "https://fhbczvfrsgkbpvammxip.supabase.co/storage/v1/object/public/school-photos/pending/4b5362d0-4937-4321-b5fb-1875502890e7-0.jpeg",
       "verified": true,
       "claimable": false
+    },
+    {
+      "name": "Cypress Learning Studio",
+      "model": "Microschool",
+      "city": "New Bern",
+      "state": "NC",
+      "grades": "5-8",
+      "ages": "",
+      "tuition": "",
+      "website": "https://www.cypresslearningstudio.org",
+      "description": "Opening in the New Bern area for the 2027–28 school year (grades 5–8). At the heart of Cypress Learning Studio is a simple purpose: restoring joy and humanity in education so young people feel known, supported, and excited to learn. Cypress Learning Studio combines the personalization of homeschooling with the structure, friendships, and shared experiences of a small school community. Strong relationships help us understand each learner’s strengths, interests, and needs, while our Mind–Body–Soul approach supports academic, social, and emotional growth.",
+      "phone": "(919) 410-7717",
+      "id": "cypress-learning-studio-new-bern-nc",
+      "lat": 35.096949,
+      "lng": -77.037897,
+      "source": "owner-submission",
+      "placeholder": false,
+      "photo_urls": [
+        "https://fhbczvfrsgkbpvammxip.supabase.co/storage/v1/object/public/school-photos/pending/57a05bff-d4d0-4146-86cb-ae3d4224e96a-0.png"
+      ],
+      "photo": "https://fhbczvfrsgkbpvammxip.supabase.co/storage/v1/object/public/school-photos/pending/57a05bff-d4d0-4146-86cb-ae3d4224e96a-0.png",
+      "verified": false,
+      "claimable": true,
+      "enrollment": "Opening for the 2027–28 school year"
+    },
+    {
+      "name": "Nurturing Minds Montessori Microschool",
+      "model": "Microschool",
+      "city": "Las Vegas",
+      "state": "NV",
+      "grades": "K-8",
+      "ages": "",
+      "tuition": "$14,000/yr",
+      "website": "https://nurturingmindslv.com/",
+      "description": "Nurturing Minds is a Microschool that is dedicated to providing a hands on and personalized experience for its learners. \n\nOur goal is to provide an educational alternative for families who are looking for a small, warm group of learners. \n\nOur goal is to provide an educational alternative for families that do not align with ‘traditional’ learning environments by providing a safe, warm environment for a diverse group of learners.\n\nTraditional learning settings are not always a good fit for many children, and we wanted to be able to provide a safe space for children to be themselves and learn in a way that best fits them.\n\nWe are not just focused on academics, but on the whole child. Including social skills, emotional skills, cleaning, life skills, and so much more.",
+      "phone": "702-907-4577",
+      "id": "nurturing-minds-montessori-microschool-las-vegas-nv",
+      "lat": 36.167642,
+      "lng": -115.130838,
+      "source": "owner-submission",
+      "placeholder": false,
+      "photo_urls": [
+        "https://fhbczvfrsgkbpvammxip.supabase.co/storage/v1/object/public/school-photos/pending/1bdecb82-5fb4-4df8-9c10-9d7da460d32c-0.jpg",
+        "https://fhbczvfrsgkbpvammxip.supabase.co/storage/v1/object/public/school-photos/pending/1bdecb82-5fb4-4df8-9c10-9d7da460d32c-1.jpeg",
+        "https://fhbczvfrsgkbpvammxip.supabase.co/storage/v1/object/public/school-photos/pending/1bdecb82-5fb4-4df8-9c10-9d7da460d32c-2.jpeg",
+        "https://fhbczvfrsgkbpvammxip.supabase.co/storage/v1/object/public/school-photos/pending/1bdecb82-5fb4-4df8-9c10-9d7da460d32c-3.jpeg"
+      ],
+      "photo": "https://fhbczvfrsgkbpvammxip.supabase.co/storage/v1/object/public/school-photos/pending/1bdecb82-5fb4-4df8-9c10-9d7da460d32c-0.jpg",
+      "verified": false,
+      "claimable": true
     }
   ]
 }
