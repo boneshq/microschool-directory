@@ -15,10 +15,11 @@
 <link rel="icon" type="image/png" href="/assets/icon.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="/assets/site.css"/><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/><script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<link rel="stylesheet" href="/assets/site.css"/><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/><script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script><script src="/assets/inquiry.js" defer></script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@context": "https://schema.org", "@type": ["School", "LocalBusiness"], "@id": "https://microschool.directory/microschools/florida/greenacres/beacon-of-hope-academy/#school", "name": "Beacon of Hope Academy", "description": "Beacon of Hope Academy is a microschool in Greenacres, Florida, serving students from kindergarten through fifth grade. The institution provides specialized, faith-based education tailored for learners with support needs. Its distinct approach integrates individualized academic instruction with therapeutic services to foster an inclusive environment focused on holistic student development across academic, spiritual, and emotional domains.", "url": "https://microschool.directory/microschools/florida/greenacres/beacon-of-hope-academy/", "address": {"@type": "PostalAddress", "addressLocality": "Greenacres", "addressRegion": "FL", "addressCountry": "US", "streetAddress": "6383 10th Avenue North, Suite A", "postalCode": "33463"}, "areaServed": "Greenacres, FL", "geo": {"@type": "GeoCoordinates", "latitude": 26.63193, "longitude": -80.14398}, "sameAs": ["https://www.beaconofhopeacademy.org/"]}, {"@type": "BreadcrumbList", "@id": "https://microschool.directory/microschools/florida/greenacres/beacon-of-hope-academy/#breadcrumb", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://microschool.directory/"}, {"@type": "ListItem", "position": 2, "name": "Microschools", "item": "https://microschool.directory/microschools/"}, {"@type": "ListItem", "position": 3, "name": "Florida", "item": "https://microschool.directory/microschools/florida/"}, {"@type": "ListItem", "position": 4, "name": "Greenacres", "item": "https://microschool.directory/microschools/florida/greenacres/"}, {"@type": "ListItem", "position": 5, "name": "Beacon of Hope Academy"}]}]}</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-KVM4X9RRJ7"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-KVM4X9RRJ7');</script>
+<script src="/assets/msd-track.js" defer></script>
 </head><body><header><div class="bar">
 <a class="brand" href="/"><span class="pin"></span><b>microschool<span>.</span>directory</b></a>
 <nav class="top">
@@ -50,8 +51,9 @@
 
 <div class="row">🎯 Specialized Learning Needs; Faith-Based</div>
 
-<a class="cta cta-primary" href="https://www.beaconofhopeacademy.org/" target="_blank" rel="noopener">Visit website →</a>
-<a class="cta cta-secondary" href="/claim/?id=beacon-of-hope-academy-lake-worth-fl&amp;name=Beacon%20of%20Hope%20Academy&amp;city=Greenacres&amp;state=FL&amp;url=https%3A//microschool.directory/microschools/florida/greenacres/beacon-of-hope-academy/">Claim this listing</a>
+<a class="cta cta-primary" href="mailto:hello@microschool.directory?subject=Inquiry%20about%20Beacon%20of%20Hope%20Academy" data-inquiry data-listing="beacon-of-hope-academy-lake-worth-fl" data-name="Beacon of Hope Academy" data-source="listing_page">Request info</a>
+<a class="cta cta-secondary" href="https://www.beaconofhopeacademy.org/" target="_blank" rel="noopener" data-track="provider_contact_click" data-channel="website" data-listing="beacon-of-hope-academy-lake-worth-fl">Visit website →</a>
+<a class="cta cta-secondary" href="/claim/?id=beacon-of-hope-academy-lake-worth-fl&amp;name=Beacon%20of%20Hope%20Academy&amp;city=Greenacres&amp;state=FL&amp;url=https%3A//microschool.directory/microschools/florida/greenacres/beacon-of-hope-academy/" data-track="claim_cta_click" data-listing="beacon-of-hope-academy-lake-worth-fl">Claim this listing</a>
 </aside>
 </div>
 <div class="wrap-map"><div id="map"></div></div>
@@ -66,7 +68,7 @@
 <div class="col"><b>Founders</b><a href="/#register">List your school</a><a href="/claim/">Claim a listing</a><a href="mailto:hello@microschool.directory">Contact</a></div>
 <div class="col"><b>Learn</b><a href="/glossary/#microschool">What is a microschool?</a><a href="/#faq">Parent FAQ</a><a href="/community/">Community</a></div>
 </nav></div>
-<div class="legal"><div><span>© 2026 microschool.directory</span><span>Listings are added from public sources and owner submissions; claim yours free to keep it accurate.</span></div></div></footer><script>
+<div class="legal"><div><span>© 2026 microschool.directory</span><span class="legal-links"><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><a href="/disclosure/">Advertising disclosure</a></span><span>Listings are added from public sources and owner submissions; claim yours free to keep it accurate.</span></div></div></footer><script>
 (function(){var P=[[26.63193, -80.14398, "Beacon of Hope Academy", ""]];var m=L.map('map',{scrollWheelZoom:false}).setView([26.63193, -80.14398],12);
 L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{subdomains:'abcd',maxZoom:19,attribution:'&copy; OpenStreetMap &copy; CARTO'}).addTo(m);
 var b=[];P.forEach(function(p){var ic=L.divIcon({className:'',html:'<div class=\'pin-marker\'></div>',iconSize:[20,20],iconAnchor:[10,10]});

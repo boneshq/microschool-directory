@@ -15,10 +15,11 @@
 <link rel="icon" type="image/png" href="/assets/icon.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="/assets/site.css"/><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/><script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<link rel="stylesheet" href="/assets/site.css"/><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/><script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script><script src="/assets/inquiry.js" defer></script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@context": "https://schema.org", "@type": ["School", "LocalBusiness"], "@id": "https://microschool.directory/microschools/ohio/wayne/pioneer-reading-center/#school", "name": "Pioneer Reading Center", "description": "Pioneer Reading Center is a microschool located in Wayne, Ohio, specializing in personalized instruction for neurodiverse students. The program focuses specifically on reading education and supports families who are expecting or actively seeking tailored academic environments. This specialized approach aims to meet the unique learning needs of its student population through individualized educational strategies rather than traditional classroom models.", "url": "https://microschool.directory/microschools/ohio/wayne/pioneer-reading-center/", "address": {"@type": "PostalAddress", "addressLocality": "wayne", "addressRegion": "OH", "addressCountry": "US", "streetAddress": "7481 Bays Road, Wayne, OH, 43466", "postalCode": "43462"}, "areaServed": "wayne, OH", "geo": {"@type": "GeoCoordinates", "latitude": 41.26784, "longitude": -83.54426}, "sameAs": ["https://www.pioneerreadingcenter.com/"]}, {"@type": "BreadcrumbList", "@id": "https://microschool.directory/microschools/ohio/wayne/pioneer-reading-center/#breadcrumb", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://microschool.directory/"}, {"@type": "ListItem", "position": 2, "name": "Microschools", "item": "https://microschool.directory/microschools/"}, {"@type": "ListItem", "position": 3, "name": "Ohio", "item": "https://microschool.directory/microschools/ohio/"}, {"@type": "ListItem", "position": 4, "name": "wayne", "item": "https://microschool.directory/microschools/ohio/wayne/"}, {"@type": "ListItem", "position": 5, "name": "Pioneer Reading Center"}]}]}</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-KVM4X9RRJ7"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-KVM4X9RRJ7');</script>
+<script src="/assets/msd-track.js" defer></script>
 </head><body><header><div class="bar">
 <a class="brand" href="/"><span class="pin"></span><b>microschool<span>.</span>directory</b></a>
 <nav class="top">
@@ -50,8 +51,9 @@
 
 <div class="row">🎯 STEM</div>
 
-<a class="cta cta-primary" href="https://www.pioneerreadingcenter.com/" target="_blank" rel="noopener">Visit website →</a>
-<a class="cta cta-secondary" href="/claim/?id=pioneer-reading-center-west-millgrove-oh&amp;name=Pioneer%20Reading%20Center&amp;city=wayne&amp;state=OH&amp;url=https%3A//microschool.directory/microschools/ohio/wayne/pioneer-reading-center/">Claim this listing</a>
+<a class="cta cta-primary" href="mailto:hello@microschool.directory?subject=Inquiry%20about%20Pioneer%20Reading%20Center" data-inquiry data-listing="pioneer-reading-center-west-millgrove-oh" data-name="Pioneer Reading Center" data-source="listing_page">Request info</a>
+<a class="cta cta-secondary" href="https://www.pioneerreadingcenter.com/" target="_blank" rel="noopener" data-track="provider_contact_click" data-channel="website" data-listing="pioneer-reading-center-west-millgrove-oh">Visit website →</a>
+<a class="cta cta-secondary" href="/claim/?id=pioneer-reading-center-west-millgrove-oh&amp;name=Pioneer%20Reading%20Center&amp;city=wayne&amp;state=OH&amp;url=https%3A//microschool.directory/microschools/ohio/wayne/pioneer-reading-center/" data-track="claim_cta_click" data-listing="pioneer-reading-center-west-millgrove-oh">Claim this listing</a>
 </aside>
 </div>
 <div class="wrap-map"><div id="map"></div></div>
@@ -66,7 +68,7 @@
 <div class="col"><b>Founders</b><a href="/#register">List your school</a><a href="/claim/">Claim a listing</a><a href="mailto:hello@microschool.directory">Contact</a></div>
 <div class="col"><b>Learn</b><a href="/glossary/#microschool">What is a microschool?</a><a href="/#faq">Parent FAQ</a><a href="/community/">Community</a></div>
 </nav></div>
-<div class="legal"><div><span>© 2026 microschool.directory</span><span>Listings are added from public sources and owner submissions; claim yours free to keep it accurate.</span></div></div></footer><script>
+<div class="legal"><div><span>© 2026 microschool.directory</span><span class="legal-links"><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><a href="/disclosure/">Advertising disclosure</a></span><span>Listings are added from public sources and owner submissions; claim yours free to keep it accurate.</span></div></div></footer><script>
 (function(){var P=[[41.26784, -83.54426, "Pioneer Reading Center", ""]];var m=L.map('map',{scrollWheelZoom:false}).setView([41.26784, -83.54426],12);
 L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{subdomains:'abcd',maxZoom:19,attribution:'&copy; OpenStreetMap &copy; CARTO'}).addTo(m);
 var b=[];P.forEach(function(p){var ic=L.divIcon({className:'',html:'<div class=\'pin-marker\'></div>',iconSize:[20,20],iconAnchor:[10,10]});

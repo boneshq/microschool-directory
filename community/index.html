@@ -94,6 +94,8 @@
   .modal .fineprint{font-size:.76rem;color:var(--ink-2);opacity:.7;text-align:center;margin-top:12px;line-height:1.5}
   @media(max-width:680px){.c-hero{padding:22px 18px 6px}.authbar,.c-wrap{padding-left:18px;padding-right:18px}}
 </style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KVM4X9RRJ7"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-KVM4X9RRJ7',{page_location:location.origin+location.pathname});</script>
 </head>
 <body>
 <header><div class="bar">
@@ -160,12 +162,12 @@
 <div class="col"><b>Explore</b><a href="/microschools/">Browse by state</a><a href="/#explore">Map &amp; search</a><a href="/blog/">Blog</a><a href="/glossary/">Glossary</a></div>
 <div class="col"><b>Community</b><a href="/community/">Forum</a><a href="/#register">List your school</a><a href="mailto:hello@microschool.directory">Contact</a></div>
 </nav></div>
-<div class="legal"><div><span>© 2026 microschool.directory</span><span>Be kind. Posts are public and moderated — no spam, no harvesting contact info.</span></div></div></footer>
+<div class="legal"><div><span>© 2026 microschool.directory</span><span class="legal-links"><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><a href="/disclosure/">Advertising disclosure</a></span><span>Be kind. Posts are public and moderated — no spam, no harvesting contact info.</span></div></div></footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 <script>
 const SUPA_URL = "https://fhbczvfrsgkbpvammxip.supabase.co";
-const SUPA_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZoYmN6dmZyc2drYnB2YW1teGlwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIyMjg1NjUsImV4cCI6MjA5NzgwNDU2NX0.LNl2t1-cAYPny71aKHeZK094Zf_YawnKMvo8W15NQuE";
+const SUPA_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZoYmN6dmZyc2drYnB2YW1teGlwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIyMjg1NjUsImV4cCI6MjA5NzgwNDU2NX0.LNl2t1-cAYPny71aKHeZK094Zf_YawnKMvo8W15NQuE"; // # secretscan:allow public Supabase anon key (role=anon), same key the homepage form ships
 const TOPICS = ["General","Getting Started","Choosing a School","Homeschool Co-ops","Curriculum & Learning","Cost & ESAs / Funding","Starting a Microschool","Legal & Compliance"];
 
 const sb = window.supabase.createClient(SUPA_URL, SUPA_ANON, { auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true } });
@@ -349,5 +351,6 @@ sb.auth.onAuthStateChange(()=>{ refreshAuth(); });
   }
 })();
 </script>
+<script src="/assets/msd-track.js" defer></script>
 </body>
 </html>
