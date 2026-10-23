@@ -15,10 +15,11 @@
 <link rel="icon" type="image/png" href="/assets/icon.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="/assets/site.css"/><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/><script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<link rel="stylesheet" href="/assets/site.css"/><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/><script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script><script src="/assets/inquiry.js" defer></script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@context": "https://schema.org", "@type": ["School", "LocalBusiness"], "@id": "https://microschool.directory/microschools/florida/jacksonville/visionary-leadership-academy/#school", "name": "Visionary Leadership Academy", "description": "Visionary Leadership Academy is a microschool located in Jacksonville, Florida, serving students in grades 5 through 12. The institution specializes in healing-centered, trauma-responsive education, catering to learners from diverse backgrounds including traditional and home-school settings. It distinguishes itself by offering flexible enrollment pathways such as the Thrive Track, Grow Track, and LEAP PASS options. This approach prioritizes emotional wellness alongside academics within an intentionally small learning environment designed for personalized attention.", "url": "https://microschool.directory/microschools/florida/jacksonville/visionary-leadership-academy/", "address": {"@type": "PostalAddress", "addressLocality": "Jacksonville", "addressRegion": "FL", "addressCountry": "US", "streetAddress": "4720 Salisbury Road", "postalCode": "32256"}, "areaServed": "Jacksonville, FL", "geo": {"@type": "GeoCoordinates", "latitude": 30.24531, "longitude": -81.5891}, "sameAs": ["https://www.visionaryleadershipacademy.org/"]}, {"@type": "BreadcrumbList", "@id": "https://microschool.directory/microschools/florida/jacksonville/visionary-leadership-academy/#breadcrumb", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://microschool.directory/"}, {"@type": "ListItem", "position": 2, "name": "Microschools", "item": "https://microschool.directory/microschools/"}, {"@type": "ListItem", "position": 3, "name": "Florida", "item": "https://microschool.directory/microschools/florida/"}, {"@type": "ListItem", "position": 4, "name": "Jacksonville", "item": "https://microschool.directory/microschools/florida/jacksonville/"}, {"@type": "ListItem", "position": 5, "name": "Visionary Leadership Academy"}]}]}</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-KVM4X9RRJ7"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-KVM4X9RRJ7');</script>
+<script src="/assets/msd-track.js" defer></script>
 </head><body><header><div class="bar">
 <a class="brand" href="/"><span class="pin"></span><b>microschool<span>.</span>directory</b></a>
 <nav class="top">
@@ -50,8 +51,9 @@
 <div class="row">🗓️ Hybrid or Flexible Enrollment</div>
 <div class="row">🎯 Specialized Learning Needs</div>
 
-<a class="cta cta-primary" href="https://www.visionaryleadershipacademy.org/" target="_blank" rel="noopener">Visit website →</a>
-<a class="cta cta-secondary" href="/claim/?id=visionary-leadership-academy-saint-johns-fl&amp;name=Visionary%20Leadership%20Academy&amp;city=Jacksonville&amp;state=FL&amp;url=https%3A//microschool.directory/microschools/florida/jacksonville/visionary-leadership-academy/">Claim this listing</a>
+<button type="button" class="cta cta-primary" data-inquiry data-listing="visionary-leadership-academy-saint-johns-fl" data-name="Visionary Leadership Academy" data-source="listing_page">Request info</button>
+<a class="cta cta-secondary" href="https://www.visionaryleadershipacademy.org/" target="_blank" rel="noopener" data-track="provider_contact_click" data-channel="website" data-listing="visionary-leadership-academy-saint-johns-fl">Visit website →</a>
+<a class="cta cta-secondary" href="/claim/?id=visionary-leadership-academy-saint-johns-fl&amp;name=Visionary%20Leadership%20Academy&amp;city=Jacksonville&amp;state=FL&amp;url=https%3A//microschool.directory/microschools/florida/jacksonville/visionary-leadership-academy/" data-track="claim_cta_click" data-listing="visionary-leadership-academy-saint-johns-fl">Claim this listing</a>
 </aside>
 </div>
 <div class="wrap-map"><div id="map"></div></div>
@@ -66,7 +68,7 @@
 <div class="col"><b>Founders</b><a href="/#register">List your school</a><a href="/claim/">Claim a listing</a><a href="mailto:hello@microschool.directory">Contact</a></div>
 <div class="col"><b>Learn</b><a href="/glossary/#microschool">What is a microschool?</a><a href="/#faq">Parent FAQ</a><a href="/community/">Community</a></div>
 </nav></div>
-<div class="legal"><div><span>© 2026 microschool.directory</span><span>Listings are added from public sources and owner submissions; claim yours free to keep it accurate.</span></div></div></footer><script>
+<div class="legal"><div><span>© 2026 microschool.directory</span><span class="legal-links"><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><a href="/disclosure/">Advertising disclosure</a></span><span>Listings are added from public sources and owner submissions; claim yours free to keep it accurate.</span></div></div></footer><script>
 (function(){var P=[[30.24531, -81.5891, "Visionary Leadership Academy", ""]];var m=L.map('map',{scrollWheelZoom:false}).setView([30.24531, -81.5891],12);
 L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{subdomains:'abcd',maxZoom:19,attribution:'&copy; OpenStreetMap &copy; CARTO'}).addTo(m);
 var b=[];P.forEach(function(p){var ic=L.divIcon({className:'',html:'<div class=\'pin-marker\'></div>',iconSize:[20,20],iconAnchor:[10,10]});

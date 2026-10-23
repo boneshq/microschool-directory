@@ -342,7 +342,9 @@
   .contact { border-top: 1px solid var(--line); padding-top: 22px; display: flex; flex-direction: column; gap: 10px; }
   .contact a, .contact span.cc { display: flex; align-items: center; gap: 10px; font-size: 0.94rem; color: var(--ink-2); }
   .cta-row { display: flex; gap: 10px; margin-top: 22px; }
-  .cta-row a { flex: 1; text-align: center; padding: 13px; border-radius: 100px; font-weight: 600; font-size: 0.92rem; }
+  .cta-row a, .cta-row button { flex: 1; text-align: center; padding: 13px; border-radius: 100px; font-weight: 600; font-size: 0.92rem; }
+.cta-row button { border: 0; cursor: pointer; font-family: inherit; }
+.legal-links a { color: inherit; text-decoration: underline; text-underline-offset: 2px; margin-right: 14px; }
   .cta-primary { background: var(--coral); color: #fff; }
   .cta-secondary { background: transparent; border: 1.5px solid var(--line); color: var(--ink); }
   .ph-note { font-size: 0.78rem; color: var(--amber); font-weight: 600; background: rgba(242,160,61,0.12); border: 1px solid rgba(242,160,61,0.3); border-radius: 10px; padding: 10px 13px; margin-bottom: 20px; }
@@ -961,6 +963,7 @@
   </div>
   <div class="legal"><div>
     <span>© 2026 microschool.directory</span>
+    <span class="legal-links"><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><a href="/disclosure/">Advertising disclosure</a></span>
     <span>Listings are added from public sources and owner submissions; claim yours free to keep it accurate.</span>
   </div></div>
 </footer>
@@ -1275,14 +1278,14 @@ function openDrawer(id) {
       <div class="contact">
         <h4>Hours &amp; contact</h4>
         ${s.schedule ? `<span class="cc">🕘 ${escHtml(s.schedule)}</span>` : ''}
-        ${safeUrl(s.website) ? `<a href="${safeUrl(s.website)}" target="_blank" rel="noopener">🌐 Visit website</a>` : ''}
-        ${s.phone ? `<a href="tel:${escAttr((s.phone||"").replace(/[^0-9+]/g,""))}">📞 ${escHtml(s.phone)}</a>` : ''}
-        ${s.email ? `<a href="mailto:${escAttr(s.email)}">✉️ ${escHtml(s.email)}</a>` : ''}
+        ${safeUrl(s.website) ? `<a href="${safeUrl(s.website)}" target="_blank" rel="noopener" data-track="provider_contact_click" data-channel="website" data-listing="${escAttr(s.id)}" data-source="map_drawer">🌐 Visit website</a>` : ''}
+        ${s.phone ? `<a href="tel:${escAttr((s.phone||"").replace(/[^0-9+]/g,""))}" data-track="provider_contact_click" data-channel="phone" data-listing="${escAttr(s.id)}" data-source="map_drawer">📞 ${escHtml(s.phone)}</a>` : ''}
+        ${s.email ? `<a href="mailto:${escAttr(s.email)}" data-track="provider_contact_click" data-channel="email" data-listing="${escAttr(s.id)}" data-source="map_drawer">✉️ ${escHtml(s.email)}</a>` : ''}
         ${(!s.website && !s.phone && !s.email) ? '<span class="cc">Contact details not listed yet — claim this listing to add them.</span>' : ''}
       </div>
       <div class="cta-row">
-        <a class="cta-primary" href="mailto:hello@microschool.directory?subject=Inquiry%20about%20${encodeURIComponent(s.name)}">Request info</a>
-        <a class="cta-secondary" href="/claim/?id=${encodeURIComponent(s.id)}&name=${encodeURIComponent(s.name)}&city=${encodeURIComponent(s.city||"")}&state=${encodeURIComponent(s.state||"")}${(s.url||CLAIM_URLS[s.id]) ? `&url=${encodeURIComponent(s.url||CLAIM_URLS[s.id])}` : ""}">Claim this listing</a>
+        ${s.placeholder ? `<a class="cta-primary" href="mailto:hello@microschool.directory?subject=Inquiry%20about%20${encodeURIComponent(s.name)}">Request info</a>` : `<button type="button" class="cta-primary" data-inquiry data-listing="${escAttr(s.id)}" data-name="${escAttr(s.name)}" data-source="map_drawer">Request info</button>`}
+        <a class="cta-secondary" data-track="claim_cta_click" data-listing="${escAttr(s.id)}" data-source="map_drawer" href="/claim/?id=${encodeURIComponent(s.id)}&name=${encodeURIComponent(s.name)}&city=${encodeURIComponent(s.city||"")}&state=${encodeURIComponent(s.state||"")}${(s.url||CLAIM_URLS[s.id]) ? `&url=${encodeURIComponent(s.url||CLAIM_URLS[s.id])}` : ""}">Claim this listing</a>
       </div>
     </div>`;
   $("#drawer").classList.add("open");
@@ -1797,6 +1800,7 @@ const REG = {
     }
 
     if (stored) {
+      if (window.msdTrack) window.msdTrack(data.mode === "claim" ? "claim_submit_success" : "listing_submit_success", { source: "home_form" });
       const sx = document.getElementById("regsuccess");
       if (photoFailed && data.mode !== "claim") {
         const ps = sx.querySelector("[data-photo-note]");
@@ -1903,5 +1907,7 @@ const REG = {
   });
 })();
 </script>
+<script src="/assets/msd-track.js" defer></script>
+<script src="/assets/inquiry.js" defer></script>
 </body>
 </html>

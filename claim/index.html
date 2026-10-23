@@ -159,6 +159,7 @@
     .toggle-row { display: grid; grid-template-columns: 1fr 1fr; width: 100%; }
     .toggle-row button { min-height: 46px; }
   }
+.legal-links a{color:inherit;text-decoration:underline;text-underline-offset:2px;margin-right:14px}
 </style>
 </head>
 <body>
@@ -668,6 +669,7 @@ function debounce(fn, ms) { let t; return (...a) => { clearTimeout(t); t = setTi
     }
 
     if (stored) {
+      if (window.msdTrack) window.msdTrack(data.mode === "claim" ? "claim_submit_success" : "listing_submit_success", { source: "claim_page" });
       const sx = document.getElementById("regsuccess");
       if (photoFailed && data.mode !== "claim") {
         const ps = sx.querySelector("[data-photo-note]");
@@ -747,5 +749,6 @@ function debounce(fn, ms) { let t; return (...a) => { clearTimeout(t); t = setTi
   loadData();
 })();
 </script>
+<script src="/assets/msd-track.js" defer></script>
 </body>
 </html>
