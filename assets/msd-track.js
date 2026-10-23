@@ -8,6 +8,7 @@
 
   var EVENTS = /^(provider_contact_click|claim_cta_click|list_school_cta_click|affiliate_click|inquiry_open|inquiry_submit_success|listing_submit_success|claim_submit_success)$/;
   var SAFE = /^[A-Za-z0-9_\-]{1,120}$/;
+  var KEYS = { listing_id: 1, channel: 1, source: 1, partner: 1 };
 
   function pageType() {
     var p = location.pathname;
@@ -23,7 +24,7 @@
   function clean(params) {
     var out = { page_type: pageType() };
     for (var k in params) {
-      if (Object.prototype.hasOwnProperty.call(params, k) && SAFE.test(String(params[k]))) out[k] = String(params[k]);
+      if (KEYS[k] === 1 && Object.prototype.hasOwnProperty.call(params, k) && SAFE.test(String(params[k]))) out[k] = String(params[k]);
     }
     return out;
   }

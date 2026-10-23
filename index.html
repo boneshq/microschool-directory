@@ -1284,7 +1284,7 @@ function openDrawer(id) {
         ${(!s.website && !s.phone && !s.email) ? '<span class="cc">Contact details not listed yet — claim this listing to add them.</span>' : ''}
       </div>
       <div class="cta-row">
-        ${s.placeholder ? `<a class="cta-primary" href="mailto:hello@microschool.directory?subject=Inquiry%20about%20${encodeURIComponent(s.name)}">Request info</a>` : `<button type="button" class="cta-primary" data-inquiry data-listing="${escAttr(s.id)}" data-name="${escAttr(s.name)}" data-source="map_drawer">Request info</button>`}
+        <a class="cta-primary" href="mailto:hello@microschool.directory?subject=Inquiry%20about%20${encodeURIComponent(s.name)}"${s.placeholder ? '' : ` data-inquiry data-listing="${escAttr(s.id)}" data-name="${escAttr(s.name)}" data-source="map_drawer"`}>Request info</a>
         <a class="cta-secondary" data-track="claim_cta_click" data-listing="${escAttr(s.id)}" data-source="map_drawer" href="/claim/?id=${encodeURIComponent(s.id)}&name=${encodeURIComponent(s.name)}&city=${encodeURIComponent(s.city||"")}&state=${encodeURIComponent(s.state||"")}${(s.url||CLAIM_URLS[s.id]) ? `&url=${encodeURIComponent(s.url||CLAIM_URLS[s.id])}` : ""}">Claim this listing</a>
       </div>
     </div>`;
@@ -1339,7 +1339,7 @@ if (document.readyState === "loading") {
 /* ---------- Registration form ---------- */
 const REG = {
   supabaseUrl: "https://fhbczvfrsgkbpvammxip.supabase.co",
-  supabaseAnonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZoYmN6dmZyc2drYnB2YW1teGlwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIyMjg1NjUsImV4cCI6MjA5NzgwNDU2NX0.LNl2t1-cAYPny71aKHeZK094Zf_YawnKMvo8W15NQuE",  // public anon key (RLS: anon may only INSERT pending rows)
+  supabaseAnonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZoYmN6dmZyc2drYnB2YW1teGlwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIyMjg1NjUsImV4cCI6MjA5NzgwNDU2NX0.LNl2t1-cAYPny71aKHeZK094Zf_YawnKMvo8W15NQuE",  // # secretscan:allow public anon key (RLS: anon may only INSERT pending rows)
   table: "listings",
   bucket: "school-photos",
   contactEmail: "hello@microschool.directory"
