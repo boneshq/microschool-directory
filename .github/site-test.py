@@ -12,3 +12,4 @@ for f in ["index.html", "404.html", "robots.txt"]:
     try: open(f).close()
     except OSError: err.append(f"missing {f}")
 print("\n".join(err) or "site-test OK"); sys.exit(1 if err else 0)
+# gate test (CHG-20261026-02), close without merge
