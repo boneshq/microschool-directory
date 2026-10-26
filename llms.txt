@@ -34,7 +34,7 @@ A full plain-English glossary of microschooling and homeschooling terms is publi
 
 ## Browse the directory
 - All states: https://microschool.directory/microschools/ — every U.S. state hub, each linking to its cities and individual schools.
-- State hubs follow https://microschool.directory/microschools/<state-name>/ (e.g. /microschools/florida/), city hubs /microschools/<state>/<city>/, and each school has its own page with structured School + LocalBusiness data.
+- State hubs live under /microschools/ followed by the state slug, for example [Florida](https://microschool.directory/microschools/florida/); city hubs nest one level deeper under the state slug, and each school has its own page with structured School + LocalBusiness data.
 - Full URL list: https://microschool.directory/sitemap.xml (sectioned index covering states, cities, listings, blog, and static pages).
 
 ## Data
