@@ -1,0 +1,66 @@
+# pr-guard (Code Desk, CHG-20261025-W1): event-driven collision + claim check, origin-prefix
+# notice, and auto-merge-after-checks for every PR. Never checks out head code.
+name: pr-guard
+on:
+  pull_request_target:
+    types: [opened, reopened, synchronize]
+  workflow_run:
+    workflows: [ai-code-review]
+    types: [completed]
+permissions:
+  contents: write
+  pull-requests: write
+jobs:
+  post-merge:
+    # Auto-merges done with GITHUB_TOKEN fire no events (no push, no closed), so push:main deploys
+    # would be skipped. When ai-code-review succeeds, wait (bounded, max 15 min) for the PR to be
+    # auto-merged by github-actions, then dispatch the workflows in review-config post_merge_dispatch.
+    if: github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions: { actions: write, contents: read, pull-requests: read }
+    env: { GH_TOKEN: '${{ github.token }}', REPO: '${{ github.repository }}', BR: '${{ github.event.workflow_run.head_branch }}' }
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
+        with: { sparse-checkout: .github, persist-credentials: false }
+      - run: |
+          W=$(yq -r '.post_merge_dispatch[]? // ""' .github/review-config.yml); [ -z "$W" ] && exit 0
+          PR=$(gh pr list -R "$REPO" --head "$BR" --state all -L 1 --json number --jq '.[0].number'); [ -z "$PR" ] && exit 0
+          for i in $(seq 1 30); do
+            st=$(gh pr view "$PR" -R "$REPO" --json state,mergedBy --jq '"\(.state) \(.mergedBy.login)"')
+            case "$st" in "MERGED app/github-actions"|"MERGED github-actions") break;; MERGED*|CLOSED*) exit 0;; esac; sleep 30
+          done
+          case "$st" in MERGED*) ;; *) exit 0;; esac
+          DEF=$(gh repo view "$REPO" --json defaultBranchRef --jq .defaultBranchRef.name)
+          for w in $W; do gh workflow run "$w" -R "$REPO" --ref "$DEF" && echo "dispatched $w"; done
+  guard:
+    if: github.event_name == 'pull_request_target'
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      PR: ${{ github.event.pull_request.number }}
+      REPO: ${{ github.repository }}
+      HEAD_REF: ${{ github.event.pull_request.head.ref }}
+    steps:
+      - name: Overlap with other open PRs (claimed work)
+        run: |
+          set -uo pipefail
+          mine=$(gh pr diff "$PR" -R "$REPO" --name-only | sort -u)
+          hits=""
+          for o in $(gh pr list -R "$REPO" --state open --json number --jq '.[].number'); do
+            [ "$o" = "$PR" ] && continue
+            common=$(comm -12 <(echo "$mine") <(gh pr diff "$o" -R "$REPO" --name-only | sort -u))
+            [ -n "$common" ] && hits="$hits\n- #$o: $(echo $common | head -c 300)"
+          done
+          if [ -n "$hits" ]; then
+            gh pr edit "$PR" -R "$REPO" --add-label needs-human >/dev/null
+            printf 'pr-guard: this PR edits the same files as other open PRs. Code Desk resolves; no side is picked silently.%b\n' "$hits" | gh pr comment "$PR" -R "$REPO" --body-file - >/dev/null
+          fi
+      - name: Origin prefix notice
+        if: github.event.action == 'opened'
+        run: |
+          echo "$HEAD_REF" | grep -qE '^(tony|codex|claude|cursor|bot|inbox|app)/' || \
+            gh pr comment "$PR" -R "$REPO" --body "pr-guard: branch name has no origin prefix (tony/, codex/, claude/, cursor/, bot/). Allowed, but please use one next time." >/dev/null
+      - name: Enable auto-merge (merges only after required checks pass)
+        if: github.event.action != 'synchronize'
+        run: gh pr merge "$PR" -R "$REPO" --auto --rebase || true

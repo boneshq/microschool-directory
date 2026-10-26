@@ -1,0 +1,21 @@
+# Review config (Code Desk, CHG-20261025-W1). Defaults per PR-REVIEW-PLAN-2026-10-25-CLAUDE-REVIEWED.md.
+# Per-PR labels override: review:opus, review:high-effort, review:low-effort, review:skip-claude (Code Desk only).
+tier: normal
+claude:
+  model: claude-sonnet-5   # today's default
+  effort: default          # default | low | medium | high | xhigh | max
+codex:                     # Codex GitHub app has no model/effort selector; documentation only.
+  model: gpt-6.1-sol
+  effort: default
+tiers:
+  critical: {model: opus, effort: high, reviewers: both}
+  normal:   {model: claude-sonnet-5, effort: default, reviewers: claude}
+  quiet:    {model: haiku, effort: low, reviewers: claude, risky_only: true}
+# Any PR touching these paths is reviewed at the critical tier, whatever the repo tier.
+risky_paths:
+  - '^\.github/'
+  - '(^|/)(auth|oauth|login|session)'
+  - '(^|/)(payment|billing|stripe|checkout)'
+  - '(^|/)(secret|credential|\.env|1password|op-)'
+  - '(^|/)(infra|deploy|terraform|docker|wrangler|cloudflare)'
+  - '(^|/)(CODEOWNERS|\.githooks/)'
