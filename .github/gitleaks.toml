@@ -1,0 +1,9 @@
+# Code Desk CHG-20261026-02: the only allowlisted value is the public Supabase ANON key
+# (role=anon, ref fhbczvfrsgkbpvammxip; RLS-protected, shipped to browsers by design).
+# Matched by the exact full value (anchored). Any other JWT still fails.
+[extend]
+useDefault = true
+[[allowlists]]
+description = "public Supabase anon key (role=anon)"
+regexTarget = "secret"
+regexes = ['''^eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9\.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZoYmN6dmZyc2drYnB2YW1teGlwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIyMjg1NjUsImV4cCI6MjA5NzgwNDU2NX0\.LNl2t1-cAYPny71aKHeZK094Zf_YawnKMvo8W15NQuE$''']
