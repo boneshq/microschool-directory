@@ -20522,6 +20522,78 @@
       "photo": "https://fhbczvfrsgkbpvammxip.supabase.co/storage/v1/object/public/school-photos/pending/1bdecb82-5fb4-4df8-9c10-9d7da460d32c-0.jpg",
       "verified": false,
       "claimable": true
+    },
+    {
+      "name": "Skola Microschool",
+      "model": "Microschool",
+      "city": "Roseville",
+      "state": "MN",
+      "grades": "K-8",
+      "ages": "",
+      "tuition": "$8300",
+      "website": "https://www.skolamicroschool.com/",
+      "description": "Skola is a full-day, full-calendar program that specializes in personalized learning for each student. We prioritize an abundance of time outside usually equaling 3 1/2 hours each school day. We allow students to work outside of grade levels and help students gain strong relational and emotional skills.",
+      "phone": "",
+      "id": "skola-microschool-roseville-mn",
+      "lat": 45.012053,
+      "lng": -93.156467,
+      "source": "owner-submission",
+      "placeholder": false,
+      "verified": false,
+      "claimable": true,
+      "address": "2105 Roselawn Ave W, Roseville, MN 55113",
+      "photo_urls": [
+        "https://fhbczvfrsgkbpvammxip.supabase.co/storage/v1/object/public/school-photos/pending/1d4dbdf7-7f5f-45ba-9af0-11e208672973-0.jpg"
+      ],
+      "photo": "https://fhbczvfrsgkbpvammxip.supabase.co/storage/v1/object/public/school-photos/pending/1d4dbdf7-7f5f-45ba-9af0-11e208672973-0.jpg"
+    },
+    {
+      "name": "The Blue School",
+      "model": "Microschool",
+      "city": "Ventura",
+      "state": "CA",
+      "grades": "TK–1",
+      "ages": "",
+      "tuition": "16200",
+      "website": "https://www.blueschool.net/",
+      "description": "The Blue School is a microschool for ages 4-6 years old along the Central Coast. We use the forest school model, and our students are outside every day all day. Our teachers have master's degrees in education, and our founder is a Harvard ecologist and innovator. Our curriculum is based on the best research about how children truly learn: through place, relationships, and context. Welcome to childhood rewilded.",
+      "phone": "+1 805-225-4950",
+      "id": "the-blue-school-ventura-ca",
+      "lat": 34.300443,
+      "lng": -119.280228,
+      "source": "owner-submission",
+      "placeholder": false,
+      "verified": false,
+      "claimable": true,
+      "photo_urls": [
+        "https://fhbczvfrsgkbpvammxip.supabase.co/storage/v1/object/public/school-photos/pending/a9c3ee2c-75f2-4166-a9a4-409fa61cff50-0.jpg",
+        "https://fhbczvfrsgkbpvammxip.supabase.co/storage/v1/object/public/school-photos/pending/a9c3ee2c-75f2-4166-a9a4-409fa61cff50-1.jpg",
+        "https://fhbczvfrsgkbpvammxip.supabase.co/storage/v1/object/public/school-photos/pending/a9c3ee2c-75f2-4166-a9a4-409fa61cff50-2.jpg",
+        "https://fhbczvfrsgkbpvammxip.supabase.co/storage/v1/object/public/school-photos/pending/a9c3ee2c-75f2-4166-a9a4-409fa61cff50-3.jpg",
+        "https://fhbczvfrsgkbpvammxip.supabase.co/storage/v1/object/public/school-photos/pending/a9c3ee2c-75f2-4166-a9a4-409fa61cff50-4.jpg",
+        "https://fhbczvfrsgkbpvammxip.supabase.co/storage/v1/object/public/school-photos/pending/a9c3ee2c-75f2-4166-a9a4-409fa61cff50-5.jpg"
+      ],
+      "photo": "https://fhbczvfrsgkbpvammxip.supabase.co/storage/v1/object/public/school-photos/pending/a9c3ee2c-75f2-4166-a9a4-409fa61cff50-0.jpg"
+    },
+    {
+      "name": "MAAT K12 VIRTUAL PRIVATE SCHOOL",
+      "model": "Online school",
+      "city": "Merced",
+      "state": "CA",
+      "grades": "PreK-12",
+      "ages": "",
+      "tuition": "$3,000 / scholarships",
+      "website": "https://maatk12.com/",
+      "description": "MAAT K12 is an independent, virtual private K–12 school dedicated to providing personalized, high-quality education in a flexible, supportive online learning environment.\n\nOur standards-based, STEM-integrated curriculum combines English Language Arts, Mathematics, Science, History, Technology, and Social-Emotional Learning to prepare students for academic success, college, careers, and lifelong learning.\n\nStudents benefit from live teacher-led instruction, interactive digital lessons, individualized assignments, academic assessments, and opportunities for enrichment. Our structured learning approach balances scheduled online classes with independent learning, allowing students to progress while developing responsibility, creativity, and critical-thinking skills.\n\nWe recognize that every child learns differently. Our program supports diverse learning styles, accelerated learners, students who need additional academic assistance, and families seeking an alternative to traditional classroom education.\n\nThrough our StudentMe learning platform, families can access educational resources and support their children's academic progress.\n\nAt MAAT K12, we believe technology should expand educational opportunities, not limit them. We strive to create an inclusive, engaging learning community where every student has the opportunity to achieve their full potential.",
+      "phone": "209-877-7236",
+      "id": "maat-k12-virtual-private-school-merced-ca",
+      "lat": null,
+      "lng": null,
+      "source": "owner-submission",
+      "placeholder": false,
+      "verified": false,
+      "claimable": true,
+      "address": "20 W Olive Ave, Merced, CA"
     }
   ]
 }
