@@ -2,7 +2,7 @@
   "meta": {
     "updated": "2026-06-23",
     "source": "scraped from public microschool network directories (Acton, Wildflower, Guidepost, Primer); Kaipod network (kaipodlearning.com)",
-    "count": 562,
+    "count": 1062,
     "note": "Real US microschools & Montessori programs. Listings are unverified until claimed by the owner (free through 2026). Coordinates are city-centroid approximations.",
     "models": [
       "Montessori",
@@ -20594,6 +20594,44 @@
       "verified": false,
       "claimable": true,
       "address": "20 W Olive Ave, Merced, CA"
+    },
+    {
+      "name": "Endeavor Microschool",
+      "model": "Microschool",
+      "city": "Collierville",
+      "state": "TN",
+      "grades": "K-8",
+      "ages": "",
+      "tuition": "",
+      "website": "https://www.endeavormicroschool.com",
+      "description": "Endeavor Microschool provides a dynamic, personalized, project-based education that reignites a love of learning, develops talent and character, and helps learners reach their highest potential.\nOur innovative, learner-centered model is designed for students who think differently and embrace challenges in academics, visual and performing arts, and STEM, including but not limited to students identified as gifted and talented and twice-exceptional (2e). We welcome all highly motivated learners, who long for a positive school culture and are eager to grow in a supportive and engaging environment.",
+      "phone": "(901) 250-3880",
+      "id": "endeavor-microschool-collierville-tn",
+      "lat": 35.054213,
+      "lng": -89.679004,
+      "source": "owner-submission",
+      "placeholder": false,
+      "verified": false,
+      "claimable": true
+    },
+    {
+      "name": "Grove Academy at Bloom Village",
+      "model": "Montessori",
+      "city": "Austin",
+      "state": "TX",
+      "grades": "",
+      "ages": "",
+      "tuition": "",
+      "website": "https://bloomvillagetx.com/grove-academy/",
+      "description": "Grove Academy at Bloom Village on Metric Boulevard in North Austin offers a nature-based, Montessori- and Reggio-inspired elementary microschool program for ages 6–11: Live Oak for ages 6–9 and Cypress for ages 9–11. Grove meets weekdays, 9 AM–3 PM, year-round. Families can schedule a tour to explore whether Grove fits their needs: https://api.leadconnectorhq.com/widget/booking/oeFcUanCYuFprfzG7slc",
+      "phone": "5127907943",
+      "id": "grove-academy-at-bloom-village-austin-tx",
+      "lat": 30.496468,
+      "lng": -97.755467,
+      "source": "owner-submission",
+      "placeholder": false,
+      "verified": false,
+      "claimable": true
     }
   ]
 }
