@@ -57,7 +57,7 @@
 </nav></div>
 <div class="legal"><div><span>© 2026 microschool.directory</span><span>Listings are added from public sources and owner submissions; claim yours free to keep it accurate.</span></div></div></footer><script>
 (function(){var P=[[33.2487, -111.6343, "Acton Academy East Valley", "https://microschool.directory/microschools/arizona/queen-creek/acton-academy-east-valley/"], [33.23104, -111.67386, "Desert Sun Ranch Academy", "https://microschool.directory/microschools/arizona/queen-creek/desert-sun-ranch-academy/"], [33.24839, -111.63416, "The Learning Vine", "https://microschool.directory/microschools/arizona/queen-creek/the-learning-vine/"], [33.144463, -111.505034, "Off Trail Adventures (SanTan Shredders)", "https://microschool.directory/microschools/arizona/queen-creek/off-trail-adventures-santan-shredders/"]];var m=L.map('map',{scrollWheelZoom:false}).setView([33.2487, -111.6343],11);
-L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; OpenStreetMap'}).addTo(m);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{subdomains:'abcd',maxZoom:19,attribution:'&copy; OpenStreetMap &copy; CARTO'}).addTo(m);
 var b=[];P.forEach(function(p){var ic=L.divIcon({className:'',html:'<div class=\'pin-marker\'></div>',iconSize:[20,20],iconAnchor:[10,10]});
 var mk=L.marker([p[0],p[1]],{icon:ic}).addTo(m);if(p[3]){mk.bindPopup('<b>'+p[2]+'</b><br><a href=\''+p[3]+'\'>View details →</a>');}else{mk.bindPopup('<b>'+p[2]+'</b>');}b.push([p[0],p[1]]);});
 if(b.length>1){try{m.fitBounds(b,{padding:[40,40],maxZoom:12});}catch(e){}}})();

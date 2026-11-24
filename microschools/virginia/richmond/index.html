@@ -59,7 +59,7 @@
 </nav></div>
 <div class="legal"><div><span>© 2026 microschool.directory</span><span>Listings are added from public sources and owner submissions; claim yours free to keep it accurate.</span></div></div></footer><script>
 (function(){var P=[[37.5407, -77.436, "Pace Academy: An Acton Affiliate", "https://microschool.directory/microschools/virginia/richmond/pace-academy-an-acton-affiliate/"], [37.5851, -77.42757, "Iron Village Preparatory Academy", "https://microschool.directory/microschools/virginia/richmond/iron-village-preparatory-academy/"], [37.58346, -77.5197, "The Grand Magnolia School", "https://microschool.directory/microschools/virginia/richmond/the-grand-magnolia-school/"], [37.56936, -77.451664, "Diplomatic Scholars", "https://microschool.directory/microschools/virginia/richmond/diplomatic-scholars/"], [37.559136, -77.446216, "Carillon Academy", "https://microschool.directory/microschools/virginia/richmond/carillon-academy/"]];var m=L.map('map',{scrollWheelZoom:false}).setView([37.5407, -77.436],11);
-L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; OpenStreetMap'}).addTo(m);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{subdomains:'abcd',maxZoom:19,attribution:'&copy; OpenStreetMap &copy; CARTO'}).addTo(m);
 var b=[];P.forEach(function(p){var ic=L.divIcon({className:'',html:'<div class=\'pin-marker\'></div>',iconSize:[20,20],iconAnchor:[10,10]});
 var mk=L.marker([p[0],p[1]],{icon:ic}).addTo(m);if(p[3]){mk.bindPopup('<b>'+p[2]+'</b><br><a href=\''+p[3]+'\'>View details →</a>');}else{mk.bindPopup('<b>'+p[2]+'</b>');}b.push([p[0],p[1]]);});
 if(b.length>1){try{m.fitBounds(b,{padding:[40,40],maxZoom:12});}catch(e){}}})();
