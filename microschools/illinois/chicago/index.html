@@ -57,7 +57,7 @@
 </nav></div>
 <div class="legal"><div><span>© 2026 microschool.directory</span><span>Listings are added from public sources and owner submissions; claim yours free to keep it accurate.</span></div></div></footer><script>
 (function(){var P=[[41.8781, -87.6298, "The Sanctuary Academy", "https://microschool.directory/microschools/illinois/chicago/the-sanctuary-academy/"], [41.8993, -87.63612, "Midwest Academy for Gifted Education", "https://microschool.directory/microschools/illinois/chicago/midwest-academy-for-gifted-education/"], [41.891511, -87.617499, "Wander Through Wonder Academy", "https://microschool.directory/microschools/illinois/chicago/wander-through-wonder-academy/"], [41.876055, -87.626091, "GCE Lab School", "https://microschool.directory/microschools/illinois/chicago/gce-lab-school/"]];var m=L.map('map',{scrollWheelZoom:false}).setView([41.8781, -87.6298],11);
-L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{subdomains:'abcd',maxZoom:19,attribution:'&copy; OpenStreetMap &copy; CARTO'}).addTo(m);
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; OpenStreetMap'}).addTo(m);
 var b=[];P.forEach(function(p){var ic=L.divIcon({className:'',html:'<div class=\'pin-marker\'></div>',iconSize:[20,20],iconAnchor:[10,10]});
 var mk=L.marker([p[0],p[1]],{icon:ic}).addTo(m);if(p[3]){mk.bindPopup('<b>'+p[2]+'</b><br><a href=\''+p[3]+'\'>View details →</a>');}else{mk.bindPopup('<b>'+p[2]+'</b>');}b.push([p[0],p[1]]);});
 if(b.length>1){try{m.fitBounds(b,{padding:[40,40],maxZoom:12});}catch(e){}}})();
